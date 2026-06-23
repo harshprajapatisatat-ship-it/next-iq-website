@@ -1,110 +1,248 @@
-/* ─── Hero ─── */
+/* ════════════════════════════════════════════════
+   Hero — structural recreation of SendPotion.
+   Source-accurate CSS values; Nexiq brand applied.
+   ════════════════════════════════════════════════ */
 
+/* ── Outer section ───────────────────────────── */
+/* No overflow:hidden here so CSS sticky works   */
+/* on the footer section below.                  */
 .hero {
   position: relative;
+  font-family: var(--font-matter);
+  background: #1e2033; /* dark base, visible in footer */
+}
+
+/* ── Clip zone: head + body ──────────────────── */
+/* overflow:hidden clips the growing mask circle. */
+/* The footer is OUTSIDE this element so its     */
+/* CSS sticky is not blocked.                    */
+.clip {
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Background fill ─────────────────────────── */
+/* Covers the full clip zone with light colour.  */
+.fill {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #fafafa;
+  border-bottom-left-radius: 35px;
+  border-bottom-right-radius: 35px;
+}
+
+@media (min-width: 768px) {
+  .fill {
+    border-bottom-left-radius: 60px;
+    border-bottom-right-radius: 60px;
+  }
+}
+
+/* ── Mask container (SendPotion: pt-hero-masks) ─ */
+/* Provides its own overflow:hidden + border-    */
+/* radius so the growing circle is clipped with  */
+/* the same rounded bottom as the fill.          */
+.masks {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  overflow: hidden;
+  border-radius: 35px;
+  pointer-events: none;
+}
+
+@media (min-width: 768px) {
+  .masks {
+    border-radius: 60px;
+  }
+}
+
+/* ── Dark circle (SendPotion: pt-hero-mask) ──── */
+/* Starts tiny; GSAP scales it on scroll.        */
+.mask {
+  position: absolute;
+  top: calc(100vh + 50px);
+  left: 0; right: 0;
+  width: 100px;
+  height: 100px;
+  margin: -70px auto 0;
+  border-radius: 50%;
+  background: #1e2033;
+  will-change: transform;
+}
+
+@media (max-height: 440px) {
+  .mask {
+    margin-top: -30px;
+  }
+}
+
+@media (min-width: 768px) {
+  .mask {
+    top: calc(100vh + 98.75px);
+    width: 197.5px;
+    height: 197.5px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mask {
+    margin-top: -100px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .mask {
+    top: calc(100vh + 123.5px);
+    width: 247px;
+    height: 247px;
+  }
+}
+
+/* ── Content wrapper (SendPotion: pt-hero-content) */
+.content {
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .content {
+    padding: 0 0 60px;
+  }
+}
+
+/* ── Head: 100vh centred (pt-hero-head) ─────── */
+.head {
   display: flex;
-  min-height: 60vh;
+  height: 100vh;
   align-items: center;
   justify-content: center;
   text-align: center;
-  overflow: hidden;
-  background: #fff;
-  padding: 120px 0 80px;
-  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.08);
 }
 
-.heroBg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-
-.heroImage {
+/* ── Shared container (pt-hero-container) ────── */
+.container {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 60%;
-  display: block;
+  padding: 0 25px;
 }
 
-.heroOverlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0.38) 0%,
-    rgba(255, 255, 255, 0.15) 40%,
-    rgba(255, 255, 255, 0.04) 100%
-  );
+@media (min-width: 768px) {
+  .container {
+    padding: 0 40px;
+  }
 }
 
-.heroContent {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0 24px;
-  max-width: 780px;
+@media (min-width: 1600px) {
+  .container {
+    padding: 0 60px;
+  }
 }
 
-.heroBadge {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 6px 14px 6px 10px;
-  background: rgba(255, 255, 255, 0.82);
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 100px;
-  font-size: 12.5px;
+/* ── Heading (pt-hero-header -xl) ───────────── */
+.header {
+  max-width: 450px;
+  margin: 0 auto 3rem;
+  transform: translateZ(0);
+}
+
+@media (min-width: 768px) {
+  .header {
+    max-width: 600px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .header {
+    max-width: 50vw;
+  }
+}
+
+.header h1 {
+  font-family: var(--font-season-mix);
+  font-weight: 600;
+  font-size: 56px;
+  line-height: 90%;
+  text-align: center;
+  letter-spacing: -0.05em;
+  color: var(--color-tx);
+}
+
+@media (min-width: 768px) {
+  .header h1 {
+    font-size: 84px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .header h1 {
+    font-size: 6.6666vw;
+  }
+}
+
+/* ── Typed cursor ────────────────────────────── */
+.cursor {
+  display: inline-block;
+  font-weight: 300;
+  margin-left: 1px;
+  color: var(--color-tx-tertiary);
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ── Description (pt-hero-text) ─────────────── */
+.subtext {
+  margin: 16px auto 0;
+  max-width: 440px;
+  transform: translateZ(0);
   font-weight: 500;
-  color: #333;
-  margin-bottom: 28px;
-  white-space: nowrap;
+  font-size: 17px;
+  line-height: 130%;
+  letter-spacing: -0.02em;
+  color: var(--color-tx-tertiary);
 }
 
-.badgeDot {
-  width: 6px;
-  height: 6px;
-  background: #2563eb;
-  border-radius: 50%;
-  flex-shrink: 0;
+@media (min-width: 768px) {
+  .subtext {
+    margin: 65px auto 0;
+    max-width: 620px;
+    font-size: 24px;
+  }
 }
 
-.heroHeading {
-  font-family: var(--font-fraunces), Georgia, serif;
-  font-size: clamp(40px, 6.5vw, 68px);
-  font-weight: 700;
-  line-height: 1.08;
-  letter-spacing: -0.03em;
-  color: #0d0d0d;
-  margin-bottom: 22px;
+/* ── CTA (pt-hero-action) ────────────────────── */
+.action {
+  padding: 45px 0 0;
 }
 
-.heroSub {
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.65;
-  color: #444;
-  max-width: 520px;
-  margin-bottom: 36px;
+@media (min-width: 768px) {
+  .action {
+    padding-top: 67px;
+  }
 }
 
-.heroActions {
-  display: flex;
-  align-items: center;
-  gap: 18px;
+@media (min-width: 1200px) {
+  .action {
+    padding-top: 50px;
+  }
 }
 
-/* ── Primary CTA — Sarvam dark navy gradient pill ── */
-.btnPrimary {
+@media (min-width: 1600px) {
+  .action {
+    padding-top: 70px;
+  }
+}
+
+/* ── Primary button ──────────────────────────── */
+.btn {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 44px;
-  padding: 12px 24px;
+  overflow: hidden;
+  min-height: 52px;
+  padding: 14px 28px;
   background: linear-gradient(to bottom, #3a3f5c 0%, #1e2033 100%);
   color: #fff;
   font-family: var(--font-matter);
@@ -112,65 +250,220 @@
   font-weight: 500;
   text-decoration: none;
   border-radius: 9999px;
-  transition: opacity 0.2s ease, transform 0.15s ease;
   white-space: nowrap;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
 }
 
-.btnPrimary:hover {
-  opacity: 0.88;
+@media (min-width: 768px) {
+  .btn {
+    font-size: 17px;
+    min-height: 58px;
+    padding: 16px 36px;
+  }
 }
 
-.btnPrimary:active {
-  transform: scale(0.97);
+.btn:hover {
+  opacity: 0.85;
 }
 
-/* ── Secondary CTA — Sarvam light outlined pill ── */
-.btnGhost {
+.btnRipple,
+.btnRipple2 {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.2) 0%, transparent 70%);
+  transform: scale(0);
+  transition: transform 0.5s ease;
+  pointer-events: none;
+}
+
+.btn:hover .btnRipple  { transform: scale(2); }
+.btn:hover .btnRipple2 { transform: scale(2.5); transition-delay: 0.07s; }
+
+.btnInner {
   display: inline-flex;
   align-items: center;
+  gap: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Body: circular video (pt-hero-body) ─────── */
+.body {
+  margin-top: -70px;
+}
+
+@media (max-height: 440px) {
+  .body {
+    margin-top: -30px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .body {
+    margin-top: -100px;
+  }
+}
+
+/* ── Video circle (pt-hero-video) ────────────── */
+.video {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+@media (min-width: 768px) {
+  .video {
+    width: 395px;
+    height: 395px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .video {
+    width: 494px;
+    height: 494px;
+  }
+}
+
+.videoInner {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(145deg, #2a2f4a 0%, #1e2033 50%, #161829 100%);
+  display: flex;
+  align-items: center;
   justify-content: center;
-  min-height: 44px;
-  padding: 12px 24px;
-  background: linear-gradient(to bottom, #ffffff 0%, #f0f1f5 100%);
-  box-shadow: inset 0 0 0 1px rgba(30, 32, 51, 0.14);
-  color: #1e2033;
-  font-family: var(--font-matter);
-  font-size: 15px;
-  font-weight: 500;
-  text-decoration: none;
-  border-radius: 9999px;
-  transition: opacity 0.2s ease, transform 0.15s ease;
-  white-space: nowrap;
+  border-radius: inherit;
 }
 
-.btnGhost:hover {
-  opacity: 0.8;
+.videoSvg {
+  width: 80%;
+  height: 80%;
+  opacity: 0.9;
 }
 
-.btnGhost:active {
-  transform: scale(0.97);
+/* ════════════════════════════════════════════════
+   Footer — dark, OUTSIDE the clip overflow:hidden
+   so CSS sticky works correctly on desktop.
+   ════════════════════════════════════════════════ */
+
+/* ── Outer scroll container (desktop: 400vh) ─── */
+/* Height = carousel animation distance (300vh) + */
+/* footer height (100vh) = 400vh on desktop.      */
+.footerOuter {
+  background: #1e2033;
+  position: relative;
 }
 
-/* ─── Responsive ─── */
-
-@media (max-width: 700px) {
-  .heroHeading {
-    font-size: clamp(36px, 9vw, 52px);
+@media (min-width: 1200px) {
+  .footerOuter {
+    height: 400vh;
   }
+}
 
-  .heroSub br {
-    display: none;
+/* ── Footer sticky element (pt-hero-footer) ──── */
+.footer {
+  background: #1e2033;
+}
+
+@media (min-width: 1200px) {
+  .footer {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
   }
+}
 
-  .heroActions {
-    flex-direction: column;
-    gap: 12px;
+/* ── Headlines wrapper (pt-hero-headlines) ───── */
+/* Mobile: centred block column                  */
+/* Desktop: flex row of 3 × 100%-width panels    */
+.headlines {
+  display: block;
+  margin: -15px auto;
+  padding: 120px 0 180px;
+  width: 265px;
+  color: #fff;
+}
+
+@media (min-width: 768px) {
+  .headlines {
+    width: 460px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .headlines {
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    width: auto;
+    padding: 0;
+    height: 100vh;
+    will-change: transform;
+  }
+}
+
+/* ── Individual headline (pt-hero-headline) ──── */
+.headline {
+  padding: 15px 0;
+  transform: translateZ(0);
+  opacity: 0.4;
+  transition: opacity 0.4s;
+}
+
+/* Mobile active = bright */
+.headlineActive {
+  opacity: 1 !important;
+}
+
+@media (min-width: 1200px) {
+  .headline {
+    display: block;
+    padding: 0;
     width: 100%;
+    flex-shrink: 0;
+    text-align: center;
+    opacity: 1;
+    transition: none;
   }
 
-  .btnPrimary,
-  .btnGhost {
-    width: 100%;
-    justify-content: center;
+  /* Desktop active = dimmed (carousel is passing through) */
+  .headlineActive {
+    opacity: 0.4 !important;
+  }
+}
+
+/* ── Headline type (pt-hero-headline h2) ─────── */
+.headline h2 {
+  display: inline-block;
+  font-family: var(--font-season-mix);
+  font-weight: 600;
+  font-size: 50px;
+  line-height: 90%;
+  letter-spacing: -0.05em;
+  color: #fff;
+}
+
+@media (min-width: 768px) {
+  .headline h2 {
+    font-size: 86px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .headline h2 {
+    font-size: 8.75vw;
+  }
+}
+
+@media (min-width: 1600px) {
+  .headline h2 {
+    font-size: 6.875vw;
   }
 }

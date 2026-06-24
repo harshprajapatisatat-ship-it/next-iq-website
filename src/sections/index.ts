@@ -1,5 +1,7 @@
 export { default as Navbar } from './Navbar'
 export { default as Hero } from './Hero'
+export { default as SocialProof } from './SocialProof'
+export { default as TrustedBy } from './TrustedBy'
 export { default as BackedForScale } from './BackedForScale'
 export { default as Section02 } from './Section02'
 export { default as Section03 } from './Section03'

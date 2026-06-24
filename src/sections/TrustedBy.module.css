@@ -1,0 +1,131 @@
+/* ════════════════════════════════════════════════
+   TrustedBy — pixel-faithful recreation of the
+   SendPotion "Trusted by 13,000+" section.
+   ════════════════════════════════════════════════ */
+
+/* ── Outer section ─────────────────────────────── */
+.section {
+  width: 100%;
+  background: #ffffff;
+  padding: 80px 0 88px;
+}
+
+/* ── Text block ────────────────────────────────── */
+.inner {
+  text-align: center;
+  padding: 0 24px;
+  margin-bottom: 52px;
+}
+
+@media (min-width: 768px) {
+  .inner {
+    margin-bottom: 56px;
+  }
+}
+
+/* ── Heading ───────────────────────────────────── */
+.heading {
+  font-family: var(--font-season-mix);
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--color-tx);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin: 0;
+}
+
+@media (min-width: 640px) {
+  .heading {
+    font-size: 34px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .heading {
+    font-size: 38px;
+  }
+}
+
+/* ── Subheading ────────────────────────────────── */
+.subheading {
+  margin: 12px auto 0;
+  font-family: var(--font-matter);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-tx-tertiary);
+  max-width: 480px;
+}
+
+@media (min-width: 768px) {
+  .subheading {
+    font-size: 16px;
+    max-width: 560px;
+  }
+}
+
+/* ── Marquee outer: clips overflow + mask fade ─── */
+.marqueeOuter {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+
+  /* CSS mask gradient — same fade as SendPotion    */
+  /* Left 12% fades in, right 12% fades out         */
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000 12%,
+    #000 88%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000 12%,
+    #000 88%,
+    transparent 100%
+  );
+}
+
+/* ── Marquee track: flex row that animates ──────── */
+.marqueeTrack {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: marquee 30s linear infinite;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── Single logo slot ──────────────────────────── */
+.logoItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 44px;
+  flex-shrink: 0;
+  user-select: none;
+  pointer-events: none;
+  color: var(--color-tx);
+  opacity: 0.45;
+}
+
+/* ── Icon wrapper ──────────────────────────────── */
+.logoIcon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+/* ── Logo wordmark text ────────────────────────── */
+.logoLabel {
+  font-family: var(--font-matter);
+  white-space: nowrap;
+  line-height: 1;
+  display: block;
+}

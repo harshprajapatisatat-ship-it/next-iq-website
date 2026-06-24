@@ -1,0 +1,38 @@
+/* Physics pills overlay — rendered above the SocialProof heading.
+   Pills are positioned by Matter.js via inline transform.           */
+
+.overlay {
+  position: absolute;
+  /* Start 150px above the section so pills can enter from above */
+  top: -150px;
+  left: 0;
+  width: 100%;
+  /* 570px total: 150px above + 420px floor depth                */
+  height: 570px;
+  pointer-events: none;
+  z-index: 10;
+  /* overflow visible so pills above section top aren't clipped  */
+  overflow: visible;
+}
+
+.pill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  font-family: var(--font-matter);
+  font-size: 15px;
+  font-weight: 500;
+  white-space: nowrap;
+  /* Starts invisible; faded in by JS when its body is added     */
+  opacity: 0;
+  will-change: transform;
+  user-select: none;
+  padding: 0 20px;
+  box-sizing: border-box;
+  line-height: 1;
+}

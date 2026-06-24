@@ -5,8 +5,6 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import styles from './Hero.module.css';
 
-const WORDS = ['Leads', 'Support', 'CRM', 'Sales', 'Operations'];
-
 const HEADLINES = [
   'ERPNext\nExperts',
   'AI-Powered\nAutomation',
@@ -21,34 +19,6 @@ export default function Hero() {
   const footerOuterRef = useRef<HTMLDivElement>(null);
   const headlinesRef   = useRef<HTMLDivElement>(null);
   const headlineRefs   = useRef<(HTMLDivElement | null)[]>([]);
-  const typedRef       = useRef<HTMLSpanElement>(null);
-
-  /* Typing animation — direct DOM writes, no re-renders */
-  useEffect(() => {
-    const el = typedRef.current;
-    if (!el) return;
-
-    let wordIdx = 0, charIdx = 0, deleting = false;
-    let tid: ReturnType<typeof setTimeout>;
-
-    const tick = () => {
-      const word = WORDS[wordIdx];
-      if (!deleting && charIdx === word.length) {
-        tid = setTimeout(() => { deleting = true; tick(); }, 1500);
-        return;
-      }
-      if (deleting && charIdx === 0) {
-        deleting = false;
-        wordIdx = (wordIdx + 1) % WORDS.length;
-      }
-      charIdx += deleting ? -1 : 1;
-      el.textContent = word.slice(0, charIdx);
-      tid = setTimeout(tick, deleting ? 60 : 90);
-    };
-
-    tick();
-    return () => clearTimeout(tid);
-  }, []);
 
   /* GSAP scroll animations */
   useEffect(() => {
@@ -175,16 +145,12 @@ export default function Hero() {
             <div className={styles.container}>
 
               <div className={styles.header}>
-                <h1>
-                  Create ERPNext Automation for{' '}
-                  <span ref={typedRef} suppressHydrationWarning />
-                  <span className={styles.cursor} aria-hidden="true">|</span>
-                </h1>
+                <h1>Design&nbsp;+&nbsp;build partner<br />for funded startups</h1>
               </div>
 
               <p className={styles.subtext}>
-                Build powerful ERPNext workflows without code.{' '}
-                Automate sales pipelines, customer support, and operations.
+                We help startups, AI companies, and product teams shape
+                sharper brands, websites, products, and launch experiences.
               </p>
 
               <div className={styles.action}>
@@ -192,12 +158,13 @@ export default function Hero() {
                   <span className={styles.btnRipple} />
                   <span className={styles.btnRipple2} />
                   <span className={styles.btnInner}>
-                    <em><span>Start automating free</span></em>
+                    <em><span>Get a quote today</span></em>
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                       <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </span>
                 </a>
+                <a href="#" className={styles.btnSecondary}>Our services</a>
               </div>
 
             </div>

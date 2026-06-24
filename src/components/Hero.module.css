@@ -214,6 +214,11 @@
 /* ── CTA (pt-hero-action) ────────────────────── */
 .action {
   padding: 45px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 @media (min-width: 768px) {
@@ -287,6 +292,40 @@
   gap: 8px;
   position: relative;
   z-index: 1;
+}
+
+/* ── Secondary button (ghost/outline) ───────── */
+.btnSecondary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 14px 28px;
+  background: transparent;
+  color: var(--color-tx);
+  font-family: var(--font-matter);
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 9999px;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 1.5px solid rgba(30, 32, 51, 0.22);
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+@media (min-width: 768px) {
+  .btnSecondary {
+    font-size: 17px;
+    min-height: 58px;
+    padding: 16px 36px;
+  }
+}
+
+.btnSecondary:hover {
+  border-color: rgba(30, 32, 51, 0.45);
+  background: rgba(30, 32, 51, 0.04);
 }
 
 /* ── Body: circular video (pt-hero-body) ─────── */

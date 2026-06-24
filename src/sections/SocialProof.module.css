@@ -1,0 +1,307 @@
+/* ════════════════════════════════════════════════════════
+   SocialProof — pixel-faithful recreation of SendPotion's
+   "Trusted by 13,000+ companies" section from the video.
+   ════════════════════════════════════════════════════════ */
+
+/* ── Outer section ──────────────────────────────────────── */
+.section {
+  position: relative;
+  width: 100%;
+  background: #ffffff;
+  padding: 96px 0 0;
+  /* overflow: visible so physics pills can enter from above the section */
+  overflow: visible;
+  /* Rounded bottom corners matching video */
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+}
+
+@media (min-width: 768px) {
+  .section {
+    border-bottom-left-radius: 48px;
+    border-bottom-right-radius: 48px;
+  }
+}
+
+/* ── Heading block ──────────────────────────────────────── */
+.headWrap {
+  text-align: center;
+  padding: 0 24px;
+  margin-bottom: 56px;
+}
+
+.heading {
+  font-family: var(--font-season-mix);
+  font-size: clamp(40px, 5vw, 96px);
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -0.04em;
+  color: var(--color-tx);
+  margin: 0;
+}
+
+/* ── Avatar stack (inline with heading) ─────────────────── */
+.avatarStack {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  margin-left: 10px;
+  /* shift up slightly to optically align with cap-height */
+  transform: translateY(-4px);
+}
+
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(40px, 3.5vw, 56px);
+  height: clamp(40px, 3.5vw, 56px);
+  border-radius: 50%;
+  border: 2.5px solid #ffffff;
+  font-family: var(--font-matter);
+  font-size: clamp(12px, 1.1vw, 17px);
+  font-weight: 700;
+  color: #ffffff;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.avatar + .avatar { margin-left: -14px; }
+
+/* ── Word bubble rows ───────────────────────────────────── */
+.bubblesOuter {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 72px;
+  /* No overflow hidden here so pills bleed to edge */
+}
+
+.bubblesRow {
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Shared track */
+.bubblesTrack {
+  display: flex;
+  width: max-content;
+  gap: 10px;
+  padding: 0 5px;
+}
+
+/* Row 1: scroll left */
+.trackLeft  { animation: scrollLeft  30s linear infinite; }
+
+/* Row 2: scroll right (reverse of left) */
+.trackRight { animation: scrollLeft  34s linear infinite reverse; }
+
+@keyframes scrollLeft {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── Individual pill ────────────────────────────────────── */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 20px;
+  border-radius: 9999px;
+  font-family: var(--font-matter);
+  font-size: 15px;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+  user-select: none;
+  cursor: default;
+  line-height: 1;
+}
+
+@media (min-width: 768px) {
+  .pill {
+    font-size: 16px;
+    padding: 10px 22px;
+  }
+}
+
+/* ══ Testimonial carousel ══════════════════════════════════ */
+.carouselSection {
+  padding: 0 0 56px;
+}
+
+/* Viewport clips the sliding track */
+.carouselViewport {
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Sliding track */
+.carouselTrack {
+  display: flex;
+  gap: 16px;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  padding: 0 16px;
+  /* Each card = (100vw - 2*16px - 2*16px) / 3 wide */
+  will-change: transform;
+}
+
+/* ── Individual card ────────────────────────────────────── */
+.card {
+  flex: 0 0 calc(33.333% - 11px);
+  min-width: calc(33.333% - 11px);
+  background: #fafafa;
+  border-radius: 20px;
+  padding: 36px 32px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0;
+}
+
+@media (max-width: 767px) {
+  .card {
+    flex: 0 0 calc(100% - 48px);
+    min-width: calc(100% - 48px);
+  }
+  .carouselTrack {
+    padding: 0 24px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1099px) {
+  .card {
+    flex: 0 0 calc(50% - 8px);
+    min-width: calc(50% - 8px);
+  }
+}
+
+/* ── Card avatar circle ─────────────────────────────────── */
+.cardAvatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-matter);
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 24px;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+/* ── Card quote ─────────────────────────────────────────── */
+.cardQuote {
+  font-family: var(--font-matter);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.65;
+  color: var(--color-tx-secondary);
+  margin: 0 0 20px;
+}
+
+/* ── Case study link ────────────────────────────────────── */
+.cardLink {
+  font-family: var(--font-matter);
+  font-size: 15px;
+  font-weight: 500;
+  color: #7c3aed;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  margin-bottom: 20px;
+  transition: opacity 0.15s;
+}
+.cardLink:hover { opacity: 0.75; }
+
+/* ── Attribution ────────────────────────────────────────── */
+.cardAttrib {
+  font-family: var(--font-matter);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--color-tx-tertiary);
+  line-height: 1.5;
+  margin: 0 0 24px;
+}
+
+.cardAttrib strong {
+  font-weight: 600;
+  color: var(--color-tx-secondary);
+}
+
+/* ── Company logo at card bottom ────────────────────────── */
+.cardLogo {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Carousel navigation arrows ─────────────────────────── */
+.navRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 32px;
+  padding: 0 16px;
+}
+
+.navBtn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-st);
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-tx);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+
+.navBtn:hover:not(:disabled) {
+  border-color: var(--color-tx-tertiary);
+  background: var(--color-sf-secondary);
+}
+
+.navBtn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* Small purple dot between arrows */
+.navDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #7c3aed;
+  flex-shrink: 0;
+}
+
+/* ══ Logo strip marquee ════════════════════════════════════ */
+.logosOuter {
+  width: 100%;
+  overflow: hidden;
+  padding: 40px 0 56px;
+  border-top: 1px solid var(--color-st);
+}
+
+.logosTrack {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  animation: scrollLeft 40s linear infinite;
+}
+
+.logoItem {
+  display: flex;
+  align-items: center;
+  padding: 0 52px;
+  flex-shrink: 0;
+  opacity: 0.85;
+}

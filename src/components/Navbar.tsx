@@ -298,6 +298,7 @@ export default function Navbar() {
       {/* ── Announcement banner ────────────────────────────────
           Collapses from h-8 (32px) to 0 when page is scrolled.
           Exact classes + inline styles from the live source.   */}
+      
       <div
         className="overflow-hidden transition-all duration-300"
         style={{ maxHeight: scrolled ? 0 : 32 }}

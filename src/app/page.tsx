@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import SocialProof from "@/sections/SocialProof";
-import BackedForScale from "@/sections/BackedForScale";
+import HowItWorks from "@/sections/HowItWorks";
 
 export default function Home() {
   return (
@@ -9,8 +9,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <SocialProof />
-      {/* <BackedForScale /> */}
-      <main className="flex-1" />
+      <HowItWorks />
     </>
   );
 }

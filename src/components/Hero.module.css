@@ -139,7 +139,7 @@
 /* ── Heading (pt-hero-header -xl) ───────────── */
 .header {
   max-width: 450px;
-  margin: 0 auto 3rem;
+  margin: 0 auto 1rem;
   transform: translateZ(0);
 }
 
@@ -159,7 +159,7 @@
   font-family: var(--font-season-mix);
   font-weight: 600;
   font-size: 56px;
-  line-height: 90%;
+  line-height: 110%;
   text-align: center;
   letter-spacing: -0.05em;
   color: var(--color-tx);
@@ -173,7 +173,7 @@
 
 @media (min-width: 1024px) {
   .header h1 {
-    font-size: 6.6666vw;
+    font-size: 5vw;
   }
 }
 
@@ -193,7 +193,7 @@
 
 /* ── Description (pt-hero-text) ─────────────── */
 .subtext {
-  margin: 16px auto 0;
+  margin: 0px auto 0;
   max-width: 440px;
   transform: translateZ(0);
   font-weight: 500;

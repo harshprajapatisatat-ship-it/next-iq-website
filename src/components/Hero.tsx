@@ -145,12 +145,13 @@ export default function Hero() {
             <div className={styles.container}>
 
               <div className={styles.header}>
-                <h1>Design&nbsp;+&nbsp;build partner<br />for funded startups</h1>
+                <h1>Don't collect cards,<br /><span className="font-extrabold">collect customers.</span></h1>
               </div>
 
               <p className={styles.subtext}>
-                We help startups, AI companies, and product teams shape
-                sharper brands, websites, products, and launch experiences.
+                Scan business cards, enrich contact data with AI, and sync qualified leads directly into ERPNext in seconds.
+
+
               </p>
 
               <div className={styles.action}>
@@ -164,7 +165,7 @@ export default function Hero() {
                     </svg>
                   </span>
                 </a>
-                <a href="#" className={styles.btnSecondary}>Our services</a>
+                {/* <a href="#" className={styles.btnSecondary}>Our services</a> */}
               </div>
 
             </div>

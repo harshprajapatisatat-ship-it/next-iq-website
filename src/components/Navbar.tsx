@@ -344,7 +344,7 @@ export default function Navbar() {
         className="absolute top-0 left-0 right-0 h-8 lg:h-10 transition-opacity duration-300 pointer-events-none"
         style={{
           opacity: scrolled ? 1 : 0,
-          background: "linear-gradient(to bottom, #fafafa 40%, transparent)",
+          // background: "linear-gradient(to bottom, #fafafa 40%, transparent)",
           maskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
           WebkitMaskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
         }}

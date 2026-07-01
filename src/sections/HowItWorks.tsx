@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from './HowItWorks.module.css';
 import DotField from '@/components/DotField';
-import TranslationFlow from '@/components/TranslationFlow';
+import VoiceOrbit from '@/components/VoiceOrbit';
 
 // ── Shared browser chrome ─────────────────────────────────────────
 function BrowserBar({ dark = false }: { dark?: boolean }) {
@@ -53,11 +53,11 @@ function Card1() {
   );
 }
 
-// ── Card 2 — live translation flow ───────────────────────────────
+// ── Card 2 — voice orbit (Hello ring + diagonal band + audio UI) ─
 function Card2() {
   return (
     <div className={styles.card2}>
-      <TranslationFlow />
+      <VoiceOrbit />
     </div>
   );
 }

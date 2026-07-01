@@ -249,13 +249,13 @@
   user-select: none;
 }
 
-/* ══ Card 2 — black, live translation flow ═════════════════════ */
+/* ══ Card 2 — cream, voice orbit ══════════════════════════════ */
 .card2 {
   width: 100%;
   height: 88vh;
   border-radius: 20px;
   overflow: hidden;
-  background: #000;
+  background: #f0edd8;
   position: relative;
 }
 

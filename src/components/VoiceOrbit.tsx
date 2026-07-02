@@ -6,7 +6,7 @@ const CURVE1 =
 
 // Band exits chip, sweeps up-right and off the top of the card (far end at y=-550).
 const CURVE2 =
-  'M 360,468 C 600,400 470,50 900,500 C 640,-400 700,-490 750,-550';
+  'M 370,470 C 600,400 470,50 900,500 C 640,-400 700,-490 750,-550';
 
 const RAW_TEXT =
   "Umm, so at my last role I was kind of leading this project and, like, we had to build a new feature and I think we shipped it on time, mostly, but I'm not totally sure what the actual impact was... you know what I mean? " .repeat(6);
@@ -21,7 +21,7 @@ const BAR_X0 = WAVE_CX - BAR_SPAN / 2;
 
 export default function VoiceOrbit() {
   return (
-    <div style={{ position: 'absolute', inset: 0, background: '#f0edd8', overflow: 'hidden' }}>
+    <div style={{ position: 'absolute', inset: 0, background: '#ffffff', overflow: 'hidden' }}>
       <svg
         viewBox="0 0 600 800"
         preserveAspectRatio="xMidYMid slice"
@@ -50,7 +50,7 @@ export default function VoiceOrbit() {
         </text>
 
         {/* Black band — thick stroke emerging from the chip to the right */}
-        <path d={CURVE2} fill="none" stroke="#1a1a1a" strokeWidth="52" strokeLinecap="round" />
+        <path d={CURVE2} fill="none" stroke="#1e2033  " strokeWidth="50" strokeLinecap="round" />
 
         {/* Clean speech — bold white marquee on the band */}
         <text

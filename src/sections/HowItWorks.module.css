@@ -342,22 +342,32 @@
   margin-bottom: 9px;
 }
 
-/* ══ Card 3 — lavender, L-bracket pattern ══════════════════════ */
+/* ══ Card 3 — lavender, interactive magnet-lines background ═══ */
 .card3 {
   width: 100%;
   height: 88vh;
   border-radius: 20px;
   overflow: hidden;
-  /* Lavender base + corner-bracket repeat pattern */
+  position: relative;
   background-color: #c4b5fd;
-  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'><path d='M8 1H1V8' stroke='white' stroke-opacity='0.4' stroke-width='1.5' stroke-linecap='round' fill='none'/><path d='M32 1H39V8' stroke='white' stroke-opacity='0.4' stroke-width='1.5' stroke-linecap='round' fill='none'/><path d='M8 39H1V32' stroke='white' stroke-opacity='0.4' stroke-width='1.5' stroke-linecap='round' fill='none'/><path d='M32 39H39V32' stroke='white' stroke-opacity='0.4' stroke-width='1.5' stroke-linecap='round' fill='none'/></svg>");
-  background-size: 40px 40px;
   padding: 36px 28px 36px;
   display: flex;
   flex-direction: column;
 }
 
+/* Full-bleed grid of pointer-reactive lines, sits behind card3Inner */
+.c3MagnetBg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
 .card3Inner {
+  position: relative;
+  z-index: 1;
   flex: 1;
   background: #fff;
   border-radius: 12px;
@@ -380,27 +390,63 @@
   flex-shrink: 0;
 }
 
-/* 2 × 3 grid of video thumbnails */
-.c3Grid {
+/* Single video, fills the rest of the panel */
+.c3Single {
   flex: 1;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 8px;
-  min-height: 0;
-}
-
-.c3Thumb {
   border-radius: 7px;
   overflow: hidden;
   position: relative;
   min-height: 60px;
 }
 
-.c3ThumbSvg {
+.c3SingleVideo {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   display: block;
+  object-fit: cover;
+}
+
+/* ══ Card 1 — in-browser visiting card → OCR → CRM demo loop ═══
+   A single dark browser window (reusing the shared BrowserBar),
+   occupying ~80% of the card. Everything below is keyed off one
+   7s animation-duration so it stays in sync and loops seamlessly.
+   ═══════════════════════════════════════════════════════════════ */
+
+.c1Frame {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10%;
+  pointer-events: none;
+}
+
+.c1Window {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #0b0b10;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+}
+
+.c1WinBody {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+  min-height: 0;
+}
+
+.c1WinVideo {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
 }

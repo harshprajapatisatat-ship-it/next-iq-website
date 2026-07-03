@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import styles from './HowItWorks.module.css';
 import DotField from '@/components/DotField';
 import VoiceOrbit from '@/components/VoiceOrbit';
+import MagnetLines from '@/components/MagnetLines';
 
 // ── Shared browser chrome ─────────────────────────────────────────
 function BrowserBar({ dark = false }: { dark?: boolean }) {
@@ -16,9 +17,9 @@ function BrowserBar({ dark = false }: { dark?: boolean }) {
   );
 }
 
-function NxMark() {
+function NxMark({ size = 28 }: { size?: number }) {
   return (
-    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+    <svg width={size} height={size} viewBox="0 0 28 28" fill="none" aria-hidden="true">
       <circle cx="14" cy="14" r="14" fill="#7c3aed" />
       <path
         d="M9 20V8l5 8 5-8v12"
@@ -32,7 +33,7 @@ function NxMark() {
   );
 }
 
-// ── Card 1 — live DotField ────────────────────────────────────────
+// ── Card 1 — live DotField + in-browser product-demo video ─────────
 function Card1() {
   return (
     <div className={styles.card1}>
@@ -49,6 +50,23 @@ function Card1() {
         gradientTo="rgba(255,255,255,0.25)"
         glowColor="#A855F7"
       />
+
+      {/* Product-demo video, filling a single browser window */}
+      <div className={styles.c1Frame} aria-hidden="true">
+        <div className={styles.c1Window}>
+          <BrowserBar dark />
+          <div className={styles.c1WinBody}>
+            <video
+              className={styles.c1WinVideo}
+              src="/videos/face-voice-demo.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+            />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -62,40 +80,22 @@ function Card2() {
   );
 }
 
-// ── Card 3 — lavender, bracket pattern, "Generate" UI ────────────
+// ── Card 3 — lavender, magnet-lines background, "Generate" UI ───
 function Card3() {
   return (
     <div className={styles.card3}>
-      <div className={styles.card3Inner}>
-        <BrowserBar />
-        <div className={styles.c3Body}>
-          <div className={styles.c3TopBar}>
-            <NxMark />
-          </div>
-          <div className={styles.c3Grid}>
-            {Array.from({ length: 6 }).map((_, i) => {
-              const hues = ['#3b0764','#4c1d95','#312e81','#1e3a5f','#3b0764','#312e81'];
-              return (
-                <div key={i} className={styles.c3Thumb}>
-                  <svg viewBox="0 0 100 72" fill="none" className={styles.c3ThumbSvg}>
-                    <rect width="100" height="72" fill={hues[i]} />
-                    {/* Background blur suggestion */}
-                    <rect x="20" y="10" width="60" height="40" rx="4" fill="rgba(255,255,255,0.05)" />
-                    {/* Head */}
-                    <ellipse cx="50" cy="28" rx="14" ry="16" fill="#f5d0a9" />
-                    {/* Shoulders */}
-                    <ellipse cx="50" cy="62" rx="26" ry="18" fill="#e8c99a" />
-                    {/* Hair */}
-                    <ellipse cx="50" cy="18" rx="14" ry="10" fill="#5c3317" />
-                    {/* Shirt */}
-                    <rect x="32" y="52" width="36" height="20" rx="4" fill="#f0f0f0" />
-                  </svg>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
+      <MagnetLines
+        rows={11}
+        columns={9}
+        lineColor="rgba(76, 29, 149, 0.55)"
+        lineWidth="3px"
+        lineHeight="16px"
+        baseAngle={-10}
+        className={styles.c3MagnetBg}
+        style={{ width: '100%', height: '100%' }}
+      />
+
+      
     </div>
   );
 }

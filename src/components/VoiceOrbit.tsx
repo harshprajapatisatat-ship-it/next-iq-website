@@ -2,17 +2,17 @@
 
 // Loop/knot just left of chip (chip now at y=470). Knot crosses ~(150,400).
 const CURVE1 =
-  'M -100,250 C 30,290 80,460 160,420 C 230,380 270,280 210,240 C 155,200 70,330 130,440 C 155,490 190,482 212,470';
+  'M -100,350 C 30,290 80,460 160,420 C 230,380 270,280 210,240 C 155,200 40,330 130,440 C 155,490 190,482 212,480';
 
 // Band exits chip, sweeps up-right and off the top of the card (far end at y=-550).
 const CURVE2 =
   'M 370,470 C 600,400 470,50 900,500 C 640,-400 700,-490 750,-550';
 
 const RAW_TEXT =
-  "Umm, so at my last role I was kind of leading this project and, like, we had to build a new feature and I think we shipped it on time, mostly, but I'm not totally sure what the actual impact was... you know what I mean? " .repeat(6);
+  "આ એક ડમી ફકરો છે. તમે તમારી વેબસાઇટ અથવા બ્લોગ માટે અહીં નવું લખાણ લખી શકો છો. આ જગ્યા માત્ર માહિતી બતાવવા માટે છે. અહીં તમે તમારી જરૂરિયાત મુજબ કોઈપણ વિષય પર વિગતવાર માહિતી ઉમેરી શકો છો." .repeat(6);
 
 const CLEAN_TEXT =
-  'I led a cross-functional team to design and ship a high-impact product feature on schedule, driving significant user engagement and measurable business growth. ' .repeat(7);
+  'This is a dummy paragraph. You can write new text here for your website or blog. This space is only for displaying information. Here you can add detailed information on any topic according to your need. ' .repeat(7);
 
 const WAVE_BARS = [3, 5, 9, 14, 20, 25, 30, 34, 30, 25, 34, 30, 25, 20, 14, 9, 5, 3];
 const WAVE_CX = 300, WAVE_CY = 470;

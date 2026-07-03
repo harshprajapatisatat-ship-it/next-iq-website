@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import SocialProof from "@/sections/SocialProof";
 import HowItWorks from "@/sections/HowItWorks";
+import CtaSection from "@/sections/CtaSection";
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       <Hero />
       <SocialProof />
       <HowItWorks />
+      <CtaSection />
     </>
   );
 }

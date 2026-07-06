@@ -1,0 +1,142 @@
+/* ══════════════════════════════════════════════════════════════
+   FAQSection — centered "Frequently Asked Questions" heading over
+   a stack of rounded accordion rows.
+   ══════════════════════════════════════════════════════════════ */
+
+.wrap {
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  padding: 120px 24px;
+}
+
+
+
+
+
+.heading {
+  font-family: var(--font-season-mix);
+  font-size: clamp(36px, 6vw, 76px);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: #0a0a0a;
+  text-align: center;
+  margin: 0 0 64px;
+}
+
+.headingLine {
+  display: block;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 1900px;
+  margin: 0 auto;
+}
+
+.item {
+  border: 1px solid #ececec;
+  border-radius: 28px;
+  background: #fff;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+
+.itemOpen {
+  border-color: #e0d4fb;
+}
+
+.trigger {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  padding: 28px 48px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.iconWrap {
+  position: relative;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.iconWrap span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: #0a0a0a;
+  transform: translate(-50%, -50%);
+}
+
+.iconWrap .bar1 {
+  width: 20px;
+  height: 2px;
+}
+
+.iconWrap .bar2 {
+  width: 2px;
+  height: 20px;
+  transition: transform 0.25s ease;
+}
+
+.itemOpen .iconWrap .bar2 {
+  transform: translate(-50%, -50%) rotate(90deg) scale(0);
+}
+
+.question {
+  font-family: var(--font-matter);
+  font-size: 28px;
+  font-weight: 500;
+  color: #171717;
+  line-height: 1.4;
+}
+
+.answerWrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease;
+}
+
+.itemOpen .answerWrap {
+  grid-template-rows: 1fr;
+}
+
+.answerInner {
+  overflow: hidden;
+}
+
+.answer {
+  margin: 0;
+  padding: 0 40px 32px calc(40px + 20px + 24px);
+  font-family: var(--font-matter);
+  font-size: 20px;
+  line-height: 1.6;
+  color: #666666;
+}
+
+@media (max-width: 640px) {
+  .wrap {
+    padding: 80px 16px;
+  }
+
+  .heading {
+    margin-bottom: 40px;
+  }
+
+  .trigger {
+    padding: 22px 22px;
+    gap: 16px;
+  }
+
+  .answer {
+    padding: 0 22px 26px calc(20px + 16px);
+  }
+}

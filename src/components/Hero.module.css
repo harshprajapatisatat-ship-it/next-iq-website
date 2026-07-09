@@ -156,10 +156,10 @@
 }
 
 .header h1 {
-  font-family: var(--font-season-mix);
+  font-family: 'Satoshi', sans-serif;
   font-weight: 600;
   font-size: 56px;
-  line-height: 110%;
+  line-height: 1.1;
   text-align: center;
   letter-spacing: -0.05em;
   color: var(--color-tx);
@@ -330,7 +330,7 @@
 
 /* ── Body: circular video (pt-hero-body) ─────── */
 .body {
-  margin-top: -70px;
+  margin-top: -100px;
 }
 
 @media (max-height: 440px) {
@@ -348,8 +348,8 @@
 /* ── Video circle (pt-hero-video) ────────────── */
 .video {
   position: relative;
-  width: 200px;
-  height: 200px;
+  width: 256px; /* ~28% larger than the original 200px, mobile-only */
+  height: 256px;
   margin: 0 auto;
   overflow: hidden;
   cursor: pointer;
@@ -370,21 +370,49 @@
   }
 }
 
-.videoInner {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(145deg, #2a2f4a 0%, #1e2033 50%, #161829 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: inherit;
+/* ── Mobile-only widget scale-up (<768px) ──────────────────────
+   The Carousel's outer ring and inner circle both derive from the
+   256px baseWidth above (Carousel.tsx computes itemWidth = baseWidth
+   - fixed 32px padding), so they already grow together and stay
+   concentric — the wrapper's uniform p-4 padding is what keeps the
+   ring and the inner circle centered on each other, and that isn't
+   touched here.
+
+   Below 768px, Carousel.tsx also renders with dotsInline (see
+   Hero.tsx), which moves the pagination dots into the item's own
+   centered flex column (after the description) instead of the
+   absolutely-positioned overlay desktop/tablet still use — that's
+   what actually keeps the dots below the description with no
+   overlap; this block only handles icon/text sizing.
+
+   Icon/text inside are fixed-size Tailwind utilities on the shared
+   Carousel component, so they need an explicit bump to stay
+   legible — sized deliberately smaller than the circle's own ~28%
+   growth (roughly +14–19%) so there's extra breathing room and
+   nothing crowds the curved edge. Desktop/tablet rules above are
+   untouched, so none of this ever applies at ≥768px. */
+@media (max-width: 767px) {
+  .video svg {
+    width: 19px !important;
+    height: 19px !important;
+  }
+
+  .video span {
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  .video :global(.font-black) {
+    font-size: 21px !important;
+    line-height: 1.25 !important;
+  }
+
+  .video p {
+    font-size: 16px !important;
+    line-height: 1.4 !important;
+  }
 }
 
-.videoSvg {
-  width: 80%;
-  height: 80%;
-  opacity: 0.9;
-}
 
 /* ════════════════════════════════════════════════
    Footer — dark, OUTSIDE the clip overflow:hidden
@@ -426,7 +454,7 @@
   display: block;
   margin: -15px auto;
   padding: 120px 0 180px;
-  width: 265px;
+  width: 350px;
   color: #fff;
 }
 

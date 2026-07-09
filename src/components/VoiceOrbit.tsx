@@ -9,10 +9,10 @@ const CURVE2 =
   'M 370,470 C 600,400 470,50 900,500 C 640,-400 700,-490 750,-550';
 
 const RAW_TEXT =
-  "આ એક ડમી ફકરો છે. તમે તમારી વેબસાઇટ અથવા બ્લોગ માટે અહીં નવું લખાણ લખી શકો છો. આ જગ્યા માત્ર માહિતી બતાવવા માટે છે. અહીં તમે તમારી જરૂરિયાત મુજબ કોઈપણ વિષય પર વિગતવાર માહિતી ઉમેરી શકો છો." .repeat(6);
+  "તમે દુનિયાની કોઈપણ ભાષામાં વાત કરો, NextIQ દરેક ભાષાને સમજીને તેને તમારી જરૂરિયાત મુજબ રૂપાંતરિત કરે છે." .repeat(12);
 
 const CLEAN_TEXT =
-  'This is a dummy paragraph. You can write new text here for your website or blog. This space is only for displaying information. Here you can add detailed information on any topic according to your need. ' .repeat(7);
+  'Speak any language. NextIQ understands them all and transforms every conversation into meaningful results.' .repeat(12);
 
 const WAVE_BARS = [3, 5, 9, 14, 20, 25, 30, 34, 30, 25, 34, 30, 25, 20, 14, 9, 5, 3];
 const WAVE_CX = 300, WAVE_CY = 470;

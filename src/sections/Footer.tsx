@@ -1,62 +1,91 @@
 "use client";
-
-import TextPressure from "@/components/TextPressure";
 import styles from "./Footer.module.css";
 
-const NAV_LINKS = [
-  { label: "Our Products", href: "#our-products" },
-  { label: "Features", href: "#features" },
+function InstagramIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+    </svg>
+  );
+}
+
+function LinkedinIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+      <rect x="2" y="9" width="4" height="12" />
+      <circle cx="4" cy="4" r="2" />
+    </svg>
+  );
+}
+const LEGAL_LINKS = [
+  { label: "Privacy", href: "#privacy" },
+  { label: "Terms", href: "#terms" },
+  { label: "Cookies", href: "#cookies" },
+  { label: "Contact", href: "#contact" },
 ] as const;
 
 export default function Footer() {
   return (
     <footer className={styles.footer}>
-      <div className={styles.topRow}>
-        <div className={styles.addressCol}>
-          <p className={styles.tagline}>
-            Building the AI layer
-            <br />
-            for modern sales teams.
-          </p>
+      <div className={styles.bgWordWrap} aria-hidden="true">
+        <span className={styles.bgWord}>NEXTIQ</span>
+      </div>
 
-          <div className={styles.pills}>
-            <a href="mailto:hello@nextiq.app" className={styles.pill}>
-              <span className={styles.pillDot} aria-hidden="true" />
-              hello@nextiq.app
-            </a>
-            <a href="#contact" className={styles.pill}>
-              Get In Touch
-            </a>
-          </div>
+      <div className={styles.hero}>
+        <div className={styles.globeGlow} aria-hidden="true" />
+        <div className={styles.globe} aria-hidden="true">
+          <div className={styles.globeDots} />
+          <div className={styles.globeRingH} />
+          <div className={styles.globeRingV} />
         </div>
 
-        <nav className={styles.navCol}>
-          {NAV_LINKS.map(({ label, href }) => (
-            <a key={label} href={href} className={styles.navLink}>
-              {label}
-            </a>
+        <div className={styles.content}>
+          <div className={styles.pill}>
+            <span aria-hidden="true">✨</span>
+            AI Powered Business Automation
+          </div>
+
+          <h2 className={styles.heading}>
+            Your <span className={styles.italic}>smarter</span> AI-powered
+            <br />
+            <span className={styles.headingDim}>Business Assistant</span>
+          </h2>
+
+          <button
+            type="button"
+            className={styles.ctaBtn}
+            onClick={() => document.getElementById("book-demo")?.scrollIntoView({ behavior: "smooth" })}
+          >
+            Book a Demo
+          </button>
+        </div>
+      </div>
+
+      <div className={styles.bottomRow}>
+        <div className={styles.socials}>
+          <a href="#" aria-label="Instagram" className={styles.socialLink}>
+             <InstagramIcon />
+          </a>
+          <a href="#" aria-label="LinkedIn" className={styles.socialLink}>
+            <LinkedinIcon />
+         </a>
+        </div>
+
+        <div className={styles.legalRow}>
+          {LEGAL_LINKS.map(({ label, href }, i) => (
+            <span key={label} className={styles.legalItem}>
+              <a href={href} className={styles.legalLink}>{label}</a>
+              {i < LEGAL_LINKS.length - 1 && <span className={styles.legalSep}>•</span>}
+            </span>
           ))}
-        </nav>
-      </div>
+          <span className={styles.copyright}>Copyright © 2026 NextIQ</span>
+        </div>
 
-      <div className={styles.wordmark}>
-        <TextPressure
-          text="nextiq"
-          flex
-          alpha={false}
-          stroke={false}
-          width
-          weight
-          italic={false}
-          textColor="#ffffff"
-          strokeColor="#7c3aed"
-          minFontSize={64}
-          weightRange={[600, 300]}
-          widthRange={[80, 70]}
-        />
+        <div className={styles.bottomSpacer} aria-hidden="true" />
       </div>
-
-      <p className={styles.copyright}>© 2026 NextIQ. All rights reserved.</p>
     </footer>
   );
 }

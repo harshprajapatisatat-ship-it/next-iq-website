@@ -25,13 +25,12 @@ export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className={styles.wrap}>
+    <section id="faq" className={styles.wrap}>
       <span className={`${styles.dot} ${styles.dotLeft}`} aria-hidden="true" />
       <span className={`${styles.dot} ${styles.dotRight}`} aria-hidden="true" />
 
       <h2 className={styles.heading}>
-        <span className={styles.headingLine}>Frequently</span>
-        <span className={styles.headingLine}>Asked</span>
+        <span className={styles.headingLine}>Frequently Asked</span>
         <span className={styles.headingLine}>Questions</span>
       </h2>
 

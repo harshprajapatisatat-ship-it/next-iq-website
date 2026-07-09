@@ -5,6 +5,7 @@ import styles from './HowItWorks.module.css';
 import DotField from '@/components/DotField';
 import VoiceOrbit from '@/components/VoiceOrbit';
 import MagnetLines from '@/components/MagnetLines';
+import TrueFocus from '@/components/TrueFocus';
 
 // ── Shared browser chrome ─────────────────────────────────────────
 function BrowserBar({ dark = false }: { dark?: boolean }) {
@@ -76,6 +77,18 @@ function Card2() {
   return (
     <div className={styles.card2}>
       <VoiceOrbit />
+      <div className={styles.c2Heading}>
+        <TrueFocus
+          sentence="All Language Support"
+          manualMode={false}
+          blurAmount={3}
+          borderColor="#7c3aed"
+          glowColor="rgba(124, 58, 237, 0.6)"
+          animationDuration={0.5}
+          pauseBetweenAnimations={0.5}
+          fontSize="22px"
+        />
+      </div>
     </div>
   );
 }
@@ -95,10 +108,23 @@ function Card3() {
         style={{ width: '100%', height: '100%' }}
       />
 
-      
+      {/* Same in-browser window as Card 1, with its own demo video */}
+      <div className={styles.c1Frame} aria-hidden="true">
+        <div className={styles.c1Window}>
+          <BrowserBar dark />
+          <div className={styles.c1WinBody}>
+            <video
+              className={styles.c1WinVideo}
+              src="/videos/card3-demo.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+            />
+          </div>
+        </div>
+      </div>
     </div>
-
-    
   );
 }
 
@@ -108,9 +134,9 @@ function StepOne() {
     <>
       <p className={styles.stepNum}>1.</p>
       <p className={styles.stepBody}>
-        Train <span className={styles.recDot} aria-hidden="true" /><br />
-        your AI<br />
-        <span className={styles.stepDim}>(Takes 5 mins)</span>
+        Scan. Capture. Done. <br />
+       
+        <p className={styles.stepDim}>Business card details are instantly extracted and prepared for seamless CRM synchronization.</p>
       </p>
     </>
   );
@@ -121,9 +147,9 @@ function StepTwo() {
     <>
       <p className={styles.stepNum}>2.</p>
       <p className={styles.stepBody}>
-        <span className={styles.hiGreen}>Build your prompt</span><br />
-        or choose a<br />
-        template
+        <span className={styles.hiGreen}>Break Language Barriers</span><br />
+
+        <p className={styles.stepDim}>Automatically recognize and translate contact information from multiple languages into your preferred language.</p>
       </p>
     </>
   );
@@ -134,9 +160,8 @@ function StepThree() {
     <>
       <p className={styles.stepNum}>3.</p>
       <p className={styles.stepBody}>
-        Get answers ✨<br />
-        in your own<br />
-        <span className={styles.hiPurple}>unique style</span>
+        Automate CRM Sync <br />
+        <span className={styles.hiPurple}>Instantly</span>
       </p>
     </>
   );
@@ -151,9 +176,32 @@ export default function HowItWorks() {
   const slotRefs  = useRef<(HTMLDivElement | null)[]>([]);
   const ratioRef  = useRef<number[]>([0, 0, 0]);
 
+  /* Below 768px the sticky-left/scrolling-right layout is swapped for
+     stacked step+card pairs (see the mobile branch of the JSX below).
+     The sticky column has no spare room to actually stay pinned once
+     it's a single grid row on a short mobile viewport, which meant
+     the step text scrolled out of view before cards 2–3 came into
+     view — so each card gets its own text instead. isMobileRef lets
+     the IntersectionObserver below skip work when those cardSlot
+     refs never mount. Desktop/tablet (≥768px) are unchanged. */
+  const [isMobile, setIsMobile] = useState(false);
+  const isMobileRef = useRef(false);
+
+  useEffect(() => {
+    const update = () => {
+      const mobile = window.innerWidth < 768;
+      isMobileRef.current = mobile;
+      setIsMobile(mobile);
+    };
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
+
   useEffect(() => {
     const io = new IntersectionObserver(
       (entries) => {
+        if (isMobileRef.current) return;
         // Update stored ratios for changed entries, then pick the most visible
         entries.forEach((e) => {
           const idx = slotRefs.current.findIndex((r) => r === e.target);
@@ -172,40 +220,63 @@ export default function HowItWorks() {
   const StepPanel = STEP_PANELS[active];
 
   return (
-    <section className={styles.section}>
+    <section id="how-it-works" className={styles.section}>
 
       {/* ── Heading block ────────────────────────────────────── */}
       <div className={styles.headBlock}>
         <h2 className={styles.headText}>
           How <span className={styles.headHighlight}>NextIQ</span>
-          <br />works
+          <br />works?
         </h2>
       </div>
 
-      {/* ── Steps grid ───────────────────────────────────────── */}
-      <div className={styles.stepsGrid}>
-
-        {/* Left: sticky step info */}
-        <div className={styles.leftCol}>
-          <div key={active} className={styles.stepContent}>
-            <StepPanel />
-          </div>
+      {isMobile ? (
+        /* ── Mobile (<768px): each card paired with its own step text,
+           stacked in the same 1-2-3 order. Same Card components (same
+           animations/videos), same StepOne/Two/Three text — just laid
+           out as self-contained, horizontally centered blocks instead
+           of a shared sticky panel. */
+        <div className={styles.mobileSteps}>
+          {CARDS.map((Card, i) => {
+            const Panel = STEP_PANELS[i];
+            return (
+              <div key={i} className={styles.mobileStepBlock}>
+                <div className={styles.mobileStepText}>
+                  <Panel />
+                </div>
+                <div className={styles.mobileCardWrap}>
+                  <Card />
+                </div>
+              </div>
+            );
+          })}
         </div>
+      ) : (
+        /* ── Tablet/Desktop (≥768px): unchanged sticky steps grid ── */
+        <div className={styles.stepsGrid}>
 
-        {/* Right: scrolling card stack */}
-        <div className={styles.rightCol}>
-          {CARDS.map((Card, i) => (
-            <div
-              key={i}
-              className={styles.cardSlot}
-              ref={(el) => { slotRefs.current[i] = el; }}
-            >
-              <Card />
+          {/* Left: sticky step info */}
+          <div className={styles.leftCol}>
+            <div key={active} className={styles.stepContent}>
+              <StepPanel />
             </div>
-          ))}
-        </div>
+          </div>
 
-      </div>
+          {/* Right: scrolling card stack */}
+          <div className={styles.rightCol}>
+            {CARDS.map((Card, i) => (
+              <div
+                key={i}
+                className={styles.cardSlot}
+                ref={(el) => { slotRefs.current[i] = el; }}
+              >
+                <Card />
+              </div>
+            ))}
+          </div>
+
+        </div>
+      )}
     </section>
   );
 }

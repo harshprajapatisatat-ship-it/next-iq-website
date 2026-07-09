@@ -1,11 +1,12 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './SocialProof.module.css';
 
 const PILL_H      = 52;
-const FONT_SZ     = '22px';
-const PILL_PAD    = '14px 24px';
+const FONT_SZ     = 22;   // px — scaled by pillScale for narrow viewports
+const PILL_PAD_V  = 14;   // px — scaled by pillScale for narrow viewports
+const PILL_PAD_H  = 24;   // px — scaled by pillScale for narrow viewports
 const OVERLAY_TOP = 150; // overlay starts this many px above the section top
 
 interface Pill    { text: string; bg: string; fg: string; w: number }
@@ -41,6 +42,18 @@ const LOGOS: LogoDef[] = [
   { name: 'MaintainX',   color: '#3f6212', accent: '#65a30d' },
 ];
 
+/* Same pill component/physics on every breakpoint. The only viewport-
+   dependent knob is this scale factor (1 = desktop, untouched) — it
+   shrinks pill geometry slightly on narrow screens so the same engine
+   doesn't need as many stacked rows to fit everyone in. Everything
+   else (gravity, restitution, friction, spawn randomness, stagger,
+   collision, the single scroll-triggered run) is identical code. */
+function pillScaleFor(width: number) {
+  if (width < 480) return 0.72;
+  if (width < 768) return 0.88;
+  return 1;
+}
+
 function LogoItem({ logo }: { logo: LogoDef }) {
   return (
     <span className={styles.logoItem}>
@@ -68,6 +81,20 @@ export default function SocialProof() {
   const logosRef   = useRef<HTMLDivElement>(null);
   const pillRefs   = useRef<(HTMLDivElement | null)[]>([]);
 
+  const [pillScale, setPillScale] = useState(1);
+  const pillScaleRef = useRef(1);
+
+  useEffect(() => {
+    const update = () => {
+      const s = pillScaleFor(window.innerWidth);
+      pillScaleRef.current = s;
+      setPillScale(s);
+    };
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
+
   useEffect(() => {
     let started   = false;
     let cleanupFn: (() => void) | null = null;
@@ -76,6 +103,9 @@ export default function SocialProof() {
       const overlay = overlayRef.current;
       const logos   = logosRef.current;
       if (!overlay || !logos) return;
+
+      const scale = pillScaleRef.current;
+      const pillH = PILL_H * scale;
 
       const M = await import('matter-js');
       const W = overlay.offsetWidth || window.innerWidth;
@@ -118,18 +148,20 @@ export default function SocialProof() {
       cleanupFn = clearEngine;
 
       PILLS.forEach((pill, i) => {
+        const pillW = pill.w * scale;
+
         // Spawn above the overlay top (negative y in overlay coords).
         const spawnX    = 80 + Math.random() * Math.max(W - 160, 100);
         const spawnY    = -(80 + Math.random() * 120);
         const initAngle = (Math.random() - 0.5) * 0.6;
 
-        const body = M.Bodies.rectangle(spawnX, spawnY, pill.w, PILL_H, {
+        const body = M.Bodies.rectangle(spawnX, spawnY, pillW, pillH, {
           restitution: 0.25,
           friction   : 0.3,
           frictionAir: 0.018,
           density    : 0.002,
           angle      : initAngle,
-          chamfer    : { radius: PILL_H / 2 },
+          chamfer    : { radius: pillH / 2 },
         });
         M.Body.setVelocity(body, {
           x: (Math.random() - 0.5) * 2.5,
@@ -156,9 +188,9 @@ export default function SocialProof() {
           const el = pillRefs.current[i];
           if (!el) return;
           const { x, y } = body.position;
-          const hw = PILLS[i].w / 2;
+          const hw = (PILLS[i].w * scale) / 2;
           el.style.transform =
-            `translate(${x - hw}px, ${y - PILL_H / 2}px) rotate(${body.angle}rad)`;
+            `translate(${x - hw}px, ${y - pillH / 2}px) rotate(${body.angle}rad)`;
         });
 
         // Only check for settlement after every pill has been added to the world.
@@ -192,11 +224,13 @@ export default function SocialProof() {
   }, []);
 
   return (
-    <section ref={sectionRef} className={styles.section}>
+    <section ref={sectionRef} id="our-clients" className={styles.section}>
 
       {/* Physics overlay — pills spawn above the section and fall to the floor.
           Positioned OVERLAY_TOP px above section top; overflow: visible so pills
-          that spawn above the overlay itself are still rendered. */}
+          that spawn above the overlay itself are still rendered. Same component
+          and physics on every breakpoint — pillScale (1 on desktop) is the only
+          viewport-dependent value, applied to geometry only. */}
       <div
         ref={overlayRef}
         aria-hidden="true"
@@ -219,8 +253,8 @@ export default function SocialProof() {
               position      : 'absolute',
               top           : 0,
               left          : 0,
-              height        : `${PILL_H}px`,
-              width         : `${pill.w}px`,
+              height        : `${PILL_H * pillScale}px`,
+              width         : `${pill.w * pillScale}px`,
               display       : 'flex',
               alignItems    : 'center',
               justifyContent: 'center',
@@ -228,13 +262,13 @@ export default function SocialProof() {
               background    : pill.bg,
               color         : pill.fg,
               fontFamily    : 'var(--font-matter)',
-              fontSize      : FONT_SZ,
+              fontSize      : `${FONT_SZ * pillScale}px`,
               fontWeight    : 500,
               whiteSpace    : 'nowrap',
               opacity       : 0,
               willChange    : 'transform',
               userSelect    : 'none',
-              padding       : PILL_PAD,
+              padding       : `${PILL_PAD_V * pillScale}px ${PILL_PAD_H * pillScale}px`,
               boxSizing     : 'border-box',
               lineHeight    : 1,
             }}
@@ -247,12 +281,12 @@ export default function SocialProof() {
       {/* Heading — z-index 20, always rendered above the pills layer */}
       <div className={styles.headWrap}>
         <h2 className={styles.heading}>
-          Trusted by 13,000+<br />businesses
+          13,000+ Professionals Scan<br /> with NextIQ
         </h2>
       </div>
 
       {/* Flex spacer — pushes logo strip to the section bottom */}
-      <div style={{ flex: 1, minHeight: 32 }} aria-hidden="true" />
+      <div className={styles.spacer} style={{ flex: 1, minHeight: 32 }} aria-hidden="true" />
 
       {/* Logo marquee strip */}
       <div ref={logosRef} className={styles.logosOuter}>

@@ -1,14 +1,49 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScanLine, Sparkles, Globe, RefreshCw, Lightbulb } from 'lucide-react';
+import Carousel, { type CarouselItem } from './Carousel';
 import styles from './Hero.module.css';
 
 const HEADLINES = [
-  'ERPNext\nExperts',
   'AI-Powered\nAutomation',
-  'Trusted\nEcosystem',
+  'Simless \nAI Integration\nWith ERP',
+  'Secure\nData Handling',
+];
+
+const HERO_CAROUSEL_ITEMS: CarouselItem[] = [
+  {
+    id: 1,
+    title: 'Scan Cards',
+    description: 'Capture any business card instantly.',
+    icon: <ScanLine className="h-[16px] w-[16px] text-white" />,
+  },
+  {
+    id: 2,
+    title: 'AI Extraction',
+    description: 'Structured contact data in seconds.',
+    icon: <Sparkles className="h-[16px] w-[16px] text-white" />,
+  },
+  {
+    id: 3,
+    title: 'Multilingual',
+    description: 'Works in any language, automatically.',
+    icon: <Globe className="h-[16px] w-[16px] text-white" />,
+  },
+  {
+    id: 4,
+    title: 'Auto-Sync',
+    description: 'Straight into your CRM or ERP.',
+    icon: <RefreshCw className="h-[16px] w-[16px] text-white" />,
+  },
+  {
+    id: 5,
+    title: 'Smart Insights',
+    description: 'Follow-up suggestions, instantly.',
+    icon: <Lightbulb className="h-[16px] w-[16px] text-white" />,
+  },
 ];
 
 export default function Hero() {
@@ -19,6 +54,24 @@ export default function Hero() {
   const footerOuterRef = useRef<HTMLDivElement>(null);
   const headlinesRef   = useRef<HTMLDivElement>(null);
   const headlineRefs   = useRef<(HTMLDivElement | null)[]>([]);
+
+  /* Responsive carousel size — mirrors the .video breakpoints in Hero.module.css.
+     Below 768px the pagination dots also move inline (below the description,
+     inside the circle's own centered flex column) instead of the absolutely-
+     positioned overlay desktop/tablet use — see Carousel's dotsInline prop. */
+  const [carouselSize, setCarouselSize] = useState(494);
+  const [dotsInline, setDotsInline] = useState(false);
+  useEffect(() => {
+    const updateSize = () => {
+      const w = window.innerWidth;
+      if (w < 768) { setCarouselSize(256); setDotsInline(true); }  // ~28% larger than the original 200px on mobile
+      else if (w < 1600) { setCarouselSize(395); setDotsInline(false); }
+      else { setCarouselSize(494); setDotsInline(false); }
+    };
+    updateSize();
+    window.addEventListener('resize', updateSize);
+    return () => window.removeEventListener('resize', updateSize);
+  }, []);
 
   /* GSAP scroll animations */
   useEffect(() => {
@@ -175,29 +228,16 @@ export default function Hero() {
           <div className={styles.body}>
             <div className={styles.container}>
               <div className={styles.video}>
-                <div className={styles.videoInner}>
-                  <svg viewBox="0 0 200 200" fill="none" aria-hidden="true" className={styles.videoSvg}>
-                    <circle cx="100" cy="100" r="96" stroke="rgba(255,255,255,0.07)" strokeWidth="1" />
-                    <circle cx="100" cy="100" r="60" stroke="rgba(255,255,255,0.10)" strokeWidth="1" />
-                    <circle cx="100" cy="100" r="16" fill="rgba(255,255,255,0.15)" />
-                    {[0, 72, 144, 216, 288].map((deg, i) => {
-                      const rad = (deg - 90) * (Math.PI / 180);
-                      const cx  = 100 + 60 * Math.cos(rad);
-                      const cy  = 100 + 60 * Math.sin(rad);
-                      const lx1 = 100 + 17 * Math.cos(rad);
-                      const ly1 = 100 + 17 * Math.sin(rad);
-                      const lx2 = cx - 11 * Math.cos(rad);
-                      const ly2 = cy - 11 * Math.sin(rad);
-                      return (
-                        <g key={i}>
-                          <line x1={lx1} y1={ly1} x2={lx2} y2={ly2} stroke="rgba(255,255,255,0.18)" strokeWidth="1" />
-                          <circle cx={cx} cy={cy} r="9" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.25)" strokeWidth="1" />
-                        </g>
-                      );
-                    })}
-                    <text x="100" y="104" textAnchor="middle" fill="rgba(255,255,255,0.8)" fontSize="11" fontWeight="700" fontFamily="system-ui, sans-serif" letterSpacing="-0.5">nIQ</text>
-                  </svg>
-                </div>
+                <Carousel
+                  items={HERO_CAROUSEL_ITEMS}
+                  baseWidth={carouselSize}
+                  autoplay
+                  autoplayDelay={3000}
+                  pauseOnHover={false}
+                  loop
+                  round
+                  dotsInline={dotsInline}
+                />
               </div>
             </div>
           </div>

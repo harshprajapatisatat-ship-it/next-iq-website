@@ -1,0 +1,378 @@
+/* ══════════════════════════════════════════════════════════════
+   BookDemoSection — "Book a Demo" split layout: top step-progress
+   cards, a white booking form on the left, "Let's talk." copy on
+   the right. Premium dark background: purple radial glows + grid + noise.
+   ══════════════════════════════════════════════════════════════ */
+
+.section {
+  position: relative;
+  background: #050505;
+  overflow: hidden;
+  padding: 96px 24px 140px;
+  scroll-margin-top: 24px;
+}
+
+/* ── Layered premium background ──────────────────────────────── */
+.bgLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(640px circle at 12% 8%, rgba(124, 58, 237, 0.20), transparent 60%),
+    radial-gradient(560px circle at 88% 22%, rgba(168, 85, 247, 0.14), transparent 60%),
+    radial-gradient(760px circle at 50% 105%, rgba(124, 58, 237, 0.12), transparent 60%),
+    radial-gradient(1200px circle at 50% 50%, transparent 40%, #050505 100%);
+}
+
+.bgGrid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.35;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 80% 65% at 50% 30%, black 0%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 65% at 50% 30%, black 0%, transparent 75%);
+}
+
+.bgNoise {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ── Top step-progress cards ─────────────────────────────────── */
+.stepsRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 80px;
+}
+
+.stepCard {
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 22px 24px 26px;
+  backdrop-filter: blur(6px);
+}
+
+.stepCardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+
+.stepDots {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.dotActive {
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.stepNumber {
+  font-family: var(--font-matter);
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.3);
+  letter-spacing: 0.03em;
+}
+
+.stepTitle {
+  font-family: var(--font-season-mix);
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 8px;
+}
+
+.stepDesc {
+  font-family: var(--font-matter);
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.45);
+  margin: 0;
+}
+
+/* ── Main two-column grid ────────────────────────────────────── */
+.mainGrid {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  align-items: top;
+  gap: 0;
+}
+
+/* ── Left: booking form card ─────────────────────────────────── */
+.formCard {
+  background: #fff;
+  border-radius: 30px;
+  padding: 44px 44px 40px;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(0, 0, 0, 0.02);
+  max-width: 800px;
+}
+
+.formTag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-matter);
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b6b6b;
+  margin-bottom: 18px;
+}
+
+.tagDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #0a0a0a;
+  flex-shrink: 0;
+}
+
+.formHeadline {
+  font-family: var(--font-season-mix);
+  font-size: clamp(26px, 2.6vw, 32px);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: #9a9a9a;
+  margin: 0 0 32px;
+}
+
+.headlineStrong {
+  color: #0a0a0a;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.14);
+  transition: border-color 0.2s ease;
+}
+
+.field:focus-within {
+  border-bottom-color: #0a0a0a;
+}
+
+.fieldLabel {
+  font-family: var(--font-matter);
+  font-size: 13px;
+  color: #9a9a9a;
+}
+
+.fieldInput {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-matter);
+  font-size: 15px;
+  color: #0a0a0a;
+  padding: 0;
+  min-width: 0;
+}
+
+.privacyText {
+  font-family: var(--font-matter);
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: #8a8a8a;
+  margin: 4px 0 0;
+}
+
+.checkboxRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.checkbox {
+  margin-top: 3px;
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  accent-color: #0a0a0a;
+}
+
+.checkboxRow span {
+  font-family: var(--font-matter);
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: #8a8a8a;
+}
+
+.submitBtn {
+  margin-top: 6px;
+  width: 100%;
+  padding: 17px 24px;
+  border: none;
+  border-radius: 16px;
+  background: #0a0a0a;
+  color: #fff;
+  font-family: var(--font-matter);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.submitBtn:hover {
+  background: #1f1f1f;
+}
+
+.submitBtn:active {
+  transform: scale(0.98);
+}
+
+/* ── Right: heading + supporting content ─────────────────────── */
+.rightCol {
+  padding-left: 96px;
+}
+
+.talkHeading {
+  font-family: var(--font-season-mix);
+  font-size: clamp(48px, 5.2vw, 72px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #fff;
+  margin: 0 0 40px;
+}
+
+.talkParagraph {
+  font-family: var(--font-season-mix);
+  font-size: clamp(22px, 2.2vw, 30px);
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: #fff;
+  max-width: 620px;
+  margin: 0;
+}
+
+.talkDim {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 48px 0 40px;
+  max-width: 620px;
+}
+
+.featuresRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  max-width: 620px;
+}
+
+.featureHead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.featureTitle {
+  font-family: var(--font-matter);
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+}
+
+.featureDesc {
+  font-family: var(--font-matter);
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.45);
+  margin: 0;
+}
+
+/* ── Responsive ───────────────────────────────────────────────── */
+@media (max-width: 1100px) {
+  .stepsRow {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .mainGrid {
+    grid-template-columns: 1fr;
+    gap: 64px;
+  }
+
+  .rightCol {
+    padding-left: 0;
+  }
+
+  .formCard {
+    max-width: 560px;
+  }
+}
+
+@media (max-width: 620px) {
+  .section {
+    padding: 64px 16px 96px;
+  }
+
+  .stepsRow {
+    grid-template-columns: 1fr;
+  }
+
+  .formCard {
+    padding: 32px 24px 28px;
+    border-radius: 24px;
+  }
+
+  .formRow {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .featuresRow {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}

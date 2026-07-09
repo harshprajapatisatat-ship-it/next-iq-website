@@ -12,6 +12,7 @@
   display: flex;
   flex-direction: column;
   min-height: 700px;
+  scroll-margin-top: 100px;
 }
 
 /* ── Heading block ──────────────────────────────────────── */
@@ -62,4 +63,73 @@
 @keyframes scrollLeft {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
+}
+
+/* ── Responsive: tablet (768–1023px) — minor scaling only ──────── */
+@media (max-width: 1024px) and (min-width: 768px) {
+  .section {
+    padding: 64px 0 0;
+    min-height: 560px;
+  }
+
+  .logosOuter {
+    padding: 40px 0 48px;
+  }
+
+  .logoItem {
+    padding: 0 36px;
+  }
+}
+
+/* ── Responsive: mobile (<768px) ───────────────────────────────────
+   Pills reuse the exact same physics overlay/component as desktop
+   (see SocialProof.tsx — pillScale is the only viewport-dependent
+   value, applied to geometry only). These rules only touch section
+   height/padding, heading placement, and the logo strip; overflow is
+   clipped here so a tall pile can never visually escape the card. */
+@media (max-width: 767px) {
+  .section {
+    padding: 40px 0 0;
+    min-height: 440px;
+    overflow: hidden; /* pills must stay inside the card */
+  }
+
+  /* Neutralize the inline flex:1 spacer (SocialProof.tsx) so
+     .headWrap alone grows to fill the space above the logos and
+     can truly center the heading within it. */
+  .spacer {
+    flex: 0 !important;
+    min-height: 0 !important;
+  }
+
+  .headWrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    min-height: 220px;
+  }
+
+  .heading {
+    position: relative;
+    z-index: 10;
+    font-size: clamp(34px, 8.5vw, 40px);
+    line-height: 1.22;
+  }
+
+  .logosOuter {
+    padding: 28px 20px 36px;
+    margin-top: 24px;
+  }
+
+  .logoItem {
+    padding: 0 18px;
+  }
+
+  .logoItem svg {
+    height: 40px;
+    width: auto;
+  }
 }

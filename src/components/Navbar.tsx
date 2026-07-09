@@ -138,17 +138,16 @@ function ContactUsButton({ size = "base" }: { size?: "base" | "sm" }) {
     : "min-h-[44px] px-6 py-3 text-base";
 
   return (
-    <a href="/contact-us">
-      <button
-        className={`group relative inline-flex items-center justify-center cursor-pointer font-matter font-medium rounded-full touch-manipulation overflow-hidden text-[#1e2033] active:scale-[0.97] active:duration-150 transition-all duration-[350ms] ease-[cubic-bezier(0.2,0,0,1)] w-fit text-nowrap ${sizeClasses}`}
-        style={{
-          background: "linear-gradient(to bottom, #ffffff 0%, #f0f1f5 100%)",
-          boxShadow: "inset 0 0 0 1px rgba(30,32,51,0.14)",
-        }}
-      >
-        <span className="relative z-10 flex items-center gap-2">Contact Us</span>
-      </button>
-    </a>
+    <button
+      onClick={() => document.getElementById("book-demo")?.scrollIntoView({ behavior: "smooth" })}
+      className={`group relative inline-flex items-center justify-center cursor-pointer font-matter font-medium rounded-full touch-manipulation overflow-hidden text-[#1e2033] active:scale-[0.97] active:duration-150 transition-all duration-[350ms] ease-[cubic-bezier(0.2,0,0,1)] w-fit text-nowrap ${sizeClasses}`}
+      style={{
+        background: "linear-gradient(to bottom, #ffffff 0%, #f0f1f5 100%)",
+        boxShadow: "inset 0 0 0 1px rgba(30,32,51,0.14)",
+      }}
+    >
+      <span className="relative z-10 flex items-center gap-2">Contact Us</span>
+    </button>
   );
 }
 
@@ -271,21 +270,33 @@ function PlatformMegaMenu({ onMouseEnter }: { onMouseEnter: () => void }) {
 
 const NAV_ITEMS = [
   { label: "Products" },
-  { label: "Our Clients" },
-  { label: "Featurs" },
-  { label: "FAQ" },
+  { label: "Our Clients", sectionId: "our-clients" },
+  { label: "Featurs", sectionId: "how-it-works" },
+  { label: "FAQ", sectionId: "faq" },
+] as const;
+
+/* Mobile-menu-only submenu shown under "Products" — see the
+   mobileProductsOpen expand/collapse in the mobile nav below. */
+const MOBILE_PRODUCT_ITEMS = [
+  { label: "NextIQ", href: "#nextiq" },
+  { label: "ERPNext", href: "#erpnext" },
 ] as const;
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
+  const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    if (!menuOpen) setMobileProductsOpen(false);
+  }, [menuOpen]);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
@@ -391,17 +402,23 @@ export default function Navbar() {
 
               {/* Nav links — centered, gap-4, flex-[2] */}
               <div className="flex flex-[2] justify-center items-center gap-4">
-                {NAV_ITEMS.map(({ label }) => {
-                  const menuKey = label.toLowerCase();
+                {NAV_ITEMS.map((item) => {
+                  const menuKey = item.label.toLowerCase();
                   const isActive = activeMenu === menuKey;
+                  const sectionId = "sectionId" in item ? item.sectionId : undefined;
                   return (
                     <button
-                      key={label}
+                      key={item.label}
                       onMouseEnter={() => setActiveMenu(menuKey === "products" ? "products" : null)}
+                      onClick={() => {
+                        if (sectionId) {
+                          document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
+                        }
+                      }}
                       className={`flex items-center gap-1.5 px-4 py-2 rounded-lg transition-colors duration-200 cursor-pointer ${isActive ? "bg-black/5" : "hover:bg-black/5"}`}
                     >
                       <span className="font-matter font-medium text-xs uppercase tracking-[1px] text-black">
-                        {label}
+                        {item.label}
                       </span>
                     </button>
                   );
@@ -514,17 +531,57 @@ export default function Navbar() {
             >
               {/* Nav items with dividers */}
               <div className="pt-1">
-                {NAV_ITEMS.map(({ label }) => (
-                  <div key={label}>
-                    <button className="flex w-full items-center justify-between px-6 py-[18px] hover:bg-black/[0.02] active:bg-black/[0.04] transition-colors text-left">
-                      <span className="font-matter font-medium text-xs uppercase tracking-[1px] text-[#1f1f1f]">
-                        {label}
-                      </span>
-                      <MobileChevronIcon />
-                    </button>
-                    <div className="h-px bg-black/[0.06]" />
-                  </div>
-                ))}
+                {NAV_ITEMS.map((item) => {
+                  const isProducts = item.label === "Products";
+                  const sectionId = "sectionId" in item ? item.sectionId : undefined;
+                  return (
+                    <div key={item.label}>
+                      <button
+                        onClick={() => {
+                          if (isProducts) {
+                            setMobileProductsOpen((v) => !v);
+                            return;
+                          }
+                          if (sectionId) {
+                            setMenuOpen(false);
+                            document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
+                          }
+                        }}
+                        className="flex w-full items-center justify-between px-6 py-[18px] hover:bg-black/[0.02] active:bg-black/[0.04] transition-colors text-left"
+                      >
+                        <span className="font-matter font-medium text-xs uppercase tracking-[1px] text-[#1f1f1f]">
+                          {item.label}
+                        </span>
+                        {isProducts && <MobileChevronIcon />}
+                      </button>
+
+                      {isProducts && (
+                        <div
+                          className="overflow-hidden"
+                          style={{
+                            maxHeight: mobileProductsOpen ? 200 : 0,
+                            transition: "max-height 0.4s cubic-bezier(0.2,0,0,1)",
+                          }}
+                        >
+                          <div className="pb-2">
+                            {MOBILE_PRODUCT_ITEMS.map((product) => (
+                              <a
+                                key={product.label}
+                                href={product.href}
+                                onClick={() => setMenuOpen(false)}
+                                className="block px-6 py-3 pl-10 font-matter font-medium text-[13px] text-[#3d3d3d] hover:bg-black/[0.02] active:bg-black/[0.04] transition-colors"
+                              >
+                                {product.label}
+                              </a>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="h-px bg-black/[0.06]" />
+                    </div>
+                  );
+                })}
               </div>
 
               {/* Full-width CTA buttons stacked */}
@@ -537,17 +594,19 @@ export default function Navbar() {
                     Log in
                   </button>
                 </a>
-                <a href="/contact-us" className="w-full">
-                  <button
-                    className="w-full font-matter font-medium text-[#1e2033] py-4 rounded-[24px] text-base transition-all duration-[350ms] ease-[cubic-bezier(0.2,0,0,1)] active:scale-[0.98]"
-                    style={{
-                      background: "linear-gradient(to bottom, #ffffff 0%, #f0f1f5 100%)",
-                      boxShadow: "inset 0 0 0 1px rgba(30,32,51,0.14)",
-                    }}
-                  >
-                    Contact Us
-                  </button>
-                </a>
+                <button
+                  onClick={() => {
+                    setMenuOpen(false);
+                    document.getElementById("book-demo")?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className="w-full font-matter font-medium text-[#1e2033] py-4 rounded-[24px] text-base transition-all duration-[350ms] ease-[cubic-bezier(0.2,0,0,1)] active:scale-[0.98]"
+                  style={{
+                    background: "linear-gradient(to bottom, #ffffff 0%, #f0f1f5 100%)",
+                    boxShadow: "inset 0 0 0 1px rgba(30,32,51,0.14)",
+                  }}
+                >
+                  Contact Us
+                </button>
               </div>
             </div>
 

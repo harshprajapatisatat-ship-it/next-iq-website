@@ -50,7 +50,7 @@ export default function VoiceOrbit() {
         </text>
 
         {/* Black band — thick stroke emerging from the chip to the right */}
-        <path d={CURVE2} fill="none" stroke="#1e2033  " strokeWidth="50" strokeLinecap="round" />
+        <path d={CURVE2} fill="none" stroke="#09090b  " strokeWidth="50" strokeLinecap="round" />
 
         {/* Clean speech — bold white marquee on the band */}
         <text
@@ -73,7 +73,7 @@ export default function VoiceOrbit() {
           x={WAVE_CX - 88} y={WAVE_CY - 24}
           width="176" height="48"
           rx="24"
-          fill="#fff" stroke="#1a1a1a" strokeWidth="3"
+          fill="#fff" stroke="#18181b" strokeWidth="3"
         />
         {WAVE_BARS.map((h, i) => (
           <rect
@@ -83,7 +83,7 @@ export default function VoiceOrbit() {
             width="5.5"
             height={h}
             rx="2.75"
-            fill="#1a1a1a"
+            fill="#18181b"
           >
             <animate
               attributeName="height"

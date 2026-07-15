@@ -7,16 +7,16 @@ import styles from "./WhySection.module.css";
 
 const CARDS = [
   {
-    background: "#fde8d7",
+    background: "#fdf0b8",
     icon: ScanLine,
-    iconColor: "#c4733d",
+    iconColor: "#b45309",
     heading: "Scan any business card, anywhere",
     body: "Point your camera at a card and get a clean, structured contact in seconds — no typing, no errors.",
   },
   {
-    background: "#ece0fb",
+    background: "#eaf3fb",
     icon: RefreshCw,
-    iconColor: "#7c3aed",
+    iconColor: "#09090b",
     heading: "Auto-synced straight to your CRM",
     body: "Every scanned contact flows directly into your CRM — no copy-paste, no double entry, no missed leads.",
   },

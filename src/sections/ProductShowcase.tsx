@@ -35,16 +35,16 @@ export default function ProductShowcase() {
   }, []);
 
   return (
-    <div ref={wrapperRef} className="relative flex flex-col items-center justify-center min-h-screen bg-[#f5f5f5] px-6 overflow-hidden">
+    <div ref={wrapperRef} className="relative flex flex-col items-center justify-center min-h-screen bg-[#f4f4f5] px-6 overflow-hidden">
 
       <div className="text-center mb-10 max-w-[560px]">
-        <p className="font-matter text-[12px] font-semibold text-[#999] uppercase tracking-[0.14em] mb-3">
+        <p className="font-matter text-[12px] font-semibold text-[#a1a1aa] uppercase tracking-[0.14em] mb-3">
           Platform
         </p>
-        <h2 className="font-season-mix font-bold text-[38px] leading-[1.1] tracking-[-0.025em] text-[#1f1f1f]">
+        <h2 className="font-season-mix font-normal text-[38px] leading-[1.1] tracking-[-0.025em] text-[#18181b]">
           Everything in one place
         </h2>
-        <p className="font-matter text-[16px] text-[#666] mt-3 leading-[1.6]">
+        <p className="font-matter text-[16px] text-[#71717a] mt-3 leading-[1.6]">
           Manage your entire ERPNext automation workflow from a single, intuitive dashboard.
         </p>
       </div>
@@ -52,7 +52,7 @@ export default function ProductShowcase() {
       <div
         ref={mockupRef}
         style={{ transformOrigin: 'center center' }}
-        className="w-full max-w-[960px] bg-[#1e2033] overflow-hidden shadow-2xl"
+        className="w-full max-w-[960px] bg-[#09090b] overflow-hidden shadow-2xl"
       >
         <div className="h-[520px] flex flex-col">
 
@@ -95,7 +95,7 @@ export default function ProductShowcase() {
                 ].map((stat) => (
                   <div key={stat.label} className="bg-white/5 rounded-xl p-4">
                     <p className="text-white/40 text-[11px] font-matter mb-1">{stat.label}</p>
-                    <p className="text-white text-[24px] font-bold font-season-mix leading-none">{stat.value}</p>
+                    <p className="text-white text-[24px] font-normal font-season-mix leading-none">{stat.value}</p>
                   </div>
                 ))}
               </div>

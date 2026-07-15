@@ -12,56 +12,56 @@ interface Testimonial {
 
 const TESTIMONIALS: Testimonial[] = [
   {
-    name: "Rahul Patel",
-    role: "Sales Director",
+    name: "kHETAN",
+    // role: "Sales Director",
     quote:
-      "NextIQ reduced our manual CRM work by over 80%. Business card scanning is now instant and every lead is automatically synced.",
-    initials: "RP",
-    color: "#7c3aed",
+      "Support bahut accha tha. Aapke jaise log aur team ho toh kaam aur bhi aasaan ho jata hai. Puri team ne har step par bahut accha support diya. Honestly, kisi bhi change ki zarurat nahi lagti. Sales team aur support team dono hi bahut achhi hain. Overall experience bahut badhiya raha.",
+    initials: "K",
+    color: "#09090b",
   },
   {
     name: "Priya Shah",
-    role: "Marketing Manager",
+    // role: "Marketing Manager",
     quote:
       "We scan hundreds of business cards during exhibitions and every contact is automatically organized inside ERPNext.",
     initials: "PS",
     color: "#2563eb",
   },
   {
-    name: "Amit Desai",
-    role: "Business Development Head",
+    name: "Wabsus",
+    // role: "Business Development Head",
     quote:
-      "Our sales team never loses leads anymore. NextIQ converts every business card into structured CRM data within seconds.",
-    initials: "AD",
+      "We worked with Satat for HR module onboarding, including client portal setup, payroll management, advances, expense tracking, and compliance management. It was a great experience working with the Satat team on ERPNext implementation. Vraj was highly talented and provided excellent support throughout the project. The team took the time to understand our company's processes and requirements, ensuring the solution was aligned with our way of working. Overall, it was a smooth and positive experience.",
+    initials: "W",
     color: "#059669",
   },
   {
     name: "Mehul Joshi",
-    role: "Operations Manager",
+    // role: "Operations Manager",
     quote:
       "The multilingual AI assistant saves hours every week and keeps our CRM perfectly updated.",
     initials: "MJ",
     color: "#dc2626",
   },
   {
-    name: "Sneha Kapoor",
-    role: "Founder, GrowthLoop Agency",
+    name: "HP Automation",
+    // role: "Founder, GrowthLoop Agency",
     quote:
-      "Onboarding took minutes. Within a week our whole team had ditched spreadsheets for good.",
-    initials: "SK",
+      "We have been using ERPNext for the last 8 years. While managing inventory, we faced several challenges and later expanded our usage to CRM, Buying, and HRMS modules. During this journey, we connected with Satat Technologies, and their domain expertise and service quality impressed us, leading to a successful collaboration. Satat has become a one-stop solution for our ERPNext needs. The team provides timely responses, handles queries efficiently, and consistently helps us find solutions to our business challenges. Their understanding of business processes and ERPNext has made our work significantly easier. The additional utilities and enhancements developed by Satat for ERPNext have also added great value to our operations. Overall satisfaction with ERPNext: 10/10 Overall satisfaction with Satat Technologies: 10/10.",
+    initials: "HP",
     color: "#0ea5e9",
   },
   {
     name: "Vikram Rao",
-    role: "VP Sales",
+    // role: "VP Sales",
     quote:
       "Our conversion rate from first call to demo jumped noticeably once every lead started arriving pre-qualified.",
     initials: "VR",
-    color: "#a855f7",
+    color: "#3f3f46",
   },
   {
     name: "Neha Verma",
-    role: "Customer Success Lead",
+    // role: "Customer Success Lead",
     quote:
       "Support tickets about missing contacts dropped to zero after we switched to NextIQ's scanning workflow.",
     initials: "NV",
@@ -69,7 +69,7 @@ const TESTIMONIALS: Testimonial[] = [
   },
   {
     name: "Arjun Mehta",
-    role: "Regional Sales Manager",
+    // role: "Regional Sales Manager",
     quote:
       "New hires are productive in days, not months — NextIQ hands them clean, ready-to-call leads from day one.",
     initials: "AM",
@@ -77,7 +77,7 @@ const TESTIMONIALS: Testimonial[] = [
   },
   {
     name: "Devika Nair",
-    role: "Inside Sales Team Lead",
+    // role: "Inside Sales Team Lead",
     quote:
       "Every trade show lead used to sit in someone's pocket for a week. Now it's in the CRM before the conversation even ends.",
     initials: "DN",

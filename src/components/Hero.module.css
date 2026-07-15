@@ -9,7 +9,7 @@
 .hero {
   position: relative;
   font-family: var(--font-matter);
-  background: #1e2033; /* dark base, visible in footer */
+  background: #09090b; /* dark base, visible in footer */
 }
 
 /* ── Clip zone: head + body ──────────────────── */
@@ -33,8 +33,8 @@
 
 @media (min-width: 768px) {
   .fill {
-    border-bottom-left-radius: 60px;
-    border-bottom-right-radius: 60px;
+    border-bottom-left-radius: 100px;
+    border-bottom-right-radius: 100px;
   }
 }
 
@@ -66,7 +66,7 @@
   height: 100px;
   margin: -70px auto 0;
   border-radius: 50%;
-  background: #1e2033;
+  background: #09090b;
   will-change: transform;
 }
 
@@ -156,12 +156,12 @@
 }
 
 .header h1 {
-  font-family: 'Satoshi', sans-serif;
-  font-weight: 600;
-  font-size: 56px;
-  line-height: 1.1;
+  font-family: var(--font-season-mix);
+  /* font-weight: 600; */
+  font-size: 80px;
+  line-height: 1;
   text-align: center;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.1rem;
   color: var(--color-tx);
 }
 
@@ -173,7 +173,7 @@
 
 @media (min-width: 1024px) {
   .header h1 {
-    font-size: 5vw;
+    font-size: 6vw;
   }
 }
 
@@ -248,7 +248,7 @@
   overflow: hidden;
   min-height: 52px;
   padding: 14px 28px;
-  background: linear-gradient(to bottom, #3a3f5c 0%, #1e2033 100%);
+  background: linear-gradient(to bottom, #27272a 0%, #09090b 100%);
   color: #fff;
   font-family: var(--font-matter);
   font-size: 15px;
@@ -423,7 +423,7 @@
 /* Height = carousel animation distance (300vh) + */
 /* footer height (100vh) = 400vh on desktop.      */
 .footerOuter {
-  background: #1e2033;
+  background: #09090b;
   position: relative;
 }
 
@@ -435,7 +435,7 @@
 
 /* ── Footer sticky element (pt-hero-footer) ──── */
 .footer {
-  background: #1e2033;
+  background: #09090b;
 }
 
 @media (min-width: 1200px) {
@@ -510,7 +510,7 @@
 .headline h2 {
   display: inline-block;
   font-family: var(--font-season-mix);
-  font-weight: 600;
+  font-weight: 400;
   font-size: 50px;
   line-height: 90%;
   letter-spacing: -0.05em;

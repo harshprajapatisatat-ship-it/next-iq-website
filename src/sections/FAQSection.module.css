@@ -17,11 +17,11 @@
 
 .heading {
   font-family: var(--font-season-mix);
-  font-size: clamp(36px, 6vw, 76px);
-  font-weight: 800;
+  font-size: clamp(72px, 11vw, 128px);
+  font-weight: 400;
   line-height: 1.08;
   letter-spacing: -0.02em;
-  color: #0a0a0a;
+  color: #09090b;
   text-align: center;
   margin: 0 0 64px;
 }
@@ -39,7 +39,7 @@
 }
 
 .item {
-  border: 1px solid #ececec;
+  border: 1px solid #e4e4e7;
   border-radius: 28px;
   background: #fff;
   overflow: hidden;
@@ -47,7 +47,7 @@
 }
 
 .itemOpen {
-  border-color: #e0d4fb;
+  border-color: #fdcf00;
 }
 
 .trigger {
@@ -73,7 +73,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  background: #0a0a0a;
+  background: #09090b;
   transform: translate(-50%, -50%);
 }
 
@@ -93,10 +93,10 @@
 }
 
 .question {
-  font-family: var(--font-matter);
+  font-family: var(--font-season-mix);
   font-size: 28px;
-  font-weight: 500;
-  color: #171717;
+  font-weight: 400;
+  color: #09090b;
   line-height: 1.4;
 }
 
@@ -120,7 +120,7 @@
   font-family: var(--font-matter);
   font-size: 20px;
   line-height: 1.6;
-  color: #666666;
+  color: #71717a;
 }
 
 @media (max-width: 1024px) {

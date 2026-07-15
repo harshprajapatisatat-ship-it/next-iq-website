@@ -1,7 +1,9 @@
 /* ══════════════════════════════════════════════════════════════
    CurvedInput — a "bent" glass capsule (email input + button)
    whose top/bottom edges bow outward, echoing a curved/spherical
-   surface. `bend` controls how pronounced the bow is.
+   surface. `bend` controls how pronounced the bow is; when `bend`
+   is 0 the component falls back to a flat rounded-rect (`cornerRadius`)
+   with no SVG mask, matching the react-bits "flat" preset.
    ══════════════════════════════════════════════════════════════ */
 
 .wrap {
@@ -18,12 +20,12 @@
   -webkit-backdrop-filter: blur(14px);
 }
 
-.dark .shape {
-  background: rgba(255, 255, 255, 0.07);
-}
-
-.light .shape {
-  background: rgba(10, 14, 24, 0.06);
+/* Flat (non-bend) fill — plain rounded rect, no mask needed */
+.flatShape {
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
 /* Stroke outline, drawn on top so it isn't clipped away */
@@ -33,18 +35,6 @@
   width: 100%;
   height: 100%;
   pointer-events: none;
-}
-
-.outlinePath {
-  stroke-width: 1;
-}
-
-.dark .outlinePath {
-  stroke: rgba(255, 255, 255, 0.28);
-}
-
-.light .outlinePath {
-  stroke: rgba(10, 14, 24, 0.16);
 }
 
 /* Foreground input row */
@@ -60,6 +50,11 @@
   padding: 0 6px 0 22px;
 }
 
+.icon {
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+
 .input {
   flex: 1;
   min-width: 0;
@@ -68,57 +63,27 @@
   border: none;
   outline: none;
   font-family: var(--font-matter);
-  font-size: 15px;
 }
 
-.dark .input {
-  color: #fff;
-}
-
-.dark .input::placeholder {
-  color: rgba(255, 255, 255, 0.5);
-}
-
-.light .input {
-  color: #111;
-}
-
-.light .input::placeholder {
-  color: rgba(10, 14, 24, 0.45);
+.input::placeholder {
+  color: currentColor;
+  opacity: 0.5;
 }
 
 .btn {
   flex-shrink: 0;
   height: calc(100% - 12px);
   padding: 0 22px;
-  border-radius: 999px;
   cursor: pointer;
   white-space: nowrap;
   font-family: var(--font-matter);
-  font-size: 14px;
   font-weight: 500;
-  transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.15s ease;
+  border-style: solid;
+  transition: filter 0.25s ease, transform 0.15s ease;
 }
 
-.dark .btn {
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  background: rgba(255, 255, 255, 0.14);
-  color: #fff;
-}
-
-.dark .btn:hover {
-  background: rgba(255, 255, 255, 0.22);
-  box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
-}
-
-.light .btn {
-  border: 1px solid rgba(10, 14, 24, 0.2);
-  background: rgba(10, 14, 24, 0.9);
-  color: #fff;
-}
-
-.light .btn:hover {
-  background: rgba(10, 14, 24, 1);
+.btn:hover {
+  filter: brightness(1.15);
 }
 
 .btn:active {
@@ -132,19 +97,13 @@
     gap: 6px;
   }
 
-  .input {
-    font-size: 13.5px;
-  }
-
   .btn {
     padding: 0 16px;
-    font-size: 13px;
   }
 }
 
 @media (max-width: 380px) {
   .btn {
     padding: 0 13px;
-    font-size: 12px;
   }
 }

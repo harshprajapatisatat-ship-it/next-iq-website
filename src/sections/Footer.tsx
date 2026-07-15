@@ -32,7 +32,7 @@ export default function Footer() {
   return (
     <footer className={styles.footer}>
       <div className={styles.bgWordWrap} aria-hidden="true">
-        <span className={styles.bgWord}>NEXTIQ</span>
+        <span className={styles.bgWord}>NEXTiQ</span>
       </div>
 
       <div className={styles.hero}>
@@ -41,6 +41,18 @@ export default function Footer() {
           <div className={styles.globeDots} />
           <div className={styles.globeRingH} />
           <div className={styles.globeRingV} />
+        </div>
+
+        <div className={styles.curvedInputWrap}>
+          <CurvedInput
+            placeholder="Enter your email"
+            buttonText="Book a Demo"
+            theme="dark"
+            bend={28}
+            height={64}
+            width={450}
+            onSubmit={() => document.getElementById("book-demo")?.scrollIntoView({ behavior: "smooth" })}
+          />
         </div>
 
         <div className={styles.content}>
@@ -54,18 +66,6 @@ export default function Footer() {
             <br />
             <span className={styles.headingDim}>Business Assistant</span>
           </h2>
-
-          <div className={styles.curvedInputWrap}>
-            <CurvedInput
-              placeholder="Enter your email"
-              buttonText="Book a Demo"
-              theme="dark"
-              bend={28}
-              height={64}
-              width={450}
-              onSubmit={() => document.getElementById("book-demo")?.scrollIntoView({ behavior: "smooth" })}
-            />
-          </div>
         </div>
       </div>
 

@@ -32,7 +32,7 @@
 
 .bgWord {
   font-family: var(--font-season-mix);
-  font-weight: 900;
+  font-weight: 400;
   font-size: clamp(160px, 21vw, 420px);
   line-height: 1;
   letter-spacing: -0.02em;
@@ -57,7 +57,7 @@
 .globeGlow {
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 36%;
   width: min(60vw, 640px);
   height: min(60vw, 640px);
   transform: translate(-50%, -50%);
@@ -72,7 +72,7 @@
 .globe {
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 36%;
   width: min(42vw, 460px);
   height: min(42vw, 460px);
   transform: translate(-50%, -50%);
@@ -125,12 +125,16 @@
 
 /* Foreground content stack: pill → heading → button */
 .content {
-  position: relative;
+  position: absolute;
+  top: 36%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  width: 100%;
 }
 
 .pill {
@@ -160,7 +164,7 @@
 .heading {
   font-family: var(--font-season-mix);
   font-size: clamp(34px, 4.6vw, 64px);
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.2;
   letter-spacing: -0.01em;
   color: #fff;
@@ -201,7 +205,15 @@
   transform: scale(0.97);
 }
 
+/* Sits directly above the globe circle: bottom edge of the curved
+   capsule lands just above the globe's top arc, so the curve reads
+   as "meeting" the circle without overlapping its border/glow. */
 .curvedInputWrap {
+  position: absolute;
+  left: 50%;
+  top: calc(36% - min(21vw, 230px));
+  transform: translate(-50%, calc(-100% - 12px));
+  z-index: 3;
   display: flex;
   justify-content: center;
   width: 100%;
@@ -286,6 +298,19 @@
   .copyright {
     margin-left: 0;
     width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .pill {
+    max-width: 100%;
+    white-space: normal;
     text-align: center;
   }
 }

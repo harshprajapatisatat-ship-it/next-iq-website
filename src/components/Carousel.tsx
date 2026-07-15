@@ -93,8 +93,8 @@ function CarouselItemView({
       key={`${item?.id ?? index}-${index}`}
       className={`relative shrink-0 flex flex-col ${
         round
-          ? 'items-center justify-center text-center bg-[#120F17] border-0'
-          : 'items-start justify-between bg-[#222] border border-[#222] rounded-[12px]'
+          ? 'items-center justify-center text-center bg-[#09090b] border-0'
+          : 'items-start justify-between bg-[#27272a] border border-[#27272a] rounded-[12px]'
       } overflow-hidden cursor-grab active:cursor-grabbing`}
       style={{
         width: itemWidth,
@@ -105,13 +105,13 @@ function CarouselItemView({
       transition={transition}
     >
       <div className={`${round ? 'p-0 m-0' : 'mb-4 p-5'}`}>
-        <span className="flex h-[28px] w-[28px] items-center justify-center rounded-full bg-[#120F17]">
+        <span className="flex h-[28px] w-[28px] items-center justify-center rounded-full bg-[#09090b]">
           {item.icon}
         </span>
       </div>
       <div className="p-5">
-        <div className="mb-1 font-black text-lg text-white">{item.title}</div>
-        <p className="text-sm text-white">{item.description}</p>
+        <div className="mb-1 font-season-mix font-normal text-xl text-white">{item.title}</div>
+        <p className="font-matter text-base text-white">{item.description}</p>
       </div>
       {round && dotsInline && typeof totalItems === 'number' && (
         <div className="flex items-center justify-center gap-2 mt-3">
@@ -123,7 +123,7 @@ function CarouselItemView({
               aria-current={activeDotIndex === dotIdx}
               onClick={(e) => { e.stopPropagation(); onDotClick?.(dotIdx); }}
               className={`h-2 w-2 rounded-full cursor-pointer border-0 p-0 appearance-none transition-colors duration-150 ${
-                activeDotIndex === dotIdx ? 'bg-white' : 'bg-[#555]'
+                activeDotIndex === dotIdx ? 'bg-white' : 'bg-[#52525b]'
               }`}
             />
           ))}
@@ -270,7 +270,7 @@ export default function Carousel({
     <div
       ref={containerRef}
       className={`relative overflow-hidden p-4 ${
-        round ? 'rounded-full border border-white' : 'rounded-[24px] border border-[#222]'
+        round ? 'rounded-full border border-white' : 'rounded-[24px] border border-[#27272a]'
       }`}
       style={{
         width: `${baseWidth}px`,
@@ -324,9 +324,9 @@ export default function Carousel({
                   activeIndex === index
                     ? round
                       ? 'bg-white'
-                      : 'bg-[#333333]'
+                      : 'bg-[#27272a]'
                     : round
-                      ? 'bg-[#555]'
+                      ? 'bg-[#52525b]'
                       : 'bg-[rgba(51,51,51,0.4)]'
                 }`}
                 animate={{

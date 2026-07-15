@@ -46,7 +46,7 @@ export default function DotField({
   waveAmplitude = 0,
   gradientFrom  = 'rgba(255,255,255,0.55)',
   gradientTo    = 'rgba(255,255,255,0.25)',
-  glowColor     = '#A855F7',
+  glowColor     = '#3f3f46',
 }: DotFieldProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef  = useRef({ x: -99999, y: -99999 });

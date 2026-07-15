@@ -6,7 +6,7 @@
 
 .section {
   position: relative;
-  background: #000000;
+  background: #09090b;
   padding: 96px 24px 100px;
   overflow: hidden;
 }
@@ -41,14 +41,14 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #7c3aed;
+  background: #09090b;
   flex-shrink: 0;
 }
 
 .heading {
   font-family: var(--font-season-mix);
   font-size: clamp(32px, 3.6vw, 48px);
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: -0.02em;
   color: #fff;
   margin: 0;
@@ -60,16 +60,17 @@
   border-radius: 999px;
   border: none;
   background: #fff;
-  color: #0a0a0a;
+  color: #09090b;
   font-family: var(--font-matter);
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.2s ease;
+  transition: transform 0.15s ease, background 0.2s ease;
 }
 
 .ctaBtn:hover {
-  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.15);
+  background: #f4f4f5;
+  transform: translateY(-2px);
 }
 
 .ctaBtn:active {
@@ -144,7 +145,7 @@
   bottom: -30%;
   width: 70%;
   height: 70%;
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.16), transparent 70%);
+  background: radial-gradient(circle, rgba(253, 207, 0, 0.16), transparent 70%);
   pointer-events: none;
 }
 

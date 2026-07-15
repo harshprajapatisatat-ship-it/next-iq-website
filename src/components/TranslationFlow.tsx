@@ -87,7 +87,7 @@ export default function TranslationFlow() {
         <use
           href="#tf2-path"
           fill="none"
-          stroke="rgba(168,85,247,0.15)"
+          stroke="rgba(253,207,0,0.25)"
           strokeWidth="1.5"
           strokeDasharray="5 10"
         />
@@ -109,15 +109,15 @@ export default function TranslationFlow() {
 
         {/* NEXTIQ node — positioned via useEffect */}
         <g id="tf2-node">
-          <circle r="90" fill="rgba(168,85,247,0.018)" />
-          <circle r="68" fill="rgba(168,85,247,0.042)" />
-          <circle r="54" fill="none" stroke="#a855f7" strokeWidth="1" opacity="0.45" />
-          <circle r="50" fill="#070012" stroke="#a855f7" strokeWidth="1.5" filter="url(#tf2-glow)" />
-          <circle r="42" fill="none" stroke="rgba(168,85,247,0.22)" strokeWidth="0.5" />
+          <circle r="90" fill="rgba(253,207,0,0.05)" />
+          <circle r="68" fill="rgba(253,207,0,0.08)" />
+          <circle r="54" fill="none" stroke="#3f3f46" strokeWidth="1" opacity="0.45" />
+          <circle r="50" fill="#09090b" stroke="#3f3f46" strokeWidth="1.5" filter="url(#tf2-glow)" />
+          <circle r="42" fill="none" stroke="rgba(253,207,0,0.35)" strokeWidth="0.5" />
           <circle r="88" fill="url(#tf2-blend)" />
           <text
             textAnchor="middle" y="-8"
-            fill="#c084fc" fontSize="8.5" fontWeight="700" letterSpacing="2.6"
+            fill="#71717a" fontSize="8.5" fontWeight="700" letterSpacing="2.6"
             fontFamily="system-ui,ui-sans-serif,sans-serif"
           >NEXT</text>
           <text

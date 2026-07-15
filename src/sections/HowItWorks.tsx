@@ -21,7 +21,7 @@ function BrowserBar({ dark = false }: { dark?: boolean }) {
 function NxMark({ size = 28 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 28 28" fill="none" aria-hidden="true">
-      <circle cx="14" cy="14" r="14" fill="#7c3aed" />
+      <circle cx="14" cy="14" r="14" fill="#09090b" />
       <path
         d="M9 20V8l5 8 5-8v12"
         stroke="#fff"
@@ -49,7 +49,7 @@ function Card1() {
         waveAmplitude={0}
         gradientFrom="rgba(255,255,255,0.55)"
         gradientTo="rgba(255,255,255,0.25)"
-        glowColor="#A855F7"
+        glowColor="#3f3f46"
       />
 
       {/* Product-demo video, filling a single browser window */}
@@ -82,8 +82,8 @@ function Card2() {
           sentence="All Language Support"
           manualMode={false}
           blurAmount={3}
-          borderColor="#7c3aed"
-          glowColor="rgba(124, 58, 237, 0.6)"
+          borderColor="#09090b"
+          glowColor="rgba(253, 207, 0, 0.6)"
           animationDuration={0.5}
           pauseBetweenAnimations={0.5}
           fontSize="22px"
@@ -100,7 +100,7 @@ function Card3() {
       <MagnetLines
         rows={11}
         columns={9}
-        lineColor="rgba(76, 29, 149, 0.55)"
+        lineColor="rgba(9, 9, 11, 0.55)"
         lineWidth="3px"
         lineHeight="16px"
         baseAngle={-10}
@@ -225,7 +225,7 @@ export default function HowItWorks() {
       {/* ── Heading block ────────────────────────────────────── */}
       <div className={styles.headBlock}>
         <h2 className={styles.headText}>
-          How <span className={styles.headHighlight}>NextIQ</span>
+          How <span className={styles.headHighlight}>NEXTiQ</span>
           <br />works?
         </h2>
       </div>

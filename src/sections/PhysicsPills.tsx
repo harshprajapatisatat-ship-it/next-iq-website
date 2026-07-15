@@ -16,18 +16,18 @@ interface PillDef {
 
 // Same pills as SocialProof marquee — they "fall" from the Hero transition
 const PILLS: PillDef[] = [
-  { text: 'Fantastic',      bg: '#fed7aa', fg: '#1f1f1f', w: 115 },
-  { text: 'Next-level',     bg: '#fef9c3', fg: '#1f1f1f', w: 122 },
-  { text: 'mind-blowingly', bg: '#f1f5f9', fg: '#1f1f1f', w: 172 },
-  { text: 'Whoa',           bg: '#fef3c7', fg: '#1f1f1f', w: 83  },
-  { text: 'my superpower',  bg: '#fce7f3', fg: '#1f1f1f', w: 160 },
-  { text: 'Awesome!',       bg: '#1e2033', fg: '#ffffff', w: 118 },
-  { text: 'Insane',         bg: '#ddd6fe', fg: '#1f1f1f', w: 93  },
-  { text: 'Amazing!',       bg: '#ede9fe', fg: '#1f1f1f', w: 112 },
-  { text: 'Unreal',         bg: '#ffedd5', fg: '#1f1f1f', w: 93  },
-  { text: 'Super!',         bg: '#d1fae5', fg: '#1f1f1f', w: 88  },
-  { text: 'Incredible',     bg: '#d1fae5', fg: '#1f1f1f', w: 116 },
-  { text: 'Perfect!',       bg: '#ede9fe', fg: '#1f1f1f', w: 104 },
+  { text: 'Fantastic',      bg: '#ff894a', fg: '#18181b', w: 115 },
+  { text: 'Next-level',     bg: '#fdcf00', fg: '#18181b', w: 122 },
+  { text: 'mind-blowingly', bg: '#f4f4f5', fg: '#18181b', w: 172 },
+  { text: 'Whoa',           bg: '#fdcf00', fg: '#18181b', w: 83  },
+  { text: 'my superpower',  bg: '#f2d4da', fg: '#18181b', w: 160 },
+  { text: 'Awesome!',       bg: '#09090b', fg: '#ffffff', w: 118 },
+  { text: 'Insane',         bg: '#d9c9ff', fg: '#18181b', w: 93  },
+  { text: 'Amazing!',       bg: '#f4f4f5', fg: '#18181b', w: 112 },
+  { text: 'Unreal',         bg: '#ff894a', fg: '#18181b', w: 93  },
+  { text: 'Super!',         bg: '#5adba5', fg: '#18181b', w: 88  },
+  { text: 'Incredible',     bg: '#5adba5', fg: '#18181b', w: 116 },
+  { text: 'Perfect!',       bg: '#f4f4f5', fg: '#18181b', w: 104 },
 ];
 
 export default function PhysicsPills() {

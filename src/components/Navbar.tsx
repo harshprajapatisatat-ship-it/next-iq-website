@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { ScanLine, Bot } from "lucide-react";
@@ -22,10 +22,10 @@ function StarIcon({ id }: { id: string }) {
       className="shrink-0"
     >
       <g filter={`url(#${filterId})`}>
-        <path d="M5.44591 9.26754C4.39059 10.3229 2.67959 10.3229 1.62427 9.26754L0.202621 7.8459C-0.0675402 7.57574 -0.0675402 7.13772 0.202621 6.86756L1.62427 5.44591C2.67959 4.39059 4.39059 4.39059 5.44591 5.44591L7.35673 7.35673L5.44591 9.26754Z" fill="#3d2b1a" />
-        <path d="M5.44591 13.0892C4.39059 12.0339 4.39059 10.3229 5.44591 9.26754L7.35673 7.35673L9.26754 9.26754C10.3229 10.3229 10.3229 12.0339 9.26754 13.0892L7.35673 15L5.44591 13.0892Z" fill="#3d2b1a" />
-        <path d="M5.44591 5.44591C4.39059 4.39059 4.39059 2.67959 5.44591 1.62427L6.86756 0.202621C7.13772 -0.0675402 7.57573 -0.0675402 7.84589 0.202621L9.26754 1.62427C10.3229 2.67959 10.3229 4.39059 9.26754 5.44591L7.35673 7.35673L5.44591 5.44591Z" fill="#3d2b1a" />
-        <path d="M13.0892 9.26754C12.0339 10.3229 10.3229 10.3229 9.26754 9.26754L7.35673 7.35673L9.26754 5.44591C10.3229 4.39059 12.0339 4.39059 13.0892 5.44591L15 7.35672L13.0892 9.26754Z" fill="#3d2b1a" />
+        <path d="M5.44591 9.26754C4.39059 10.3229 2.67959 10.3229 1.62427 9.26754L0.202621 7.8459C-0.0675402 7.57574 -0.0675402 7.13772 0.202621 6.86756L1.62427 5.44591C2.67959 4.39059 4.39059 4.39059 5.44591 5.44591L7.35673 7.35673L5.44591 9.26754Z" fill="#18181b" />
+        <path d="M5.44591 13.0892C4.39059 12.0339 4.39059 10.3229 5.44591 9.26754L7.35673 7.35673L9.26754 9.26754C10.3229 10.3229 10.3229 12.0339 9.26754 13.0892L7.35673 15L5.44591 13.0892Z" fill="#18181b" />
+        <path d="M5.44591 5.44591C4.39059 4.39059 4.39059 2.67959 5.44591 1.62427L6.86756 0.202621C7.13772 -0.0675402 7.57573 -0.0675402 7.84589 0.202621L9.26754 1.62427C10.3229 2.67959 10.3229 4.39059 9.26754 5.44591L7.35673 7.35673L5.44591 5.44591Z" fill="#18181b" />
+        <path d="M13.0892 9.26754C12.0339 10.3229 10.3229 10.3229 9.26754 9.26754L7.35673 7.35673L9.26754 5.44591C10.3229 4.39059 12.0339 4.39059 13.0892 5.44591L15 7.35672L13.0892 9.26754Z" fill="#18181b" />
       </g>
       <defs>
         <filter id={filterId} x="0" y="0" width="15" height="15" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
@@ -75,7 +75,7 @@ function CloseIcon() {
 
 function NewBadge() {
   return (
-    <span className="px-2 py-0.5 border rounded-full font-matter font-semibold text-[10px] leading-none shrink-0 bg-[#1f1f1f1a] border-[#1f1f1f33] text-[#1f1f1f]">
+    <span className="px-2 py-0.5 border rounded-full font-matter font-semibold text-[10px] leading-none shrink-0 bg-[#18181b1a] border-[#18181b33] text-[#18181b]">
       NEW
     </span>
   );
@@ -85,7 +85,7 @@ function AnnouncementLink() {
   return (
     <a
       href="/introducing-erpnext-automation"
-      className="flex items-center gap-1.5 font-matter font-medium text-[#1f1f1f] hover:text-[#3d3d3d] text-[14px] tracking-wide whitespace-nowrap transition-colors"
+      className="flex items-center gap-1.5 font-matter font-medium text-[#18181b] hover:text-[#52525b] text-[14px] tracking-wide whitespace-nowrap transition-colors"
     >
       Nexiq introduces ERPNext Automation for modern businesses
       <ArrowRightIcon />
@@ -98,16 +98,6 @@ function AnnouncementLink() {
 ───────────────────────────────────────────────────────────── */
 
 function LogInButton({ size = "base" }: { size?: "base" | "sm" }) {
-  const btnRef = useRef<HTMLButtonElement>(null);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const el = btnRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    el.style.setProperty("--gx", `${((e.clientX - rect.left) / rect.width) * 100}%`);
-    el.style.setProperty("--gy", `${((e.clientY - rect.top) / rect.height) * 100}%`);
-  };
-
   const sizeClasses = size === "sm"
     ? "min-h-[44px] px-5 py-3 text-[15px]"
     : "min-h-[44px] px-6 py-3 text-base";
@@ -115,17 +105,9 @@ function LogInButton({ size = "base" }: { size?: "base" | "sm" }) {
   return (
     <a href="/dashboard" target="_blank" rel="noopener noreferrer">
       <button
-        ref={btnRef}
-        onMouseMove={handleMouseMove}
-        className={`group relative inline-flex items-center justify-center cursor-pointer font-matter font-medium overflow-hidden rounded-full touch-manipulation text-white active:scale-[0.97] active:duration-150 transition-all duration-[350ms] ease-[cubic-bezier(0.2,0,0,1)] w-fit text-nowrap ${sizeClasses}`}
-        style={{ background: "linear-gradient(to bottom, #3a3f5c 0%, #1e2033 100%)" }}
+        className={`group relative inline-flex items-center justify-center cursor-pointer font-matter font-medium overflow-hidden rounded-full touch-manipulation text-white hover:brightness-125 active:scale-[0.97] active:duration-150 transition-all duration-[350ms] ease-[cubic-bezier(0.2,0,0,1)] w-fit text-nowrap ${sizeClasses}`}
+        style={{ background: "linear-gradient(to bottom, #27272a 0%, #09090b 100%)" }}
       >
-        {/* Radial hover glow, cursor-tracked */}
-        <span
-          aria-hidden="true"
-          className="absolute inset-0 rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-[cubic-bezier(0.2,0,0,1)]"
-          style={{ background: "radial-gradient(circle 80px at var(--gx,50%) var(--gy,50%), rgba(255,255,255,0.16) 0%, transparent 100%)" }}
-        />
         <span className="relative z-10 flex items-center gap-2">Log in</span>
       </button>
     </a>
@@ -140,9 +122,9 @@ function ContactUsButton({ size = "base" }: { size?: "base" | "sm" }) {
   return (
     <button
       onClick={() => document.getElementById("book-demo")?.scrollIntoView({ behavior: "smooth" })}
-      className={`group relative inline-flex items-center justify-center cursor-pointer font-matter font-medium rounded-full touch-manipulation overflow-hidden text-[#1e2033] active:scale-[0.97] active:duration-150 transition-all duration-[350ms] ease-[cubic-bezier(0.2,0,0,1)] w-fit text-nowrap ${sizeClasses}`}
+      className={`group relative inline-flex items-center justify-center cursor-pointer font-matter font-medium rounded-full touch-manipulation overflow-hidden text-[#09090b] active:scale-[0.97] active:duration-150 transition-all duration-[350ms] ease-[cubic-bezier(0.2,0,0,1)] w-fit text-nowrap ${sizeClasses}`}
       style={{
-        background: "linear-gradient(to bottom, #ffffff 0%, #f0f1f5 100%)",
+        background: "linear-gradient(to bottom, #ffffff 0%, #f4f4f5 100%)",
         boxShadow: "inset 0 0 0 1px rgba(30,32,51,0.14)",
       }}
     >
@@ -158,7 +140,7 @@ function ContactUsButton({ size = "base" }: { size?: "base" | "sm" }) {
 const PLATFORM_PRODUCTS = [
   {
     icon: ScanLine,
-    iconColor: "text-[#4338ca]",
+    iconColor: "text-[#09090b]",
     label: "Nexiq Scan",
     description: "Scan business visiting cards and instantly create ERPNext leads.",
     href: "/platform/scan",
@@ -182,13 +164,13 @@ function PlatformMegaMenu({ onMouseEnter }: { onMouseEnter: () => void }) {
       transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
       onMouseEnter={onMouseEnter}
     >
-      <div className="border-t border-[#f0f0f0] px-10 pt-12 pb-14 w-full">
+      <div className="border-t border-[#e4e4e7] px-10 pt-12 pb-14 w-full">
         {/* 3-column grid: products span-1, hero span-2 → ~35/65 proportions */}
         <div className="grid grid-cols-3 gap-10 mx-auto max-w-5xl">
 
           {/* ── Left column: Products (Se "simple" type) ──────── */}
           <div className="flex flex-col gap-8">
-            <h4 className="font-matter font-medium text-[#1f1f1f] text-xs uppercase leading-snug tracking-[0.5px]">
+            <h4 className="font-matter font-medium text-[#18181b] text-xs uppercase leading-snug tracking-[0.5px]">
               Products
             </h4>
             <div className="flex flex-col gap-5">
@@ -198,10 +180,10 @@ function PlatformMegaMenu({ onMouseEnter }: { onMouseEnter: () => void }) {
                   <a
                     key={product.href}
                     href={product.href}
-                    className="group flex items-start gap-4 hover:bg-[#f5f5f5] -m-1 p-1 rounded-xl transition-all duration-200"
+                    className="group flex items-start gap-4 hover:bg-[#f4f4f5] -m-1 p-1 rounded-xl transition-all duration-200"
                   >
                     {/* Icon container — white box with light border */}
-                    <div className="flex justify-center items-center bg-white border border-[#e6e6e6]/50 rounded-lg w-[44px] h-[44px] transition-all duration-200 shrink-0">
+                    <div className="flex justify-center items-center bg-white border border-[#e4e4e7]/50 rounded-lg w-[44px] h-[44px] transition-all duration-200 shrink-0">
                       <Icon
                         size={22}
                         strokeWidth={1.5}
@@ -210,10 +192,10 @@ function PlatformMegaMenu({ onMouseEnter }: { onMouseEnter: () => void }) {
                     </div>
                     {/* Label + subtitle */}
                     <div className="flex flex-col gap-0.5 min-w-0 mt-[3px]">
-                      <h5 className="font-matter font-medium text-[16px] text-[#3d3d3d] group-hover:text-[#1f1f1f] leading-[1.3] transition-colors duration-200">
+                      <h5 className="font-matter font-medium text-[16px] text-[#52525b] group-hover:text-[#18181b] leading-[1.3] transition-colors duration-200">
                         {product.label}
                       </h5>
-                      <p className="font-matter text-[#666666] text-[13px] leading-snug">
+                      <p className="font-matter text-[#71717a] text-[13px] leading-snug">
                         {product.description}
                       </p>
                     </div>
@@ -226,7 +208,7 @@ function PlatformMegaMenu({ onMouseEnter }: { onMouseEnter: () => void }) {
           {/* ── Right column: Hero preview card — col-span-2 for 65% width ── */}
           <a
             href="/platform"
-            className="col-span-2 group block bg-[#fafafa] border border-[#f0f0f0] p-1.5 rounded-2xl h-fit overflow-hidden"
+            className="col-span-2 group block bg-[#fafafa] border border-[#e4e4e7] p-1.5 rounded-2xl h-fit overflow-hidden"
           >
             <div className="flex flex-row bg-white rounded-xl overflow-hidden">
               {/* Visual panel — flex-1 so it grows to fill ~50% of the 670px card */}
@@ -237,20 +219,20 @@ function PlatformMegaMenu({ onMouseEnter }: { onMouseEnter: () => void }) {
                 />
                 {/* Decorative dashboard preview elements */}
                 <div className="relative z-10 w-full px-3 flex flex-col gap-2">
-                  <div className="h-[6px] w-14 rounded-full bg-[#e6e6e6]/80" />
-                  <div className="h-[6px] w-10 rounded-full bg-[#e6e6e6]/60" />
-                  <div className="mt-2 h-7 w-full rounded-md bg-white/70 border border-[#e6e6e6]/50" />
-                  <div className="h-7 w-full rounded-md bg-white/70 border border-[#e6e6e6]/50" />
-                  <div className="h-7 w-full rounded-md bg-white/70 border border-[#e6e6e6]/50" />
+                  <div className="h-[6px] w-14 rounded-full bg-[#e4e4e7]/80" />
+                  <div className="h-[6px] w-10 rounded-full bg-[#e4e4e7]/60" />
+                  <div className="mt-2 h-7 w-full rounded-md bg-white/70 border border-[#e4e4e7]/50" />
+                  <div className="h-7 w-full rounded-md bg-white/70 border border-[#e4e4e7]/50" />
+                  <div className="h-7 w-full rounded-md bg-white/70 border border-[#e4e4e7]/50" />
                 </div>
               </div>
               {/* Text content */}
               <div className="flex flex-col flex-1 p-5">
                 <div className="flex flex-col justify-between gap-2.5 h-full">
-                  <h3 className="font-matter font-medium text-[18px] text-[#1f1f1f]">
+                  <h3 className="font-matter font-medium text-[18px] text-[#18181b]">
                     Nexiq Platform
                   </h3>
-                  <p className="font-matter text-[14px] text-[#666666]">
+                  <p className="font-matter text-[14px] text-[#71717a]">
                     AI-powered business automation for ERPNext. Scan visiting cards, create leads, enrich contacts, and resolve support tickets from a single platform.
                   </p>
                 </div>
@@ -335,7 +317,7 @@ export default function Navbar() {
                   <StarIcon id={`m${i}a`} />
                   <a href="/announcing-series-b" className="flex items-center gap-1.5 ml-3">
                     <NewBadge />
-                    <span className="font-matter font-medium text-[14px] tracking-wide whitespace-nowrap text-[#1f1f1f]">
+                    <span className="font-matter font-medium text-[14px] tracking-wide whitespace-nowrap text-[#18181b]">
                       Nexiq introduces ERPNext Automation for modern businesses
                     </span>
                     <ArrowRightIcon />
@@ -389,7 +371,7 @@ export default function Navbar() {
 
               {/* Logo — h-4.5 = 18px, exact from source */}
               <a href="/" className="flex flex-1 items-center gap-2 transition-opacity ">
-                <Image
+                {/* <Image
                   src="NEXTIQ.png"
                   alt="Nexiq"
                   width={202}
@@ -397,7 +379,18 @@ export default function Navbar() {
                   className="w-auto h-[18px]"
                   priority
                   unoptimized
-                />
+                /> */}
+              <h1
+                style={{
+                  fontFamily: "'Instrument Serif', serif",
+                  fontSize: "34px",
+                  fontWeight: 400,
+                  // lineHeight: 0.95,
+                  letterSpacing: "0.03em",
+                }}
+              >
+                NEXTiQ
+              </h1>
               </a>
 
               {/* Nav links — centered, gap-4, flex-[2] */}
@@ -466,9 +459,9 @@ export default function Navbar() {
                 {/* Small outlined Log in pill, centered */}
                 {/* <a href="/dashboard" target="_blank" rel="noopener noreferrer">
                   <button
-                    className="font-matter font-medium text-[#1e2033] text-[13px] px-[14px] py-[7px] rounded-full transition-all duration-200 active:scale-[0.97]"
+                    className="font-matter font-medium text-[#09090b] text-[13px] px-[14px] py-[7px] rounded-full transition-all duration-200 active:scale-[0.97]"
                     style={{
-                      background: "linear-gradient(to bottom, #ffffff 0%, #f0f1f5 100%)",
+                      background: "linear-gradient(to bottom, #ffffff 0%, #f4f4f5 100%)",
                       boxShadow: "inset 0 0 0 1px rgba(30,32,51,0.14)",
                     }}
                   >
@@ -479,7 +472,7 @@ export default function Navbar() {
                 {/* × close */}
                 <div className="flex justify-end">
                   <button
-                    className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-black/5 transition-colors focus:outline-none text-[#1f1f1f]"
+                    className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-black/5 transition-colors focus:outline-none text-[#18181b]"
                     aria-label="Close menu"
                     onClick={() => setMenuOpen(false)}
                   >
@@ -549,7 +542,7 @@ export default function Navbar() {
                         }}
                         className="flex w-full items-center justify-between px-6 py-[18px] hover:bg-black/[0.02] active:bg-black/[0.04] transition-colors text-left"
                       >
-                        <span className="font-matter font-medium text-xs uppercase tracking-[1px] text-[#1f1f1f]">
+                        <span className="font-matter font-medium text-xs uppercase tracking-[1px] text-[#18181b]">
                           {item.label}
                         </span>
                         {isProducts && <MobileChevronIcon />}
@@ -569,7 +562,7 @@ export default function Navbar() {
                                 key={product.label}
                                 href={product.href}
                                 onClick={() => setMenuOpen(false)}
-                                className="block px-6 py-3 pl-10 font-matter font-medium text-[13px] text-[#3d3d3d] hover:bg-black/[0.02] active:bg-black/[0.04] transition-colors"
+                                className="block px-6 py-3 pl-10 font-matter font-medium text-[13px] text-[#52525b] hover:bg-black/[0.02] active:bg-black/[0.04] transition-colors"
                               >
                                 {product.label}
                               </a>
@@ -589,7 +582,7 @@ export default function Navbar() {
                 <a href="/dashboard" target="_blank" rel="noopener noreferrer" className="w-full">
                   <button
                     className="w-full font-matter font-medium text-white py-4 rounded-[24px] text-base transition-all duration-[350ms] ease-[cubic-bezier(0.2,0,0,1)] active:scale-[0.98]"
-                    style={{ background: "linear-gradient(to bottom, #3a3f5c 0%, #1e2033 100%)" }}
+                    style={{ background: "linear-gradient(to bottom, #27272a 0%, #09090b 100%)" }}
                   >
                     Log in
                   </button>
@@ -599,9 +592,9 @@ export default function Navbar() {
                     setMenuOpen(false);
                     document.getElementById("book-demo")?.scrollIntoView({ behavior: "smooth" });
                   }}
-                  className="w-full font-matter font-medium text-[#1e2033] py-4 rounded-[24px] text-base transition-all duration-[350ms] ease-[cubic-bezier(0.2,0,0,1)] active:scale-[0.98]"
+                  className="w-full font-matter font-medium text-[#09090b] py-4 rounded-[24px] text-base transition-all duration-[350ms] ease-[cubic-bezier(0.2,0,0,1)] active:scale-[0.98]"
                   style={{
-                    background: "linear-gradient(to bottom, #ffffff 0%, #f0f1f5 100%)",
+                    background: "linear-gradient(to bottom, #ffffff 0%, #f4f4f5 100%)",
                     boxShadow: "inset 0 0 0 1px rgba(30,32,51,0.14)",
                   }}
                 >

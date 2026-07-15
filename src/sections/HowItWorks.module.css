@@ -5,7 +5,7 @@
 
 /* ── Section wrapper ─────────────────────────────────────────── */
 .section {
-  background: #000;
+  background: #09090b;
   position: relative;
   scroll-margin-top: 90px;
 }
@@ -23,18 +23,18 @@
 .headText {
   font-family: var(--font-season-mix);
   font-size: clamp(72px, 11vw, 128px);
-  font-weight: 800;
+  font-weight: 400;
   color: #fff;
   line-height: 1.05;
-  letter-spacing: -0.035em;
+  letter-spacing: 0.01em;
   margin: 0;
 }
 
 /* Green pill highlight on brand name — lime green matching reference */
 .headHighlight {
   display: inline-block;
-  background: #a3e635;
-  color: #0a0a0a;
+  background: #fdcf00;
+  color: #09090b;
   border-radius: 18px;
   padding: 4px 22px 12px;
   line-height: 1;
@@ -70,7 +70,7 @@
 .stepNum {
   font-family: var(--font-season-mix);
   font-size: clamp(100px, 18vh, 210px);
-  font-weight: 900;
+  font-weight: 400;
   color: #fff;
   line-height: 1;
   letter-spacing: -0.04em;
@@ -78,15 +78,16 @@
 }
 
 .stepBody {
-  font-family: var(--font-matter);
+  font-family: var(--font-season-mix);
   font-size: clamp(28px, 4.5vh, 54px);
-  font-weight: 600;
+  font-weight: 400;
   color: #fff;
   line-height: 1.35;
   margin: 0;
 }
 
 .stepDim {
+  font-family: var(--font-matter);
   font-size: 1.5rem;
   font-weight: 500;
   opacity: 0.65;
@@ -106,8 +107,8 @@
 /* Green highlight pill (Step 2) */
 .hiGreen {
   display: inline-block;
-  background: #a3e635;
-  color: #0a0a0a;
+  background: #fdcf00;
+  color: #09090b;
   border-radius: 999px;
   padding: 6px 24px 10px;
   white-space: nowrap;
@@ -118,8 +119,8 @@
 /* Purple highlight pill (Step 3) */
 .hiPurple {
   display: inline-block;
-  background: #7c3aed;
-  color: #fff;
+  background: #fdcf00;
+  color: #09090b;
   border-radius: 999px;
   padding: 6px 24px 10px;
   white-space: nowrap;
@@ -140,7 +141,7 @@
 
 /* ── Shared browser chrome bar ───────────────────────────────── */
 .barChrome {
-  background: #e2e2e2;
+  background: #d4d4d8;
   padding: 10px 14px;
   display: flex;
   align-items: center;
@@ -149,7 +150,7 @@
 }
 
 .barDark {
-  background: #2a2a2e;
+  background: #27272a;
 }
 
 .dot {
@@ -163,7 +164,7 @@
 /* ── Shared sub-elements ─────────────────────────────────────── */
 .accentBar {
   height: 5px;
-  background: #7c3aed;
+  background: #09090b;
   border-radius: 3px;
   width: 76%;
   margin: 12px 0 10px;
@@ -171,7 +172,7 @@
 
 .menuLine {
   height: 4px;
-  background: #d1d5db;
+  background: #d4d4d8;
   border-radius: 2px;
   width: 100%;
   margin-bottom: 7px;
@@ -184,7 +185,7 @@
   border-radius: 20px;
   overflow: hidden;
   position: relative;
-  background: #000;
+  background: #09090b;
 }
 
 .card1Inner {
@@ -225,7 +226,7 @@
   flex: 1;
   width: 100%;
   border-radius: 10px;
-  background: linear-gradient(145deg, #4338ca 0%, #7c3aed 55%, #a855f7 100%);
+  background: linear-gradient(145deg, #09090b 0%, #18181b 55%, #3f3f46 100%);
   position: relative;
   overflow: hidden;
   min-height: 100px;
@@ -242,8 +243,8 @@
 .c1Btn {
   padding: 10px 30px;
   border-radius: 999px;
-  background: #a3e635;
-  color: #000;
+  background: #fdcf00;
+  color: #09090b;
   font-family: var(--font-matter);
   font-size: 14px;
   font-weight: 600;
@@ -258,7 +259,7 @@
   height: 88vh;
   border-radius: 20px;
   overflow: hidden;
-  background: #f0edd8;
+  background: #f4f4f5;
   position: relative;
 }
 
@@ -268,7 +269,7 @@
   top: 32px;
   right: 40px;
   z-index: 3;
-  color: #1a1a1a;
+  color: #18181b;
   pointer-events: none;
 }
 
@@ -279,7 +280,7 @@
   border-radius: 999px;
   font-family: var(--font-season-mix);
   font-size: clamp(32px, 3.8vw, 58px);
-  font-weight: 700;
+  font-weight: 400;
   white-space: nowrap;
   pointer-events: none;
   user-select: none;
@@ -325,12 +326,12 @@
 .c2Hey {
   font-family: var(--font-matter);
   font-size: 13px;
-  color: #374151;
+  color: #3f3f46;
   flex-shrink: 0;
 }
 
 .c2Name {
-  background: #7c3aed;
+  background: #09090b;
   color: #fff;
   font-family: var(--font-matter);
   font-size: 12px;
@@ -342,7 +343,7 @@
 
 .dashLine {
   height: 4px;
-  background: #d1d5db;
+  background: #d4d4d8;
   border-radius: 2px;
   width: 52px;
   flex-shrink: 0;
@@ -350,7 +351,7 @@
 
 .bodyLine {
   height: 4px;
-  background: #e5e7eb;
+  background: #e4e4e7;
   border-radius: 2px;
   margin-bottom: 9px;
 }
@@ -362,7 +363,7 @@
   border-radius: 20px;
   overflow: hidden;
   position: relative;
-  background-color: #c4b5fd;
+  background-color: #71717a;
   padding: 36px 28px 36px;
   display: flex;
   flex-direction: column;
@@ -445,7 +446,7 @@
   flex-direction: column;
   border-radius: 16px;
   overflow: hidden;
-  background: #0b0b10;
+  background: #09090b;
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
 }

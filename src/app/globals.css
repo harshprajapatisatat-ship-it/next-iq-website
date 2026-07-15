@@ -2,39 +2,52 @@
 
 @theme {
   /* ── Fonts
-     Inter substitutes Matter (UI) and Season Mix (display).
-     font-matter  → all UI text, nav, buttons, body, labels
-     font-season-mix → large display headings (same fallback)    */
-  --font-matter: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-season-mix: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+     font-matter      → body/description text, nav, buttons, labels (DM Sans)
+     font-season-mix  → every heading (Instrument Serif, ultralight editorial feel)
+     font-label       → uppercase mono labels / eyebrow text (Geist Mono)         */
+  --font-matter: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-season-mix: var(--font-instrument-serif), ui-serif, Georgia, serif;
+  --font-label: var(--font-geist-mono), ui-monospace, monospace;
 
-  /* ── Text colors (Sarvam tx scale) */
-  --color-tx: #1f1f1f;
-  --color-tx-secondary: #3d3d3d;
-  --color-tx-tertiary: #666666;
-  --color-tx-disabled: #a3a3a3;
-  --color-tx-inverse: #faf8f5;
-  --color-tx-brand: #29211d;
-  --color-tx-accent: #c4733d;
+  /* ── Text colors (zinc scale) */
+  --color-tx: #18181b;
+  --color-tx-secondary: #52525b;
+  --color-tx-tertiary: #71717a;
+  --color-tx-disabled: #a1a1aa;
+  --color-tx-inverse: #fafafa;
+  --color-tx-brand: #09090b;
+  --color-tx-accent: #b45309;
 
-  /* ── Surface colors (Sarvam sf scale — backgrounds, cards, hover) */
+  /* ── Surface colors (backgrounds, cards, hover) */
   --color-sf: #fafafa;
-  --color-sf-secondary: #f5f5f5;
-  --color-sf-tertiary: #f0f0f0;
-  --color-sf-quaternary: #e6e6e6;
+  --color-sf-secondary: #f4f4f5;
+  --color-sf-tertiary: #e4e4e7;
+  --color-sf-quaternary: #d4d4d8;
+  --color-sf-inverse: #09090b;
+  --color-sf-accent: #fdcf00;
 
-  /* ── Stroke/border colors (Sarvam st scale) */
-  --color-st: #e6e6e6;
-  --color-st-secondary: #f0f0f0;
+  /* ── Stroke/border colors */
+  --color-st: #e4e4e7;
+  --color-st-secondary: #f4f4f5;
+  --color-st-inverse: #27272a;
+
+  /* ── Decorative accent palette (badges, pills, icon chips) */
+  --color-accent-yellow: #fdcf00;
+  --color-accent-orange: #ff894a;
+  --color-accent-purple: #d9c9ff;
+  --color-accent-pink: #f2d4da;
+  --color-accent-green: #5adba5;
+  --color-accent-lime: #f3f09b;
+  --color-accent-blue: #8ebfe1;
 
   /* ── Page background */
-  --color-background: #ffffff;
-  --color-foreground: #171717;
+  --color-background: #fafafa;
+  --color-foreground: #09090b;
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fafafa;
+  --foreground: #09090b;
 }
 
 body {

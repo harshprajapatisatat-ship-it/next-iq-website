@@ -26,9 +26,9 @@
 .heading {
   font-family: var(--font-season-mix);
   font-size: clamp(40px, 5vw, 96px);
-  font-weight: 800;
+  font-weight: 400;
   line-height: 1;
-  letter-spacing: -0.04em;
+  letter-spacing: 0.01em;
   color: var(--color-tx);
   margin: 0;
 }

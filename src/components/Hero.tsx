@@ -107,7 +107,7 @@ export default function Hero() {
         { scale: () => computeScale(), duration: 0.6, ease: 'none', force3D: false },
         0,
       );
-      revealTl.set(fill, { backgroundColor: '#1e2033' }, 0.7);
+      revealTl.set(fill, { backgroundColor: '#09090b' }, 0.7);
       revealTl.set(mask, { display: 'none' }, 0.7);
       revealTl.add(() => {}, 1);
 

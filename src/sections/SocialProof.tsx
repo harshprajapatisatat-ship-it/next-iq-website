@@ -13,33 +13,31 @@ interface Pill    { text: string; bg: string; fg: string; w: number }
 interface LogoDef { name: string; color: string; accent: string }
 
 const PILLS: Pill[] = [
-  { text: 'Fantastic',      bg: '#fed7aa', fg: '#1f1f1f', w: 156 },
-  { text: 'Next-level',     bg: '#fef9c3', fg: '#1f1f1f', w: 163 },
-  { text: 'mind-blowingly', bg: '#f1f5f9', fg: '#1f1f1f', w: 218 },
-  { text: 'Whoa',           bg: '#fef3c7', fg: '#1f1f1f', w: 116 },
-  { text: 'my superpower',  bg: '#fce7f3', fg: '#1f1f1f', w: 222 },
-  { text: 'Awesome!',       bg: '#1e2033', fg: '#ffffff', w: 158 },
-  { text: 'Insane',         bg: '#ddd6fe', fg: '#1f1f1f', w: 124 },
-  { text: 'Amazing!',       bg: '#ede9fe', fg: '#1f1f1f', w: 149 },
-  { text: 'Unreal',         bg: '#ffedd5', fg: '#1f1f1f', w: 124 },
-  { text: 'Super!',         bg: '#d1fae5', fg: '#1f1f1f', w: 122 },
-  { text: 'Incredible',     bg: '#d1fae5', fg: '#1f1f1f', w: 156 },
-  { text: 'Perfect!',       bg: '#ede9fe', fg: '#1f1f1f', w: 139 },
-  { text: 'No way!',        bg: '#fdf2f8', fg: '#1f1f1f', w: 139 },
-  { text: 'Unbelievable',   bg: '#e0f2fe', fg: '#1f1f1f', w: 186 },
-  { text: 'mind-blowing',   bg: '#f0fdf4', fg: '#1f1f1f', w: 198 },
-  { text: 'Game-changer',   bg: '#fef3c7', fg: '#1f1f1f', w: 206 },
+  { text: 'Fantastic',      bg: '#ff894a', fg: '#18181b', w: 156 },
+  { text: 'Next-level',     bg: '#fdcf00', fg: '#18181b', w: 163 },
+  { text: 'mind-blowingly', bg: '#f4f4f5', fg: '#18181b', w: 218 },
+  { text: 'Whoa',           bg: '#fdcf00', fg: '#18181b', w: 116 },
+  { text: 'my superpower',  bg: '#f2d4da', fg: '#18181b', w: 222 },
+  { text: 'Awesome!',       bg: '#09090b', fg: '#ffffff', w: 158 },
+  { text: 'Insane',         bg: '#d9c9ff', fg: '#18181b', w: 124 },
+  { text: 'Amazing!',       bg: '#f4f4f5', fg: '#18181b', w: 149 },
+  { text: 'Unreal',         bg: '#ff894a', fg: '#18181b', w: 124 },
+  { text: 'Super!',         bg: '#5adba5', fg: '#18181b', w: 122 },
+  { text: 'Incredible',     bg: '#5adba5', fg: '#18181b', w: 156 },
+  { text: 'Perfect!',       bg: '#f4f4f5', fg: '#18181b', w: 139 },
+  { text: 'No way!',        bg: '#f2d4da', fg: '#18181b', w: 139 },
+  { text: 'Unbelievable',   bg: '#8ebfe1', fg: '#18181b', w: 186 },
+  { text: 'mind-blowing',   bg: '#5adba5', fg: '#18181b', w: 198 },
+  { text: 'Game-changer',   bg: '#fdcf00', fg: '#18181b', w: 206 },
 ];
 
 const LOGOS: LogoDef[] = [
-  { name: 'PandaDoc',    color: '#1e3a8a', accent: '#2563eb' },
-  { name: 'Orum',        color: '#0369a1', accent: '#0ea5e9' },
-  { name: 'Opensense',   color: '#065f46', accent: '#059669' },
-  { name: 'AppsFlyer',   color: '#4c1d95', accent: '#7c3aed' },
-  { name: 'SAP',         color: '#1f2937', accent: '#374151' },
-  { name: 'CaptivateIQ', color: '#991b1b', accent: '#dc2626' },
-  { name: 'Collective',  color: '#374151', accent: '#6b7280' },
-  { name: 'MaintainX',   color: '#3f6212', accent: '#65a30d' },
+  { name: 'ABHAS SRIVASTAVA',    color: '#1e3a8a', accent: '#2563eb' },
+  { name: 'WABSUS INFRATECH',        color: '#0369a1', accent: '#0ea5e9' },
+  { name: 'KHETAN UDYOG',   color: '#065f46', accent: '#059669' },
+  { name: 'H P AUTOMATION',   color: '#09090b', accent: '#09090b' },
+  { name: 'KRIAM PHARMA',         color: '#27272a', accent: '#3f3f46' },
+  { name: 'SMVS (SWAMINARAYAN TRUST)', color: '#991b1b', accent: '#dc2626' },
 ];
 
 /* Same pill component/physics on every breakpoint. The only viewport-
@@ -281,7 +279,7 @@ export default function SocialProof() {
       {/* Heading — z-index 20, always rendered above the pills layer */}
       <div className={styles.headWrap}>
         <h2 className={styles.heading}>
-          13,000+ Professionals Scan<br /> with NextIQ
+          13,000+ Professionals Scan<br /> with NEXTiQ
         </h2>
       </div>
 

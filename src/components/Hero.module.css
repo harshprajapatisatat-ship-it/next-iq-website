@@ -56,46 +56,19 @@
   }
 }
 
-/* ── Dark circle (SendPotion: pt-hero-mask) ──── */
-/* Starts tiny; GSAP scales it on scroll.        */
+/* ── Dark reveal circle (crisp vector clip-path) ──
+   Fills the whole clip zone; the visible circle is carved out with
+   `clip-path: circle(var(--r) at var(--cx) var(--cy))`, all three
+   variables driven by GSAP (see Hero.tsx). Because clip-path is
+   re-rasterised per frame there is no texture stretching, so the
+   edge stays smooth at every radius — no more jagged "scaled bitmap"
+   look. --r starts at 0 (invisible) and grows past the far corner. */
 .mask {
   position: absolute;
-  top: calc(100vh + 50px);
-  left: 0; right: 0;
-  width: 100px;
-  height: 100px;
-  margin: -70px auto 0;
-  border-radius: 50%;
+  inset: 0;
   background: #09090b;
-  will-change: transform;
-}
-
-@media (max-height: 440px) {
-  .mask {
-    margin-top: -30px;
-  }
-}
-
-@media (min-width: 768px) {
-  .mask {
-    top: calc(100vh + 98.75px);
-    width: 197.5px;
-    height: 197.5px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .mask {
-    margin-top: -100px;
-  }
-}
-
-@media (min-width: 1600px) {
-  .mask {
-    top: calc(100vh + 123.5px);
-    width: 247px;
-    height: 247px;
-  }
+  clip-path: circle(var(--r, 0px) at var(--cx, 50%) var(--cy, 78%));
+  will-change: clip-path;
 }
 
 /* ── Content wrapper (SendPotion: pt-hero-content) */
@@ -345,12 +318,45 @@
   }
 }
 
-/* ── Video circle (pt-hero-video) ────────────── */
+/* ── Video circle + rotating orbit ring ──────── */
+/* Wrapper sizes to the circle (fit-content) and centres it; the
+   dashed ring is an absolutely-positioned sibling so it can extend
+   just outside the circle without being clipped by its overflow. */
+.videoWrap {
+  position: relative;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+/* White dashed vector ring, drawn on top of the dark circle (near its
+   rim) so the white dashes read against the dark fill, orbiting slowly. */
+.videoRing {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  animation: nx-ring-spin 28s linear infinite;
+}
+
+.videoRingSvg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .videoRing { animation: none; }
+}
+
+@keyframes nx-ring-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
 .video {
   position: relative;
   width: 256px; /* ~28% larger than the original 200px, mobile-only */
   height: 256px;
-  margin: 0 auto;
   overflow: hidden;
   cursor: pointer;
   border-radius: 50%;

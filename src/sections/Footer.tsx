@@ -32,7 +32,19 @@ export default function Footer() {
   return (
     <footer className={styles.footer}>
       <div className={styles.bgWordWrap} aria-hidden="true">
-        <span className={styles.bgWord}>NEXTiQ</span>
+        <span className={styles.bgWord}>NextIQ</span>
+      </div>
+
+      <div className={styles.curvedInputWrap}>
+        <CurvedInput
+          placeholder="Enter your email"
+          buttonText="Book a Demo"
+          theme="dark"
+          bend={28}
+          height={64}
+          width={450}
+          onSubmit={() => document.getElementById("book-demo")?.scrollIntoView({ behavior: "smooth" })}
+        />
       </div>
 
       <div className={styles.hero}>
@@ -41,18 +53,6 @@ export default function Footer() {
           <div className={styles.globeDots} />
           <div className={styles.globeRingH} />
           <div className={styles.globeRingV} />
-        </div>
-
-        <div className={styles.curvedInputWrap}>
-          <CurvedInput
-            placeholder="Enter your email"
-            buttonText="Book a Demo"
-            theme="dark"
-            bend={28}
-            height={64}
-            width={450}
-            onSubmit={() => document.getElementById("book-demo")?.scrollIntoView({ behavior: "smooth" })}
-          />
         </div>
 
         <div className={styles.content}>
@@ -86,10 +86,9 @@ export default function Footer() {
               {i < LEGAL_LINKS.length - 1 && <span className={styles.legalSep}>•</span>}
             </span>
           ))}
-          <span className={styles.copyright}>Copyright © 2026 NextIQ</span>
         </div>
 
-        <div className={styles.bottomSpacer} aria-hidden="true" />
+        <span className={styles.copyright}>Copyright © 2026 NextIQ</span>
       </div>
     </footer>
   );

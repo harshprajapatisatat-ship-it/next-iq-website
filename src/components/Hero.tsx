@@ -18,31 +18,31 @@ const HERO_CAROUSEL_ITEMS: CarouselItem[] = [
     id: 1,
     title: 'Scan Cards',
     description: 'Capture any business card instantly.',
-    icon: <ScanLine className="h-[16px] w-[16px] text-white" />,
+    icon: <ScanLine className="h-[24px] w-[24px] text-white" />,
   },
   {
     id: 2,
     title: 'AI Extraction',
     description: 'Structured contact data in seconds.',
-    icon: <Sparkles className="h-[16px] w-[16px] text-white" />,
+    icon: <Sparkles className="h-[24px] w-[24px] text-white" />,
   },
   {
     id: 3,
     title: 'Multilingual',
     description: 'Works in any language, automatically.',
-    icon: <Globe className="h-[16px] w-[16px] text-white" />,
+    icon: <Globe className="h-[24px] w-[24px] text-white" />,
   },
   {
     id: 4,
     title: 'Auto-Sync',
     description: 'Straight into your CRM or ERP.',
-    icon: <RefreshCw className="h-[16px] w-[16px] text-white" />,
+    icon: <RefreshCw className="h-[24px] w-[24px] text-white" />,
   },
   {
     id: 5,
     title: 'Smart Insights',
     description: 'Follow-up suggestions, instantly.',
-    icon: <Lightbulb className="h-[16px] w-[16px] text-white" />,
+    icon: <Lightbulb className="h-[24px] w-[24px] text-white" />,
   },
 ];
 
@@ -51,6 +51,7 @@ export default function Hero() {
   const clipRef        = useRef<HTMLDivElement>(null);
   const fillRef        = useRef<HTMLDivElement>(null);
   const maskRef        = useRef<HTMLDivElement>(null);
+  const videoRef       = useRef<HTMLDivElement>(null);
   const footerOuterRef = useRef<HTMLDivElement>(null);
   const headlinesRef   = useRef<HTMLDivElement>(null);
   const headlineRefs   = useRef<(HTMLDivElement | null)[]>([]);
@@ -86,25 +87,42 @@ export default function Hero() {
       const footOuter = footerOuterRef.current!;
       const hls      = headlinesRef.current!;
 
-      /* ── Circle-mask reveal (SendPotion: magicScroll / tlScroll) ── */
-      /* Use hero.clientHeight (includes footer) so scale is large   */
-      /* enough to cover all four clip corners — same as SendPotion  */
-      /* which uses wrapRef.clientHeight (also includes footer).     */
-      const hero = heroRef.current!;
-      const computeScale = () => {
-        const maskW = (gsap.getProperty(mask, 'width') as number) || 100;
-        const mult  = window.innerWidth > 767 ? 1.5 : 1.2;
-        return Math.max(
-          hero.clientWidth  / maskW * mult,
-          hero.clientHeight / maskW * mult,
-        );
+      /* ── Circle-mask reveal — crisp vector clip-path circle ──────────
+         Instead of scaling a small raster div up ~30× (which the GPU
+         rasterises once at ~100px then stretches, giving jagged, "cheap"
+         edges), the mask now fills the whole clip zone and we animate a
+         `clip-path: circle()` whose radius is driven by a CSS variable.
+         clip-path is re-evaluated per frame, so the edge stays perfectly
+         smooth at every size. The circle is centred on the carousel and
+         grows until it covers the farthest corner. */
+      const videoEl = videoRef.current!;
+
+      const centreOf = () => {
+        const c = clip.getBoundingClientRect();
+        const v = videoEl.getBoundingClientRect();
+        return {
+          cx: v.left + v.width  / 2 - c.left,
+          cy: v.top  + v.height / 2 - c.top,
+          w : c.width,
+          h : c.height,
+        };
+      };
+      const applyCentre = () => {
+        const { cx, cy } = centreOf();
+        gsap.set(mask, { '--cx': `${cx}px`, '--cy': `${cy}px` });
+      };
+      const computeMaxR = () => {
+        const { cx, cy, w, h } = centreOf();
+        const dx = Math.max(cx, w - cx);
+        const dy = Math.max(cy, h - cy);
+        return Math.hypot(dx, dy) * 1.08;
       };
 
       const revealTl = gsap.timeline();
       revealTl.fromTo(mask,
-        { scale: 0.1 },
-        /* Pass as function so invalidateOnRefresh re-evaluates on resize */
-        { scale: () => computeScale(), duration: 0.6, ease: 'none', force3D: false },
+        { '--r': '0px' },
+        /* Function value so invalidateOnRefresh re-measures on resize */
+        { '--r': () => `${computeMaxR()}px`, duration: 0.6, ease: 'none' },
         0,
       );
       revealTl.set(fill, { backgroundColor: '#09090b' }, 0.7);
@@ -118,7 +136,9 @@ export default function Hero() {
         end: () => 2 * window.innerHeight,
         scrub: window.innerWidth < 1024 ? 0.5 : 0.3,
         invalidateOnRefresh: true,
+        onRefresh: applyCentre,
       });
+      applyCentre();
 
       /* ── Headline animations (SendPotion: magicHeadline) ── */
       mm.add('(max-width: 1199px)', () => {
@@ -212,7 +232,7 @@ export default function Hero() {
                   <span className={styles.btnRipple} />
                   <span className={styles.btnRipple2} />
                   <span className={styles.btnInner}>
-                    <em><span>Get a quote today</span></em>
+                    <span>Get a Quote Today</span>
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                       <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
@@ -227,17 +247,35 @@ export default function Hero() {
           {/* Body: circular video preview */}
           <div className={styles.body}>
             <div className={styles.container}>
-              <div className={styles.video}>
-                <Carousel
-                  items={HERO_CAROUSEL_ITEMS}
-                  baseWidth={carouselSize}
-                  autoplay
-                  autoplayDelay={3000}
-                  pauseOnHover={false}
-                  loop
-                  round
-                  dotsInline={dotsInline}
-                />
+              <div className={styles.videoWrap}>
+                <div ref={videoRef} className={styles.video}>
+                  <Carousel
+                    items={HERO_CAROUSEL_ITEMS}
+                    baseWidth={carouselSize}
+                    autoplay
+                    autoplayDelay={3000}
+                    pauseOnHover={false}
+                    loop
+                    round
+                    dotsInline={dotsInline}
+                  />
+                </div>
+                {/* Slowly-rotating white dashed ring, drawn on top of the dark
+                    circle near its rim (thin stroke, long dashes) */}
+                <div className={styles.videoRing} aria-hidden="true">
+                  <svg className={styles.videoRingSvg} viewBox="0 0 100 100">
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="43"
+                      fill="none"
+                      stroke="rgba(255,255,255,0.75)"
+                      strokeWidth="0.3"
+                      strokeDasharray="2.4 2.8"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </div>
               </div>
             </div>
           </div>

@@ -4,7 +4,7 @@ import styles from "./TestimonialsSection.module.css";
 
 interface Testimonial {
   name: string;
-  role: string;
+  role?: string;
   quote: string;
   initials: string;
   color: string;
@@ -116,7 +116,7 @@ function TestimonialCard({ t }: { t: Testimonial }) {
         </span>
         <span className={styles.personText}>
           <span className={styles.personName}>{t.name}</span>
-          <span className={styles.personRole}>{t.role}</span>
+          {t.role && <span className={styles.personRole}>{t.role}</span>}
         </span>
       </div>
     </div>

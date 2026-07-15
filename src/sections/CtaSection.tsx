@@ -19,7 +19,7 @@ function ScanIllustration() {
             <div className={styles.miniCard}>
               <div className={styles.miniCardTop}>
                 <span className={styles.miniCardLogo} />
-                <span className={styles.miniCardWordmark}>NEXTIQ</span>
+                <span className={styles.miniCardWordmark}>NextIQ</span>
               </div>
 
               <span className={styles.miniCardName}>Alexa Morgan</span>

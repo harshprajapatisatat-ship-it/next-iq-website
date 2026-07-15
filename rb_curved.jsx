@@ -1,21 +1,11 @@
-'use client';
-
 import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import type {
-  CSSProperties,
-  ReactNode,
-  ChangeEvent,
-  FormEvent,
-  SyntheticEvent,
-  MouseEvent as ReactMouseEvent,
-} from 'react';
 import './CurvedInput.css';
 
 const DEG = 180 / Math.PI;
 
-const round2 = (n: number) => Math.round(n * 100) / 100;
+const round2 = n => Math.round(n * 100) / 100;
 
-const hexToRgba = (hex: string, alpha: number): string => {
+const hexToRgba = (hex, alpha) => {
   let h = String(hex).replace('#', '');
   if (h.length === 3)
     h = h
@@ -27,23 +17,9 @@ const hexToRgba = (hex: string, alpha: number): string => {
   return `rgba(${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}, ${alpha})`;
 };
 
-const SHADOWS: Record<string, [number, number, number]> = {
-  sm: [5, 12, 0.3],
-  md: [10, 24, 0.4],
-  lg: [16, 40, 0.52],
-};
+const SHADOWS = { sm: [5, 12, 0.3], md: [10, 24, 0.4], lg: [16, 40, 0.52] };
 
-interface Palette {
-  backgroundColor: string;
-  textColor: string;
-  placeholderColor: string;
-  borderColor: string;
-  buttonColor: string;
-  buttonTextColor: string;
-  shadowColor: string;
-}
-
-const THEMES: Record<'dark' | 'light', Palette> = {
+const THEMES = {
   dark: {
     backgroundColor: '#1B1722',
     textColor: '#f5f5f5',
@@ -51,7 +27,7 @@ const THEMES: Record<'dark' | 'light', Palette> = {
     borderColor: '#392e4e',
     buttonColor: '#A855F7',
     buttonTextColor: '#ffffff',
-    shadowColor: '#000000',
+    shadowColor: '#000000'
   },
   light: {
     backgroundColor: '#ffffff',
@@ -60,27 +36,14 @@ const THEMES: Record<'dark' | 'light', Palette> = {
     borderColor: '#262a56',
     buttonColor: '#4763eb',
     buttonTextColor: '#ffffff',
-    shadowColor: '#0b0e2a',
-  },
+    shadowColor: '#0b0e2a'
+  }
 };
-
-interface Geometry {
-  straight: boolean;
-  W: number;
-  T: number;
-  svgH: number;
-  R: number;
-  dir: number;
-  uPerLen: number;
-  point: (u: number, v: number) => [number, number];
-  angleAt: (u: number) => number;
-  uFromPoint: (x: number, y: number) => number;
-}
 
 // Maps the flat coordinate space (u: 0..W along the bar, v: offset from the
 // centerline, positive down) onto a circular arc with the given sagitta
 // (`bend`, in px). Positive bend arches up, negative sags down, 0 is flat.
-const buildGeometry = (width: number, bend: number, thickness: number, pad: number): Geometry => {
+const buildGeometry = (width, bend, thickness, pad) => {
   const W = width;
   const T = thickness;
   const s = Math.max(-W * 0.35, Math.min(bend, W * 0.35));
@@ -95,12 +58,10 @@ const buildGeometry = (width: number, bend: number, thickness: number, pad: numb
       W,
       T,
       svgH,
-      R: 0,
-      dir: 1,
       uPerLen: 1,
-      point: (u: number, v: number) => [u, midY + v],
+      point: (u, v) => [u, midY + v],
       angleAt: () => 0,
-      uFromPoint: (x: number) => x,
+      uFromPoint: x => x
     };
   }
 
@@ -118,26 +79,26 @@ const buildGeometry = (width: number, bend: number, thickness: number, pad: numb
     R,
     dir,
     uPerLen: W / (2 * R * phi),
-    point: (u: number, v: number) => {
+    point: (u, v) => {
       const th = ((u - cx) / cx) * phi;
       const rho = R - dir * v;
       return [cx + rho * Math.sin(th), cy - dir * rho * Math.cos(th)];
     },
-    angleAt: (u: number) => dir * ((u - cx) / cx) * phi * DEG,
-    uFromPoint: (x: number, y: number) => {
+    angleAt: u => dir * ((u - cx) / cx) * phi * DEG,
+    uFromPoint: (x, y) => {
       const th = Math.atan2(x - cx, dir * (cy - y));
       return cx + (th / phi) * cx;
-    },
+    }
   };
 };
 
-const fmt = (g: Geometry, u: number, v: number): string => {
+const fmt = (g, u, v) => {
   const [x, y] = g.point(u, v);
   return `${round2(x)} ${round2(y)}`;
 };
 
 // Segment along a constant-v edge, as a circular arc (or a line when flat)
-const edgeSeg = (g: Geometry, uTo: number, v: number, ltr: boolean): string => {
+const edgeSeg = (g, uTo, v, ltr) => {
   if (g.straight) return `L ${fmt(g, uTo, v)}`;
   const rho = round2(g.R - g.dir * v);
   const sweep = ltr === g.dir > 0 ? 1 : 0;
@@ -146,7 +107,7 @@ const edgeSeg = (g: Geometry, uTo: number, v: number, ltr: boolean): string => {
 
 // A rectangle bent along the arc: circular top/bottom edges, radial end caps
 // and quadratic rounded corners.
-const bentRectPath = (g: Geometry, u0: number, u1: number, vTop: number, vBot: number, radius: number): string => {
+const bentRectPath = (g, u0, u1, vTop, vBot, radius) => {
   const rc = Math.max(0, Math.min(radius, (vBot - vTop) / 2, (u1 - u0) / 2));
   return [
     `M ${fmt(g, u0 + rc, vTop)}`,
@@ -158,47 +119,13 @@ const bentRectPath = (g: Geometry, u0: number, u1: number, vTop: number, vBot: n
     `Q ${fmt(g, u0, vBot)} ${fmt(g, u0, vBot - rc)}`,
     `L ${fmt(g, u0, vTop + rc)}`,
     `Q ${fmt(g, u0, vTop)} ${fmt(g, u0 + rc, vTop)}`,
-    'Z',
+    'Z'
   ].join(' ');
 };
 
-const bentLinePath = (g: Geometry, u0: number, u1: number, v: number): string =>
-  `M ${fmt(g, u0, v)} ${edgeSeg(g, u1, v, true)}`;
+const bentLinePath = (g, u0, u1, v) => `M ${fmt(g, u0, v)} ${edgeSeg(g, u1, v, true)}`;
 
 const SELECTABLE_TYPES = ['text', 'search', 'tel', 'url', 'password'];
-
-export interface CurvedInputProps {
-  value?: string;
-  defaultValue?: string;
-  onChange?: (value: string) => void;
-  onSubmit?: (value: string) => void;
-  placeholder?: string;
-  buttonText?: string;
-  type?: string;
-  name?: string;
-  ariaLabel?: string;
-  theme?: 'dark' | 'light';
-  width?: number | string;
-  bend?: number;
-  height?: number;
-  cornerRadius?: number;
-  borderWidth?: number;
-  fontSize?: number;
-  backgroundColor?: string;
-  textColor?: string;
-  placeholderColor?: string;
-  borderColor?: string;
-  buttonColor?: string;
-  buttonTextColor?: string;
-  iconColor?: string;
-  shadowSize?: 'sm' | 'md' | 'lg' | false | null;
-  shadowColor?: string;
-  showButton?: boolean;
-  showIcon?: boolean;
-  icon?: ReactNode;
-  className?: string;
-  style?: CSSProperties;
-}
 
 const CurvedInput = ({
   value,
@@ -230,18 +157,18 @@ const CurvedInput = ({
   showIcon = true,
   icon,
   className = '',
-  style,
-}: CurvedInputProps) => {
+  style
+}) => {
   const uid = useId().replace(/:/g, '');
   const layoutPathId = `ci-text-${uid}`;
   const buttonPathId = `ci-btn-${uid}`;
   const clipId = `ci-clip-${uid}`;
 
-  const rootRef = useRef<HTMLFormElement>(null);
-  const svgRef = useRef<SVGSVGElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const textRef = useRef<SVGTextElement>(null);
-  const btnMeasureRef = useRef<SVGTextElement>(null);
+  const rootRef = useRef(null);
+  const svgRef = useRef(null);
+  const inputRef = useRef(null);
+  const textRef = useRef(null);
+  const btnMeasureRef = useRef(null);
   const scrollRef = useRef(0);
 
   const [w, setW] = useState(0);
@@ -341,29 +268,28 @@ const CurvedInput = ({
     setCaretU(layout.textStartU + (caretLen - next) * geom.uPerLen);
   });
 
-  const commitValue = (v: string) => {
+  const commitValue = v => {
     if (value === undefined) setInnerValue(v);
     onChange?.(v);
   };
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = e => {
     commitValue(e.target.value);
     setCaretIndex(e.target.selectionStart ?? e.target.value.length);
   };
 
-  const handleSelect = (e: SyntheticEvent<HTMLInputElement>) => {
-    const target = e.target as HTMLInputElement;
-    setCaretIndex(target.selectionStart ?? target.value.length);
+  const handleSelect = e => {
+    setCaretIndex(e.target.selectionStart ?? e.target.value.length);
   };
 
-  const handleSubmit = (e?: FormEvent) => {
+  const handleSubmit = e => {
     if (e?.preventDefault) e.preventDefault();
     if (onSubmit) onSubmit(val);
   };
 
   // Click on the curve: focus the hidden input and drop the caret on the
   // character closest to the click, measured in arc length.
-  const handleSurfaceClick = (e: ReactMouseEvent<SVGSVGElement>) => {
+  const handleSurfaceClick = e => {
     const input = inputRef.current;
     if (!input) return;
     let idx = display.length;
@@ -371,9 +297,7 @@ const CurvedInput = ({
     const textEl = textRef.current;
     if (svg && geom && layout && textEl && display.length) {
       try {
-        const ctm = svg.getScreenCTM();
-        if (!ctm) throw new Error('no ctm');
-        const pt = new DOMPoint(e.clientX, e.clientY).matrixTransform(ctm.inverse());
+        const pt = new DOMPoint(e.clientX, e.clientY).matrixTransform(svg.getScreenCTM().inverse());
         const target = scrollRef.current + (geom.uFromPoint(pt.x, pt.y) - layout.textStartU) / geom.uPerLen;
         let best = 0;
         let bestDist = Infinity;
@@ -400,15 +324,14 @@ const CurvedInput = ({
   };
 
   const safeType = SELECTABLE_TYPES.includes(type) ? type : 'text';
-  const inputMode: 'email' | 'decimal' | undefined =
-    type === 'email' ? 'email' : type === 'number' ? 'decimal' : undefined;
+  const inputMode = type === 'email' ? 'email' : type === 'number' ? 'decimal' : undefined;
 
-  const shadow = shadowSize ? SHADOWS[shadowSize] : undefined;
-  const svgStyle: CSSProperties | undefined = shadow
+  const shadow = SHADOWS[shadowSize];
+  const svgStyle = shadow
     ? { filter: `drop-shadow(0 ${shadow[0]}px ${shadow[1]}px ${hexToRgba(shColor, shadow[2])})` }
     : undefined;
 
-  let content: ReactNode = null;
+  let content = null;
   if (geom && layout) {
     const T = height;
     const vBase = fontSize * 0.34;
@@ -431,14 +354,7 @@ const CurvedInput = ({
 
     const btnH = T - layout.btnInset * 2;
     const buttonPath = showButton
-      ? bentRectPath(
-          geom,
-          layout.btnU0,
-          layout.btnU1,
-          -T / 2 + layout.btnInset,
-          T / 2 - layout.btnInset,
-          Math.min(cornerRadius * 0.72, btnH / 2),
-        )
+      ? bentRectPath(geom, layout.btnU0, layout.btnU1, -T / 2 + layout.btnInset, T / 2 - layout.btnInset, Math.min(cornerRadius * 0.72, btnH / 2))
       : '';
     const buttonTextPath = showButton ? bentLinePath(geom, layout.btnU0, layout.btnU1, vBase) : '';
 
@@ -494,22 +410,11 @@ const CurvedInput = ({
         )}
 
         <g clipPath={`url(#${clipId})`}>
-          <text
-            ref={textRef}
-            style={{ fontSize: `${fontSize}px`, fontWeight: 500 }}
-            fill={fgColor}
-            xmlSpace="preserve"
-            aria-hidden="true"
-          >
+          <text ref={textRef} style={{ fontSize: `${fontSize}px`, fontWeight: 500 }} fill={fgColor} xmlSpace="preserve" aria-hidden="true">
             <textPath href={`#${layoutPathId}`}>{display}</textPath>
           </text>
           {!display && placeholder && (
-            <text
-              style={{ fontSize: `${fontSize}px`, fontWeight: 500 }}
-              fill={phColor}
-              xmlSpace="preserve"
-              aria-hidden="true"
-            >
+            <text style={{ fontSize: `${fontSize}px`, fontWeight: 500 }} fill={phColor} xmlSpace="preserve" aria-hidden="true">
               <textPath href={`#${layoutPathId}`}>{placeholder}</textPath>
             </text>
           )}

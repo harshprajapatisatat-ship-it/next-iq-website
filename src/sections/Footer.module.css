@@ -9,7 +9,7 @@
   position: relative;
   height: 100vh;
   min-height: 680px;
-  background: #050505;
+  background: #09090b;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -32,11 +32,11 @@
 
 .bgWord {
   font-family: var(--font-season-mix);
-  font-weight: 400;
+  font-weight: 900;
   font-size: clamp(160px, 21vw, 420px);
   line-height: 1;
   letter-spacing: -0.02em;
-  color: #f5f4ef;
+  color: #f4f4f5;
   opacity: 0.16;
   white-space: nowrap;
   width: 100%;
@@ -123,18 +123,20 @@
   50%      { opacity: 1; }
 }
 
-/* Foreground content stack: pill → heading → button */
+/* Foreground content stack: pill → heading → button.
+   Positioned to sit on the globe, nudged up to ~36% from the top. */
 .content {
   position: absolute;
   top: 36%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
   z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  width: 100%;
+  padding: 0 24px;
 }
 
 .pill {
@@ -164,7 +166,7 @@
 .heading {
   font-family: var(--font-season-mix);
   font-size: clamp(34px, 4.6vw, 64px);
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.2;
   letter-spacing: -0.01em;
   color: #fff;
@@ -205,30 +207,36 @@
   transform: scale(0.97);
 }
 
-/* Sits directly above the globe circle: bottom edge of the curved
-   capsule lands just above the globe's top arc, so the curve reads
-   as "meeting" the circle without overlapping its border/glow. */
+/* Email capture — sits above the .hero (globe) block, centered.
+   Top margin clears the fixed navbar (which floats over the footer
+   when it fills the viewport). */
 .curvedInputWrap {
-  position: absolute;
-  left: 50%;
-  top: calc(36% - min(21vw, 230px));
-  transform: translate(-50%, calc(-100% - 12px));
+  position: relative;
   z-index: 3;
   display: flex;
   justify-content: center;
   width: 100%;
+  margin: 88px 0 4px;
 }
 
-/* ── Bottom row: socials (left) + legal links (centered) ─────── */
+@media (max-width: 900px) {
+  .curvedInputWrap {
+    margin: 72px 0 4px;
+  }
+}
+
+/* ── Bottom row: socials (left) · legal links (center) · copyright (right) ── */
 .bottomRow {
   position: relative;
   z-index: 2;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
+  gap: 16px;
 }
 
 .socials {
+  grid-column: 1;
   display: flex;
   align-items: center;
   gap: 16px;
@@ -278,39 +286,34 @@
 }
 
 .copyright {
-  margin-left: 14px;
-  color: rgba(255, 255, 255, 0.35);
-}
-
-.bottomSpacer {
   grid-column: 3;
+  justify-self: end;
+  font-family: var(--font-matter);
+  font-size: 13px;
+  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.35);
 }
 
 /* ── Responsive ───────────────────────────────────────────────── */
 @media (max-width: 900px) {
+  .bottomRow {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .socials,
+  .legalRow,
+  .copyright {
+    grid-column: 1;
+    justify-self: center;
+  }
+
   .legalRow {
     white-space: normal;
     justify-content: center;
     flex-wrap: wrap;
     row-gap: 6px;
-  }
-
-  .copyright {
-    margin-left: 0;
-    width: 100%;
-    text-align: center;
-  }
-}
-
-@media (max-width: 600px) {
-  .footer {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
-  .pill {
-    max-width: 100%;
-    white-space: normal;
-    text-align: center;
   }
 }

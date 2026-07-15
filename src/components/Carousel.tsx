@@ -105,13 +105,23 @@ function CarouselItemView({
       transition={transition}
     >
       <div className={`${round ? 'p-0 m-0' : 'mb-4 p-5'}`}>
-        <span className="flex h-[28px] w-[28px] items-center justify-center rounded-full bg-[#09090b]">
+        <span
+          className={`flex items-center justify-center rounded-full bg-[#09090b] ${
+            round ? 'h-[52px] w-[52px]' : 'h-[28px] w-[28px]'
+          }`}
+        >
           {item.icon}
         </span>
       </div>
       <div className="p-5">
-        <div className="mb-1 font-season-mix font-normal text-xl text-white">{item.title}</div>
-        <p className="font-matter text-base text-white">{item.description}</p>
+        <div
+          className={`mb-1 font-season-mix font-normal text-white ${
+            round ? 'text-2xl md:text-4xl' : 'text-xl'
+          }`}
+        >
+          {item.title}
+        </div>
+        <p className={`font-matter text-white ${round ? 'text-base md:text-lg' : 'text-base'}`}>{item.description}</p>
       </div>
       {round && dotsInline && typeof totalItems === 'number' && (
         <div className="flex items-center justify-center gap-2 mt-3">
@@ -270,7 +280,7 @@ export default function Carousel({
     <div
       ref={containerRef}
       className={`relative overflow-hidden p-4 ${
-        round ? 'rounded-full border border-white' : 'rounded-[24px] border border-[#27272a]'
+        round ? 'rounded-full' : 'rounded-[24px] border border-[#27272a]'
       }`}
       style={{
         width: `${baseWidth}px`,

@@ -373,7 +373,7 @@ export default function Navbar() {
               <a href="/" className="flex flex-1 items-center gap-2 transition-opacity ">
                 {/* <Image
                   src="NEXTIQ.png"
-                  alt="Nexiq"
+                  alt="NextIQ"
                   width={202}
                   height={32}
                   className="w-auto h-[18px]"
@@ -389,7 +389,7 @@ export default function Navbar() {
                   letterSpacing: "0.03em",
                 }}
               >
-                NEXTiQ
+                NextIQ
               </h1>
               </a>
 
@@ -447,7 +447,7 @@ export default function Navbar() {
                 <a href="/" className="flex items-center">
                   <Image
                     src="NEXTIQ.png"
-                    alt="Nexiq"
+                    alt="NextIQ"
                     width={202}
                     height={32}
                     className="w-auto h-4"

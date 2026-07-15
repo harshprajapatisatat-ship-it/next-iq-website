@@ -133,11 +133,10 @@ function StepOne() {
   return (
     <>
       <p className={styles.stepNum}>1.</p>
-      <p className={styles.stepBody}>
-        Scan. Capture. Done. <br />
-       
+      <div className={styles.stepBody}>
+        <span className={`${styles.stepPill} ${styles.stepPillGap}`}>Scan. Capture. Done.</span>
         <p className={styles.stepDim}>Business card details are instantly extracted and prepared for seamless CRM synchronization.</p>
-      </p>
+      </div>
     </>
   );
 }
@@ -146,11 +145,10 @@ function StepTwo() {
   return (
     <>
       <p className={styles.stepNum}>2.</p>
-      <p className={styles.stepBody}>
-        <span className={styles.hiGreen}>Break Language Barriers</span><br />
-
+      <div className={styles.stepBody}>
+        <span className={`${styles.stepPill} ${styles.stepPillGap}`}>Break Language Barriers</span>
         <p className={styles.stepDim}>Automatically recognize and translate contact information from multiple languages into your preferred language.</p>
-      </p>
+      </div>
     </>
   );
 }
@@ -159,10 +157,10 @@ function StepThree() {
   return (
     <>
       <p className={styles.stepNum}>3.</p>
-      <p className={styles.stepBody}>
+      <div className={styles.stepBody}>
         Automate CRM Sync <br />
-        <span className={styles.hiPurple}>Instantly</span>
-      </p>
+        <span className={styles.stepPill}>Instantly</span>
+      </div>
     </>
   );
 }

@@ -55,7 +55,6 @@ export default function PhysicsPills() {
 
       const engine = M.Engine.create({
         gravity: { x: 0, y: 1.4 },
-        // @ts-expect-error — enableSleeping not in types but valid in 0.20.0
         enableSleeping: true,
       });
       const runner = M.Runner.create();
@@ -85,7 +84,6 @@ export default function PhysicsPills() {
           density: 0.0018,
           angle: initAngle,
           chamfer: { radius: PILL_H / 2 },
-          // @ts-expect-error — sleepThreshold not in types but valid in 0.20.0
           sleepThreshold: 60,
         });
 

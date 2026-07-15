@@ -279,7 +279,7 @@ export default function SocialProof() {
       {/* Heading — z-index 20, always rendered above the pills layer */}
       <div className={styles.headWrap}>
         <h2 className={styles.heading}>
-          13,000+ Professionals Scan<br /> with NEXTiQ
+          13,000+ Professionals Scan<br /> with NextIQ
         </h2>
       </div>
 

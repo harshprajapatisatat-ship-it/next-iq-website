@@ -104,27 +104,23 @@
   margin: 0 6px 2px;
 }
 
-/* Green highlight pill (Step 2) */
-.hiGreen {
+/* Yellow highlight pill — shared by every step (1, 2, 3).
+   Uses the SAME rounded-rectangle corner as the section heading
+   highlight (.headHighlight: 18px), NOT a full-radius capsule, so
+   the whole section follows one design-system corner. */
+.stepPill {
   display: inline-block;
   background: #fdcf00;
   color: #09090b;
-  border-radius: 999px;
-  padding: 6px 24px 10px;
+  border-radius: 18px;
+  padding: 4px 22px 12px;
   white-space: nowrap;
   line-height: 1;
-  margin-bottom: 18px;
 }
 
-/* Purple highlight pill (Step 3) */
-.hiPurple {
-  display: inline-block;
-  background: #fdcf00;
-  color: #09090b;
-  border-radius: 999px;
-  padding: 6px 24px 10px;
-  white-space: nowrap;
-  line-height: 1;
+/* Step 2's pill also sits above descriptive text — give it breathing room */
+.stepPillGap {
+  margin-bottom: 18px;
 }
 
 /* ── Right column — normal flow, 3 × 100vh ───────────────────── */
@@ -610,12 +606,11 @@
     line-height: 1.5;
   }
 
-  /* hiGreen/hiPurple use white-space:nowrap on desktop, where the
-     container is wide relative to font-size. At mobile widths a long
-     nowrap pill ("Break Language Barriers") can run past the card
-     edge — let it wrap here so nothing overflows or gets clipped. */
-  .mobileStepText .hiGreen,
-  .mobileStepText .hiPurple {
+  /* .stepPill uses white-space:nowrap on desktop, where the container
+     is wide relative to font-size. At mobile widths a long nowrap pill
+     ("Break Language Barriers") can run past the card edge — let it
+     wrap here so nothing overflows or gets clipped. */
+  .mobileStepText .stepPill {
     white-space: normal;
   }
 

@@ -1,5 +1,6 @@
 "use client";
 import styles from "./Footer.module.css";
+import CurvedInput from "@/components/CurvedInput";
 
 function InstagramIcon() {
   return (
@@ -54,13 +55,17 @@ export default function Footer() {
             <span className={styles.headingDim}>Business Assistant</span>
           </h2>
 
-          <button
-            type="button"
-            className={styles.ctaBtn}
-            onClick={() => document.getElementById("book-demo")?.scrollIntoView({ behavior: "smooth" })}
-          >
-            Book a Demo
-          </button>
+          <div className={styles.curvedInputWrap}>
+            <CurvedInput
+              placeholder="Enter your email"
+              buttonText="Book a Demo"
+              theme="dark"
+              bend={28}
+              height={64}
+              width={450}
+              onSubmit={() => document.getElementById("book-demo")?.scrollIntoView({ behavior: "smooth" })}
+            />
+          </div>
         </div>
       </div>
 

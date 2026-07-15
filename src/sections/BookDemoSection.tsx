@@ -87,32 +87,56 @@ export default function BookDemoSection() {
               <span className={styles.headlineStrong}>30 mins</span> to automate your workflow.
             </h3>
 
-            <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
+            <form className={styles.form} onSubmit={async (e) => {
+  e.preventDefault();
+
+  const form = new FormData(e.currentTarget);
+
+  const payload = {
+    fullName: form.get("fullName"),
+    company: form.get("company"),
+    email: form.get("email"),
+    phone: form.get("phone"),
+    message: form.get("message"),
+  };
+
+  const res = await fetch("/api/book-demo", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+
+  const data = await res.json();
+
+  console.log(data);
+}}>
               {/* <div className={styles.formRow}>
               </div> */}
                 <label className={styles.field}>
                   <span className={styles.fieldLabel}>Full Name *</span>
-                  <input className={styles.fieldInput} type="text" required />
+                  <input className={styles.fieldInput} name="fullName" type="text" required />
                 </label>
 
               <label className={styles.field}>
                 <span className={styles.fieldLabel}>Company name *</span>
-                <input className={styles.fieldInput} type="text" required />
+                <input className={styles.fieldInput} name="company" type="text" required />
               </label>
 
               <label className={styles.field}>
                 <span className={styles.fieldLabel}>Email *</span>
-                <input className={styles.fieldInput} type="email" required />
+                <input className={styles.fieldInput} name="email" type="email" required />
               </label>
 
               <label className={styles.field}>
                 <span className={styles.fieldLabel}>Phone</span>
-                <input className={styles.fieldInput} type="tel" />
+                <input className={styles.fieldInput} name="" type="tel" />
               </label>
 
               <label className={styles.field}>
                 <span className={styles.fieldLabel}>Message</span>
-                <input className={styles.fieldInput} type="text" />
+                <input className={styles.fieldInput} name="message" type="text" />
               </label>
 
               <p className={styles.privacyText}>

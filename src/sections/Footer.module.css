@@ -201,6 +201,12 @@
   transform: scale(0.97);
 }
 
+.curvedInputWrap {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
 /* ── Bottom row: socials (left) + legal links (centered) ─────── */
 .bottomRow {
   position: relative;

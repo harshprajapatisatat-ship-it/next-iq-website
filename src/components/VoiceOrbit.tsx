@@ -9,7 +9,7 @@ const CURVE2 =
   'M 370,470 C 600,400 470,50 900,500 C 640,-400 700,-490 750,-550';
 
 const RAW_TEXT =
-  "તમે દુનિયાની કોઈપણ ભાષામાં વાત કરો, NextIQ દરેક ભાષાને સમજીને તેને તમારી જરૂરિયાત મુજબ રૂપાંતરિત કરે છે." .repeat(12);
+  "તમે દુનિયાની કોઈપણ ભાષામાં વાત કરો, NextIQ દરેક ભાષાને સમજીને તેને તમારી જરૂરિયાત મુજબ રૂપાંતરિત કરે છે.आप चाहे कोई भी भाषा बोलते हों, NextIQ उसे समझता है और आपकी ज़रूरतों के हिसाब से ढालता है" .repeat(12);
 
 const CLEAN_TEXT =
   'Speak any language. NextIQ understands them all and transforms every conversation into meaningful results.' .repeat(12);

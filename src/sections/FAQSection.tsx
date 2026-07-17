@@ -19,6 +19,36 @@ const FAQS = [
     answer:
       "Yes — just point your camera at a business card and NextIQ handles the rest. No setup, no training, and no learning curve.",
   },
+  {
+    question: "How long does it take to get started?",
+    answer:
+      "Minutes, with zero technical setup — there's no integration project and no IT ticket. You upload a few cards to train your AI, pick a ready-made extraction prompt or build your own, and you're scanning.",
+  },
+  {
+    question: "Does NextIQ work with my CRM or ERP?",
+    answer:
+      "NextIQ is built for ERPNext and syncs scanned cards straight in as leads. Other CRM and ERP destinations go through the same sync step — book a demo and we'll confirm the fit for your setup.",
+  },
+  {
+    question: "Which languages can NextIQ read?",
+    answer:
+      "NextIQ recognizes cards in multiple languages automatically — you never have to tell it which one you're scanning. It extracts the details as printed and translates them into your preferred language before they reach your CRM.",
+  },
+  {
+    question: "What happens if the AI reads a card incorrectly?",
+    answer:
+      "Every scan goes through a review step, so you can check and correct the extracted details before they're sent on to your CRM. Errors get caught while they're still cheap to fix — not after they're in your pipeline.",
+  },
+  {
+    question: "Can my whole team use NextIQ?",
+    answer:
+      "Yes — NextIQ is designed for sales teams, operations, and wider enterprise workflows. Contacts captured by anyone in the field land in the same CRM the rest of the team already works from.",
+  },
+  {
+    question: "What is NextIQ Assist?",
+    answer:
+      "Assist is our next product: it resolves support tickets using AI and automates responses. It isn't live yet — book a demo and we'll keep you posted as it ships.",
+  },
 ] as const;
 
 export default function FAQSection() {

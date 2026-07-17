@@ -88,15 +88,19 @@
    height/padding, heading placement, and the logo strip; overflow is
    clipped here so a tall pile can never visually escape the card. */
 @media (max-width: 767px) {
+  /* The pills settle on a floor just above the logo strip and pile up
+     ~240px high at phone widths. At the old 440px min-height that pile
+     ran straight through the centered heading (12 of 16 pills overlapped
+     it). Give the section enough room for heading + pile + logos, and
+     pin the heading to the top so the pile has the space below it. */
   .section {
     padding: 40px 0 0;
-    min-height: 440px;
+    min-height: 620px;
     overflow: hidden; /* pills must stay inside the card */
   }
 
   /* Neutralize the inline flex:1 spacer (SocialProof.tsx) so
-     .headWrap alone grows to fill the space above the logos and
-     can truly center the heading within it. */
+     .headWrap alone grows to fill the space above the logos. */
   .spacer {
     flex: 0 !important;
     min-height: 0 !important;
@@ -107,8 +111,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 32px;
+    justify-content: flex-start;
+    padding: 8px 24px 0;
     min-height: 220px;
   }
 
@@ -131,5 +135,16 @@
   .logoItem svg {
     height: 40px;
     width: auto;
+  }
+}
+
+/* Narrowest phones (~360px) are the pinch point: the heading wraps to three
+   lines *and* the pill pile is at its tallest (it packs fewer per row, and
+   measured runs vary 230–310px because the settle is physics-driven). Give
+   them extra headroom so the tall tail of that range still clears the
+   heading, instead of taxing 400–767px with the dead space. */
+@media (max-width: 400px) {
+  .section {
+    min-height: 700px;
   }
 }

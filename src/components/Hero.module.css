@@ -464,6 +464,19 @@
   color: #fff;
 }
 
+/* The fixed 350px above is wider than .container's content box on phones
+   narrower than ~400px (container adds 25px padding each side), which
+   pushed the whole page sideways. Cap it to the container instead.
+   Deliberately scoped to <768px: the 460px tablet rule and the desktop
+   `width: auto` roll (GSAP measures headlines.offsetWidth) must not
+   inherit a max-width. */
+@media (max-width: 767px) {
+  .headlines {
+    width: 100%;
+    max-width: 350px;
+  }
+}
+
 @media (min-width: 768px) {
   .headlines {
     width: 460px;

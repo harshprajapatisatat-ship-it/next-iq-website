@@ -225,6 +225,16 @@
   }
 }
 
+/* Phones: the 48px side padding left the curved input only ~264px at 360px
+   wide, which squeezed the text window below the placeholder's width and
+   truncated it to "Enter your". Reclaim the width here; Footer.tsx also
+   steps the input's own font/height/bend down at this breakpoint. */
+@media (max-width: 640px) {
+  .footer {
+    padding: 40px 16px 28px;
+  }
+}
+
 /* ── Bottom row: socials (left) · legal links (center) · copyright (right) ── */
 .bottomRow {
   position: relative;
@@ -269,6 +279,11 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
+}
+
+/* Non-linked legal labels — same weight as .legalLink, no affordance */
+.legalText {
+  color: rgba(255, 255, 255, 0.55);
 }
 
 .legalLink {

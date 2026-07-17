@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { ScanLine, Bot } from "lucide-react";
+import { ScanLine, Bot, type LucideIcon } from "lucide-react";
 
 /* ─────────────────────────────────────────────────────────────
    SVG icons
@@ -81,38 +81,26 @@ function NewBadge() {
   );
 }
 
-function AnnouncementLink() {
+/* Announcement copy, shared by the desktop bar and the mobile ticker.
+   ANNOUNCEMENT_TITLE is what the "coming soon" modal is headed with. */
+const ANNOUNCEMENT_TEXT = "Nexiq introduces ERPNext Automation for modern businesses";
+const ANNOUNCEMENT_TITLE = "ERPNext Automation";
+
+function AnnouncementLink({ onClick }: { onClick: () => void }) {
   return (
-    <a
-      href="/introducing-erpnext-automation"
-      className="flex items-center gap-1.5 font-matter font-medium text-[#18181b] hover:text-[#52525b] text-[14px] tracking-wide whitespace-nowrap transition-colors"
+    <button
+      onClick={onClick}
+      className="flex items-center gap-1.5 font-matter font-medium text-[#18181b] hover:text-[#52525b] text-[14px] tracking-wide whitespace-nowrap transition-colors cursor-pointer"
     >
-      Nexiq introduces ERPNext Automation for modern businesses
+      {ANNOUNCEMENT_TEXT}
       <ArrowRightIcon />
-    </a>
+    </button>
   );
 }
 
 /* ─────────────────────────────────────────────────────────────
    CTA buttons
 ───────────────────────────────────────────────────────────── */
-
-function LogInButton({ size = "base" }: { size?: "base" | "sm" }) {
-  const sizeClasses = size === "sm"
-    ? "min-h-[44px] px-5 py-3 text-[15px]"
-    : "min-h-[44px] px-6 py-3 text-base";
-
-  return (
-    <a href="/dashboard" target="_blank" rel="noopener noreferrer">
-      <button
-        className={`group relative inline-flex items-center justify-center cursor-pointer font-matter font-medium overflow-hidden rounded-full touch-manipulation text-white hover:brightness-125 active:scale-[0.97] active:duration-150 transition-all duration-[350ms] ease-[cubic-bezier(0.2,0,0,1)] w-fit text-nowrap ${sizeClasses}`}
-        style={{ background: "linear-gradient(to bottom, #27272a 0%, #09090b 100%)" }}
-      >
-        <span className="relative z-10 flex items-center gap-2">Log in</span>
-      </button>
-    </a>
-  );
-}
 
 function ContactUsButton({ size = "base" }: { size?: "base" | "sm" }) {
   const sizeClasses = size === "sm"
@@ -137,31 +125,54 @@ function ContactUsButton({ size = "base" }: { size?: "base" | "sm" }) {
    Platform mega menu
 ───────────────────────────────────────────────────────────── */
 
-const PLATFORM_PRODUCTS = [
+/* How long the menus take to close. Shared by the desktop mega-menu exit
+   animation, the mobile menu's max-height transition, and the delay before
+   a product's scroll starts — a smooth scroll issued while either menu is
+   still collapsing gets cancelled by the layout change, so we wait it out. */
+const MENU_CLOSE_MS = 400;
+
+/* Products in the mega menu (desktop) and the mobile "Products" submenu.
+   `sectionId` scrolls to that section; `comingSoon` opens the teaser modal. */
+type PlatformProduct = {
+  icon: LucideIcon;
+  iconColor: string;
+  label: string;
+  description: string;
+  sectionId?: string;
+  comingSoon?: boolean;
+};
+
+const PLATFORM_PRODUCTS: PlatformProduct[] = [
   {
     icon: ScanLine,
     iconColor: "text-[#09090b]",
-    label: "Nexiq Scan",
+    label: "NextIQ Scan",
     description: "Scan business visiting cards and instantly create ERPNext leads.",
-    href: "/platform/scan",
+    sectionId: "how-it-works",
   },
   {
     icon: Bot,
     iconColor: "text-[#15803d]",
-    label: "Nexiq Assist",
+    label: "NextIQ Assist",
     description: "Resolve support tickets using AI and automate responses.",
-    href: "/platform/assist",
+    comingSoon: true,
   },
-] as const;
+];
 
-function PlatformMegaMenu({ onMouseEnter }: { onMouseEnter: () => void }) {
+function PlatformMegaMenu({
+  onMouseEnter,
+  onSelectProduct,
+}: {
+  onMouseEnter: () => void;
+  onSelectProduct: (product: PlatformProduct) => void;
+}) {
   return (
     <motion.div
       className="hidden lg:block w-full overflow-hidden"
       initial={{ height: 0, opacity: 0 }}
       animate={{ height: "auto", opacity: 1 }}
       exit={{ height: 0, opacity: 0 }}
-      transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+      transition={{ duration: MENU_CLOSE_MS / 1000, ease: [0.25, 0.46, 0.45, 0.94] }}
       onMouseEnter={onMouseEnter}
     >
       <div className="border-t border-[#e4e4e7] px-10 pt-12 pb-14 w-full">
@@ -177,10 +188,10 @@ function PlatformMegaMenu({ onMouseEnter }: { onMouseEnter: () => void }) {
               {PLATFORM_PRODUCTS.map((product) => {
                 const Icon = product.icon;
                 return (
-                  <a
-                    key={product.href}
-                    href={product.href}
-                    className="group flex items-start gap-4 hover:bg-[#f4f4f5] -m-1 p-1 rounded-xl transition-all duration-200"
+                  <button
+                    key={product.label}
+                    onClick={() => onSelectProduct(product)}
+                    className="group flex items-start gap-4 hover:bg-[#f4f4f5] -m-1 p-1 rounded-xl transition-all duration-200 text-left cursor-pointer"
                   >
                     {/* Icon container — white box with light border */}
                     <div className="flex justify-center items-center bg-white border border-[#e4e4e7]/50 rounded-lg w-[44px] h-[44px] transition-all duration-200 shrink-0">
@@ -192,14 +203,19 @@ function PlatformMegaMenu({ onMouseEnter }: { onMouseEnter: () => void }) {
                     </div>
                     {/* Label + subtitle */}
                     <div className="flex flex-col gap-0.5 min-w-0 mt-[3px]">
-                      <h5 className="font-matter font-medium text-[16px] text-[#52525b] group-hover:text-[#18181b] leading-[1.3] transition-colors duration-200">
+                      <h5 className="flex items-center gap-2 font-matter font-medium text-[16px] text-[#52525b] group-hover:text-[#18181b] leading-[1.3] transition-colors duration-200">
                         {product.label}
+                        {product.comingSoon && (
+                          <span className="px-2 py-0.5 border border-[#18181b33] rounded-full bg-[#18181b0d] font-matter font-medium text-[10px] text-[#71717a] uppercase tracking-[0.5px] leading-none shrink-0">
+                            Soon
+                          </span>
+                        )}
                       </h5>
                       <p className="font-matter text-[#71717a] text-[13px] leading-snug">
                         {product.description}
                       </p>
                     </div>
-                  </a>
+                  </button>
                 );
               })}
             </div>
@@ -257,18 +273,13 @@ const NAV_ITEMS = [
   { label: "FAQ", sectionId: "faq" },
 ] as const;
 
-/* Mobile-menu-only submenu shown under "Products" — see the
-   mobileProductsOpen expand/collapse in the mobile nav below. */
-const MOBILE_PRODUCT_ITEMS = [
-  { label: "NextIQ", href: "#nextiq" },
-  { label: "ERPNext", href: "#erpnext" },
-] as const;
-
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
+  /* Label of the not-yet-shipped product whose teaser modal is open, or null */
+  const [comingSoon, setComingSoon] = useState<string | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -281,9 +292,33 @@ export default function Navbar() {
   }, [menuOpen]);
 
   useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
+    document.body.style.overflow = menuOpen || comingSoon ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
-  }, [menuOpen]);
+  }, [menuOpen, comingSoon]);
+
+  useEffect(() => {
+    if (!comingSoon) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setComingSoon(null); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [comingSoon]);
+
+  /* Shipped products scroll to their section; unshipped ones open the teaser. */
+  const handleSelectProduct = (product: PlatformProduct) => {
+    setActiveMenu(null);
+    setMenuOpen(false);
+    if (product.comingSoon) {
+      setComingSoon(product.label);
+      return;
+    }
+    if (product.sectionId) {
+      const { sectionId } = product;
+      /* Deferred until the menu has finished closing — see MENU_CLOSE_MS. */
+      window.setTimeout(() => {
+        document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
+      }, MENU_CLOSE_MS + 50);
+    }
+  };
 
   return (
     <header className="top-0 right-0 left-0 fixed w-full" style={{ zIndex: 10000 }}>
@@ -305,7 +340,7 @@ export default function Navbar() {
           <div className="relative z-10 hidden lg:flex items-center gap-8">
             <StarIcon id="d1" />
             <span className="-mr-6"><NewBadge /></span>
-            <AnnouncementLink />
+            <AnnouncementLink onClick={() => setComingSoon(ANNOUNCEMENT_TITLE)} />
             <StarIcon id="d2" />
           </div>
 
@@ -315,13 +350,16 @@ export default function Navbar() {
               {[0, 1].map((i) => (
                 <div key={i} className="flex items-center gap-3 px-4">
                   <StarIcon id={`m${i}a`} />
-                  <a href="/announcing-series-b" className="flex items-center gap-1.5 ml-3">
+                  <button
+                    onClick={() => setComingSoon(ANNOUNCEMENT_TITLE)}
+                    className="flex items-center gap-1.5 ml-3 cursor-pointer"
+                  >
                     <NewBadge />
                     <span className="font-matter font-medium text-[14px] tracking-wide whitespace-nowrap text-[#18181b]">
-                      Nexiq introduces ERPNext Automation for modern businesses
+                      {ANNOUNCEMENT_TEXT}
                     </span>
                     <ArrowRightIcon />
-                  </a>
+                  </button>
                   <StarIcon id={`m${i}b`} />
                 </div>
               ))}
@@ -418,9 +456,8 @@ export default function Navbar() {
                 })}
               </div>
 
-              {/* CTAs — both always visible on desktop, grouped right */}
+              {/* CTA — grouped right */}
               <div className="flex flex-1 justify-end items-center gap-3">
-                <LogInButton />
                 <ContactUsButton />
               </div>
 
@@ -433,6 +470,7 @@ export default function Navbar() {
               <PlatformMegaMenu
                 key="products-menu"
                 onMouseEnter={() => setActiveMenu("products")}
+                onSelectProduct={handleSelectProduct}
               />
             )}
           </AnimatePresence>
@@ -442,7 +480,7 @@ export default function Navbar() {
 
             {/* Top row — two states */}
             {menuOpen ? (
-              /* Open: Logo (left) | Log in pill (center) | × (right) */
+              /* Open: Logo (left) | × (right) */
               <div className="grid grid-cols-[150fr_auto_1fr] items-center pl-5 pr-4 py-[10px]">
                 <a href="/" className="flex items-center">
                   <Image
@@ -455,19 +493,6 @@ export default function Navbar() {
                     unoptimized
                   />
                 </a>
-
-                {/* Small outlined Log in pill, centered */}
-                {/* <a href="/dashboard" target="_blank" rel="noopener noreferrer">
-                  <button
-                    className="font-matter font-medium text-[#09090b] text-[13px] px-[14px] py-[7px] rounded-full transition-all duration-200 active:scale-[0.97]"
-                    style={{
-                      background: "linear-gradient(to bottom, #ffffff 0%, #f4f4f5 100%)",
-                      boxShadow: "inset 0 0 0 1px rgba(30,32,51,0.14)",
-                    }}
-                  >
-                    Log in
-                  </button>
-                </a> */}
 
                 {/* × close */}
                 <div className="flex justify-end">
@@ -519,7 +544,7 @@ export default function Navbar() {
               className="overflow-hidden"
               style={{
                 maxHeight: menuOpen ? 600 : 0,
-                transition: "max-height 0.4s cubic-bezier(0.2,0,0,1)",
+                transition: `max-height ${MENU_CLOSE_MS}ms cubic-bezier(0.2,0,0,1)`,
               }}
             >
               {/* Nav items with dividers */}
@@ -557,15 +582,19 @@ export default function Navbar() {
                           }}
                         >
                           <div className="pb-2">
-                            {MOBILE_PRODUCT_ITEMS.map((product) => (
-                              <a
+                            {PLATFORM_PRODUCTS.map((product) => (
+                              <button
                                 key={product.label}
-                                href={product.href}
-                                onClick={() => setMenuOpen(false)}
-                                className="block px-6 py-3 pl-10 font-matter font-medium text-[13px] text-[#52525b] hover:bg-black/[0.02] active:bg-black/[0.04] transition-colors"
+                                onClick={() => handleSelectProduct(product)}
+                                className="flex w-full items-center gap-2 px-6 py-3 pl-10 font-matter font-medium text-[13px] text-[#52525b] hover:bg-black/[0.02] active:bg-black/[0.04] transition-colors text-left"
                               >
                                 {product.label}
-                              </a>
+                                {product.comingSoon && (
+                                  <span className="px-2 py-0.5 border border-[#18181b33] rounded-full bg-[#18181b0d] font-matter font-medium text-[10px] text-[#71717a] uppercase tracking-[0.5px] leading-none shrink-0">
+                                    Soon
+                                  </span>
+                                )}
+                              </button>
                             ))}
                           </div>
                         </div>
@@ -577,16 +606,8 @@ export default function Navbar() {
                 })}
               </div>
 
-              {/* Full-width CTA buttons stacked */}
+              {/* Full-width CTA button */}
               <div className="px-4 pt-6 pb-5 flex flex-col gap-3">
-                <a href="/dashboard" target="_blank" rel="noopener noreferrer" className="w-full">
-                  <button
-                    className="w-full font-matter font-medium text-white py-4 rounded-[24px] text-base transition-all duration-[350ms] ease-[cubic-bezier(0.2,0,0,1)] active:scale-[0.98]"
-                    style={{ background: "linear-gradient(to bottom, #27272a 0%, #09090b 100%)" }}
-                  >
-                    Log in
-                  </button>
-                </a>
                 <button
                   onClick={() => {
                     setMenuOpen(false);
@@ -624,6 +645,68 @@ export default function Navbar() {
             style={{ zIndex: -1 }}
             onMouseEnter={() => setActiveMenu(null)}
           />
+        )}
+      </AnimatePresence>
+
+      {/* ── "Coming soon" modal ──────────────────────────────
+          Opened by any PLATFORM_PRODUCTS entry marked comingSoon. */}
+      <AnimatePresence>
+        {comingSoon && (
+          <motion.div
+            key="coming-soon"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm px-5"
+            style={{ zIndex: 50 }}
+            onClick={() => setComingSoon(null)}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`${comingSoon} — coming soon`}
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 12, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 8, scale: 0.98 }}
+              transition={{ duration: 0.3, ease: [0.2, 0, 0, 1] }}
+              className="relative w-full max-w-[420px] rounded-3xl bg-white p-8 text-center"
+              style={{ boxShadow: "0 24px 70px rgba(0,0,0,0.22), inset 0 0 0 1px rgba(30,32,51,0.08)" }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                className="absolute top-4 right-4 flex items-center justify-center w-8 h-8 rounded-full text-[#71717a] hover:bg-black/5 hover:text-[#18181b] transition-colors cursor-pointer"
+                aria-label="Close"
+                onClick={() => setComingSoon(null)}
+              >
+                <CloseIcon />
+              </button>
+
+              <span className="inline-flex items-center gap-2 px-3 py-1 border border-[#18181b33] rounded-full bg-[#18181b0d] font-matter font-semibold text-[10px] text-[#18181b] uppercase tracking-[1px] leading-none">
+                Coming soon
+              </span>
+
+              <h3 className="mt-5 font-season-mix text-[30px] text-[#09090b] leading-tight">
+                {comingSoon}
+              </h3>
+
+              <p className="mt-3 font-matter text-[14px] text-[#71717a] leading-relaxed">
+                We&apos;re still building this one. Talk to us and we&apos;ll let you know
+                the moment it goes live — and shape what it does along the way.
+              </p>
+
+              <button
+                onClick={() => {
+                  setComingSoon(null);
+                  document.getElementById("book-demo")?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="mt-7 w-full font-matter font-medium text-white py-3.5 rounded-full text-[15px] cursor-pointer hover:brightness-125 active:scale-[0.98] transition-all duration-[350ms] ease-[cubic-bezier(0.2,0,0,1)]"
+                style={{ background: "linear-gradient(to bottom, #27272a 0%, #09090b 100%)" }}
+              >
+                Contact Us
+              </button>
+            </motion.div>
+          </motion.div>
         )}
       </AnimatePresence>
 

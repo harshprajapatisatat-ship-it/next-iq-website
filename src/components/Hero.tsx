@@ -228,7 +228,14 @@ export default function Hero() {
               </p>
 
               <div className={styles.action}>
-                <a href="#" className={styles.btn}>
+                <a
+                  href="#book-demo"
+                  className={styles.btn}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById('book-demo')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                >
                   <span className={styles.btnRipple} />
                   <span className={styles.btnRipple2} />
                   <span className={styles.btnInner}>

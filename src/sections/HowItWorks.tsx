@@ -134,7 +134,7 @@ function StepOne() {
     <>
       <p className={styles.stepNum}>1.</p>
       <div className={styles.stepBody}>
-        <span className={`${styles.stepPill} ${styles.stepPillGap}`}>Scan. Capture. Done.</span>
+        <span className={`${styles.stepPill} ${styles.stepPillGap}`}>Scan. Capture. Track.</span>
         <p className={styles.stepDim}>Business card details are instantly extracted and prepared for seamless CRM synchronization.</p>
       </div>
     </>

@@ -1,4 +1,5 @@
 "use client";
+import { useEffect, useState } from "react";
 import styles from "./Footer.module.css";
 import CurvedInput from "@/components/CurvedInput";
 
@@ -21,14 +22,23 @@ function LinkedinIcon() {
     </svg>
   );
 }
-const LEGAL_LINKS = [
-  { label: "Privacy", href: "#privacy" },
-  { label: "Terms", href: "#terms" },
-  { label: "Cookies", href: "#cookies" },
-  { label: "Contact", href: "#contact" },
-] as const;
+/* Only Contact is linked — it scrolls to the booking form in
+   BookDemoSection. The rest are plain text until those pages exist. */
+const LEGAL_ITEMS = ["Privacy", "Terms", "Cookies"] as const;
 
 export default function Footer() {
+  /* Matches the 640px breakpoint in Footer.module.css. The curved input sizes
+     itself from its measured width, so at phone widths its default 16px text
+     and 64px height leave too little room between the icon chip and the
+     button — the placeholder gets clipped. Step the geometry down instead. */
+  const [isPhone, setIsPhone] = useState(false);
+  useEffect(() => {
+    const update = () => setIsPhone(window.innerWidth <= 640);
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
   return (
     <footer className={styles.footer}>
       <div className={styles.bgWordWrap} aria-hidden="true">
@@ -36,13 +46,24 @@ export default function Footer() {
       </div>
 
       <div className={styles.curvedInputWrap}>
+        {/* Colors are pinned to the site palette (zinc scale + white CTA)
+            rather than the component's default purple "dark" theme. */}
         <CurvedInput
           placeholder="Enter your email"
           buttonText="Book a Demo"
           theme="dark"
-          bend={28}
-          height={64}
+          bend={isPhone ? 18 : 28}
+          height={isPhone ? 54 : 64}
+          fontSize={isPhone ? 13 : 16}
           width={450}
+          backgroundColor="#18181b"
+          textColor="#fafafa"
+          placeholderColor="#a1a1aa"
+          borderColor="#27272a"
+          buttonColor="#fafafa"
+          buttonTextColor="#09090b"
+          iconColor="#3f3f46"
+          shadowColor="#000000"
           onSubmit={() => document.getElementById("book-demo")?.scrollIntoView({ behavior: "smooth" })}
         />
       </div>
@@ -80,12 +101,24 @@ export default function Footer() {
         </div>
 
         <div className={styles.legalRow}>
-          {LEGAL_LINKS.map(({ label, href }, i) => (
+          {LEGAL_ITEMS.map((label) => (
             <span key={label} className={styles.legalItem}>
-              <a href={href} className={styles.legalLink}>{label}</a>
-              {i < LEGAL_LINKS.length - 1 && <span className={styles.legalSep}>•</span>}
+              <span className={styles.legalText}>{label}</span>
+              <span className={styles.legalSep}>•</span>
             </span>
           ))}
+          <span className={styles.legalItem}>
+            <a
+              href="#book-demo"
+              className={styles.legalLink}
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById("book-demo")?.scrollIntoView({ behavior: "smooth" });
+              }}
+            >
+              Contact
+            </a>
+          </span>
         </div>
 
         <span className={styles.copyright}>Copyright © 2026 NextIQ</span>

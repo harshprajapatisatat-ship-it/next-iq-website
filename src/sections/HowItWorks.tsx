@@ -223,7 +223,7 @@ export default function HowItWorks() {
       {/* ── Heading block ────────────────────────────────────── */}
       <div className={styles.headBlock}>
         <h2 className={styles.headText}>
-          How <span className={styles.headHighlight}>NEXTiQ</span>
+          How <span className={styles.headHighlight}>NextIQ</span>
           <br />works?
         </h2>
       </div>

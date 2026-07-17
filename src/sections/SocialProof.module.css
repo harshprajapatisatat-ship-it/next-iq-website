@@ -60,6 +60,24 @@
   opacity: 0.85;
 }
 
+/* Customer logos mix wide wordmarks (Wabsus, Krian) with square marks
+   (Khetan, hp, SMVS). One uniform height makes the square marks read as
+   tiny next to the wordmarks, so size by shape instead: wordmarks get less
+   height, square marks more, which lands them at comparable optical weight.
+   Width always follows so nothing is distorted. */
+.logoImg {
+  width: auto;
+  object-fit: contain;
+}
+
+.logoWide {
+  height: 46px;
+}
+
+.logoMark {
+  height: 68px;
+}
+
 @keyframes scrollLeft {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
@@ -88,14 +106,19 @@
    height/padding, heading placement, and the logo strip; overflow is
    clipped here so a tall pile can never visually escape the card. */
 @media (max-width: 767px) {
-  /* The pills settle on a floor just above the logo strip and pile up
-     ~240px high at phone widths. At the old 440px min-height that pile
-     ran straight through the centered heading (12 of 16 pills overlapped
-     it). Give the section enough room for heading + pile + logos, and
-     pin the heading to the top so the pile has the space below it. */
+  /* The pills settle on a floor just above the logo strip and pile up under
+     the heading. At the old 440px min-height that pile ran straight through
+     the centered heading (12 of 16 pills overlapped it). Give the section
+     room for heading + pile + logos, and pin the heading to the top so the
+     pile has the space below it.
+     700px covers the whole <768 band on purpose. The settle is physics-driven
+     and the pile height varies a lot run to run (measured 190–335px at the
+     same width), so this is sized for the tall tail: at 620px an unlucky
+     settle still touched the heading at 767px. Don't lower it without
+     re-measuring across several reloads — a single run proves nothing. */
   .section {
     padding: 40px 0 0;
-    min-height: 620px;
+    min-height: 700px;
     overflow: hidden; /* pills must stay inside the card */
   }
 
@@ -132,19 +155,12 @@
     padding: 0 18px;
   }
 
-  .logoItem svg {
-    height: 40px;
-    width: auto;
+  .logoWide {
+    height: 32px;
+  }
+
+  .logoMark {
+    height: 48px;
   }
 }
 
-/* Narrowest phones (~360px) are the pinch point: the heading wraps to three
-   lines *and* the pill pile is at its tallest (it packs fewer per row, and
-   measured runs vary 230–310px because the settle is physics-driven). Give
-   them extra headroom so the tall tail of that range still clears the
-   heading, instead of taxing 400–767px with the dead space. */
-@media (max-width: 400px) {
-  .section {
-    min-height: 700px;
-  }
-}

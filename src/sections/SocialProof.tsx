@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import styles from './SocialProof.module.css';
 
 const PILL_H      = 52;
@@ -10,7 +11,9 @@ const PILL_PAD_H  = 24;   // px — scaled by pillScale for narrow viewports
 const OVERLAY_TOP = 150; // overlay starts this many px above the section top
 
 interface Pill    { text: string; bg: string; fg: string; w: number }
-interface LogoDef { name: string; color: string; accent: string }
+/* w/h are the file's intrinsic pixels — next/image needs them to reserve
+   space; the rendered size comes from .logoImg in the stylesheet. */
+interface LogoDef { name: string; src: string; w: number; h: number }
 
 const PILLS: Pill[] = [
   { text: 'Fantastic',      bg: '#ff894a', fg: '#18181b', w: 156 },
@@ -31,13 +34,13 @@ const PILLS: Pill[] = [
   { text: 'Game-changer',   bg: '#fdcf00', fg: '#18181b', w: 206 },
 ];
 
+/* Real customer logos, in the order supplied. Files live in public/logos/. */
 const LOGOS: LogoDef[] = [
-  { name: 'ABHAS SRIVASTAVA',    color: '#1e3a8a', accent: '#2563eb' },
-  { name: 'WABSUS INFRATECH',        color: '#0369a1', accent: '#0ea5e9' },
-  { name: 'KHETAN UDYOG',   color: '#065f46', accent: '#059669' },
-  { name: 'H P AUTOMATION',   color: '#09090b', accent: '#09090b' },
-  { name: 'KRIAM PHARMA',         color: '#27272a', accent: '#3f3f46' },
-  { name: 'SMVS (SWAMINARAYAN TRUST)', color: '#991b1b', accent: '#dc2626' },
+  { name: 'Wabsus InfraTech Private Limited', src: '/logos/wabsus.png',       w: 1028, h: 300 },
+  { name: 'Khetan Udyog',                     src: '/logos/khetan-udyog.jpg', w: 200,  h: 200 },
+  { name: 'Krian Pharma',                     src: '/logos/kriam-pharma.png', w: 668,  h: 190 },
+  { name: 'H. P. Automation Pvt. Ltd.',       src: '/logos/hp-automation.jpg', w: 200, h: 200 },
+  { name: 'SMVS',                             src: '/logos/smvs.jpg',         w: 447,  h: 447 },
 ];
 
 /* Same pill component/physics on every breakpoint. The only viewport-
@@ -53,22 +56,17 @@ function pillScaleFor(width: number) {
 }
 
 function LogoItem({ logo }: { logo: LogoDef }) {
+  /* Wide wordmark vs square mark — drives which height it gets (see the CSS). */
+  const isWordmark = logo.w / logo.h >= 2;
   return (
     <span className={styles.logoItem}>
-      <svg height="56" viewBox="0 0 180 32" fill="none" aria-label={logo.name}>
-        <circle cx="14" cy="16" r="10" fill={logo.accent} opacity="0.15" />
-        <circle cx="14" cy="16" r="6"  fill={logo.accent} />
-        <text
-          x="30" y="21"
-          fontFamily="system-ui,sans-serif"
-          fontSize="16"
-          fontWeight="700"
-          fill={logo.color}
-          letterSpacing="-0.3"
-        >
-          {logo.name}
-        </text>
-      </svg>
+      <Image
+        src={logo.src}
+        alt={logo.name}
+        width={logo.w}
+        height={logo.h}
+        className={`${styles.logoImg} ${isWordmark ? styles.logoWide : styles.logoMark}`}
+      />
     </span>
   );
 }

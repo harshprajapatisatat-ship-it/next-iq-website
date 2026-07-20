@@ -211,6 +211,160 @@
   min-width: 0;
 }
 
+.phoneRow {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.countrySelect {
+  flex-shrink: 0;
+  margin-right: 8px;
+  padding-right: 10px;
+  border-right: 1px solid rgba(0, 0, 0, 0.14);
+}
+
+.countryTrigger {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-matter);
+  font-size: 15px;
+  color: #09090b;
+  padding: 0;
+  cursor: pointer;
+}
+
+.countryChevron {
+  width: 14px;
+  height: 14px;
+  color: #71717a;
+  transition: transform 0.15s ease;
+}
+
+.countryMenu {
+  position: absolute;
+  top: calc(100% + 20px);
+  left: 0;
+  right: 0;
+  z-index: 20;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 14px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+}
+
+.countrySearch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.countrySearchIcon {
+  width: 15px;
+  height: 15px;
+  color: #a1a1aa;
+  flex-shrink: 0;
+}
+
+.countrySearchInput {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-matter);
+  font-size: 14px;
+  color: #09090b;
+}
+
+.countrySearchInput::placeholder {
+  color: #a1a1aa;
+}
+
+.countryList {
+  list-style: none;
+  margin: 0;
+  padding: 6px;
+  max-height: 160px;
+  overflow-y: auto;
+}
+
+.countryEmpty {
+  padding: 16px 12px;
+  text-align: center;
+  font-family: var(--font-matter);
+  font-size: 14px;
+  color: #a1a1aa;
+}
+
+.countryOption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  padding: 9px 12px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  font-family: var(--font-matter);
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+
+.countryOption:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.countryOptionActive {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.countryOptionLabel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.countryFlag {
+  width: 22px;
+  height: 16px;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+.countryOptionName {
+  font-size: 14px;
+  color: #09090b;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.countryOptionDial {
+  font-size: 14px;
+  color: #71717a;
+  flex-shrink: 0;
+}
+
+.phoneInput {
+  flex: 1;
+}
+
 .privacyText {
   font-family: var(--font-matter);
   font-size: 12.5px;

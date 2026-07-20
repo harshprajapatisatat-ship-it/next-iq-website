@@ -116,7 +116,14 @@ function ContactUsButton({ size = "base" }: { size?: "base" | "sm" }) {
         boxShadow: "inset 0 0 0 1px rgba(30,32,51,0.14)",
       }}
     >
-      <span className="relative z-10 flex items-center gap-2">Contact Us</span>
+      <span className="relative z-10 block h-[1.5em] overflow-hidden">
+        <span className="flex flex-col transition-transform duration-[350ms] ease-out group-hover:-translate-y-1/2">
+          <span className="flex h-[1.5em] items-center justify-center">Contact Us</span>
+          <span aria-hidden="true" className="flex h-[1.5em] items-center justify-center">
+            Contact Us
+          </span>
+        </span>
+      </span>
     </button>
   );
 }
@@ -446,11 +453,20 @@ export default function Navbar() {
                           document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
                         }
                       }}
-                      className={`flex items-center gap-1.5 px-4 py-2 rounded-lg transition-colors duration-200 cursor-pointer ${isActive ? "bg-black/5" : "hover:bg-black/5"}`}
+                      className={`group relative flex items-center gap-1.5 px-4 py-2 rounded-lg transition-colors duration-200 cursor-pointer ${isActive ? "bg-black/5" : "hover:bg-black/5"}`}
                     >
-                      <span className="font-matter font-medium text-xs uppercase tracking-[1px] text-black">
+                      <span
+                        className={`font-matter font-medium text-xs uppercase tracking-[1px] text-black transition-transform duration-200 ease-out group-hover:-translate-y-[3px] ${
+                          isActive ? "-translate-y-[3px]" : ""
+                        }`}
+                      >
                         {item.label}
                       </span>
+                      <span
+                        className={`pointer-events-none absolute -bottom-[7px] left-1/2 -translate-x-1/2 h-1 w-1 rounded-full bg-black transition-all duration-200 ease-out group-hover:opacity-100 group-hover:scale-100 ${
+                          isActive ? "opacity-100 scale-100" : "opacity-0 scale-0"
+                        }`}
+                      />
                     </button>
                   );
                 })}

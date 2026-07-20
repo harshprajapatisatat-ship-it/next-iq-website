@@ -64,3 +64,9 @@ body {
 .animate-ticker-marquee {
   animation: ticker-marquee 22s linear infinite;
 }
+
+/* Continuous upward text roll (Contact Us button hover) */
+@keyframes contact-roll {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-50%); }
+}

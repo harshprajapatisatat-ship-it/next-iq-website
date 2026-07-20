@@ -3,9 +3,62 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { AnimatePresence, motion } from 'framer-motion';
 import { ScanLine, Sparkles, Globe, RefreshCw, Lightbulb } from 'lucide-react';
 import Carousel, { type CarouselItem } from './Carousel';
+import SpecularButton from './SpecularButton';
 import styles from './Hero.module.css';
+
+// Rotating second headline line — cycles through phrases, revealing each
+// character with a staggered upward roll (clipped by overflow-hidden).
+const ROTATING_PHRASES = [
+  'collect customers.',
+  'collect deals.',
+  'collect growth.',
+  'collect relationships.',
+];
+
+function RotatingHeadline() {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setIndex((i) => (i + 1) % ROTATING_PHRASES.length);
+    }, 2600);
+    return () => clearInterval(id);
+  }, []);
+
+  const phrase = ROTATING_PHRASES[index];
+
+  return (
+    <span
+      className="font-extrabold"
+      style={{
+        display: 'inline-flex',
+        overflow: 'hidden',
+        verticalAlign: 'bottom',
+        paddingBottom: '0.1em',
+      }}
+    >
+      <AnimatePresence mode="wait">
+        <span key={index} style={{ display: 'inline-flex' }}>
+          {phrase.split('').map((ch, i) => (
+            <motion.span
+              key={i}
+              style={{ display: 'inline-block', whiteSpace: 'pre' }}
+              initial={{ y: '110%' }}
+              animate={{ y: '0%' }}
+              exit={{ y: '-110%' }}
+              transition={{ duration: 0.5, delay: i * 0.028, ease: [0.22, 1, 0.36, 1] }}
+            >
+              {ch === ' ' ? ' ' : ch}
+            </motion.span>
+          ))}
+        </span>
+      </AnimatePresence>
+    </span>
+  );
+}
 
 const HEADLINES = [
   'AI-Powered\nAutomation',
@@ -218,7 +271,7 @@ export default function Hero() {
             <div className={styles.container}>
 
               <div className={styles.header}>
-                <h1>Don't collect cards,<br /><span className="font-extrabold">collect customers.</span></h1>
+                <h1>Don't collect cards,<br /><RotatingHeadline /></h1>
               </div>
 
               <p className={styles.subtext}>
@@ -228,23 +281,35 @@ export default function Hero() {
               </p>
 
               <div className={styles.action}>
-                <a
-                  href="#book-demo"
-                  className={styles.btn}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document.getElementById('book-demo')?.scrollIntoView({ behavior: 'smooth' });
-                  }}
+                <SpecularButton
+                  size="lg"
+                  className="origin-center duration-300 ease-out hover:-rotate-6 hover:translate-y-[3px]"
+                  radius={999}
+                  tint="#111111"
+                  tintOpacity={1}
+                  blur={0}
+                  textColor="#f5f5f5"
+                  lineColor="#ffffff"
+                  baseColor="#525252"
+                  intensity={1}
+                  shineSize={10}
+                  shineFade={40}
+                  thickness={1}
+                  speed={0.35}
+                  followMouse
+                  proximity={250}
+                  autoAnimate={false}
+                  onClick={() =>
+                    document.getElementById('book-demo')?.scrollIntoView({ behavior: 'smooth' })
+                  }
                 >
-                  <span className={styles.btnRipple} />
-                  <span className={styles.btnRipple2} />
-                  <span className={styles.btnInner}>
-                    <span>Get a Quote Today</span>
+                  <span className="inline-flex items-center gap-2">
+                    Get a Quote Today
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                       <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </span>
-                </a>
+                </SpecularButton>
                 {/* <a href="#" className={styles.btnSecondary}>Our services</a> */}
               </div>
 

@@ -25,9 +25,9 @@ const FAQS = [
       "Minutes, with zero technical setup — there's no integration project and no IT ticket. You upload a few cards to train your AI, pick a ready-made extraction prompt or build your own, and you're scanning.",
   },
   {
-    question: "Does NextIQ work with my CRM or ERP?",
+    question: "Does NextIQ work with my CRM or ERPNext?",
     answer:
-      "NextIQ is built for ERPNext and syncs scanned cards straight in as leads. Other CRM and ERP destinations go through the same sync step — book a demo and we'll confirm the fit for your setup.",
+      "NextIQ is built for ERPNext and syncs scanned cards straight in as leads. Other CRM and ERPNext destinations go through the same sync step — book a demo and we'll confirm the fit for your setup.",
   },
   {
     question: "Which languages can NextIQ read?",

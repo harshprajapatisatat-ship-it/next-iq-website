@@ -9,7 +9,7 @@ import styles from './Hero.module.css';
 
 const HEADLINES = [
   'AI-Powered\nAutomation',
-  'Simless \nAI Integration\nWith ERP',
+  'Seamless \nAI Integration\nWith ERPNext',
   'Secure\nData Handling',
 ];
 
@@ -35,7 +35,7 @@ const HERO_CAROUSEL_ITEMS: CarouselItem[] = [
   {
     id: 4,
     title: 'Auto-Sync',
-    description: 'Straight into your CRM or ERP.',
+    description: 'Straight into your CRM or ERPNext.',
     icon: <RefreshCw className="h-[24px] w-[24px] text-white" />,
   },
   {

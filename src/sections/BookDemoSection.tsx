@@ -21,8 +21,8 @@ const STEPS = [
   },
   {
     num: "04",
-    title: "Sync to ERP",
-    desc: "Automatically send contacts to ERP & CRM.",
+    title: "Sync to ERPNext",
+    desc: "Automatically send contacts to ERPNext & CRM.",
   },
 ] as const;
 
@@ -168,7 +168,7 @@ export default function BookDemoSection() {
               Tell us about your business needs{" "}
               <span className={styles.talkDim}>
                 and we&apos;ll show you how NextIQ automates contact capture, AI
-                extraction, and ERP synchronization.
+                extraction, and ERPNext synchronization.
               </span>
             </p>
 
